@@ -1,4 +1,4 @@
-package tutorial.webapp
+package jp.ogiwara.sfc.info1
 
 import org.scalajs.dom.html
 import org.scalajs.dom.html.Canvas
@@ -9,7 +9,7 @@ import WebGLRenderingContext._
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 
-object TutorialApp {
+object App {
   def main(args: Array[String]): Unit = {}
 
   @JSExportTopLevel("start")

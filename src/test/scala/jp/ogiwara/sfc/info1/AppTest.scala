@@ -1,8 +1,8 @@
-package tutorial.webapp
+package jp.ogiwara.sfc.info1
 
 import utest._
 
-object TutorialTest extends TestSuite{
+object AppTest extends TestSuite{
 
   def tests = Tests {
     'HelloWorld - {
