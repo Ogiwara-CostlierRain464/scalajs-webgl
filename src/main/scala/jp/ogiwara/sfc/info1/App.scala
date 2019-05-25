@@ -27,7 +27,6 @@ object App {
     val positionAttr = gl.getAttribLocation(program, "position")
     val colorAttr = gl.getAttribLocation(program, "color")
 
-
   }
 
   def createShader(id: String)(implicit gl: WebGLRenderingContext): WebGLShader ={
