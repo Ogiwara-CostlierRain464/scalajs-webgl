@@ -15,6 +15,7 @@ object MatrixTest extends TestSuite{
       val result = i2Times %*% Matrix()
 
       assert(result(0) == 2)
+      assert(result(1) == 0)
       assert(result(5) == 2)
       assert(result(10) == 2)
       assert(result(15) == 2)

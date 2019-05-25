@@ -27,6 +27,28 @@ object App {
     val positionAttr = gl.getAttribLocation(program, "position")
     val colorAttr = gl.getAttribLocation(program, "color")
 
+    // vec3 * 4
+    val vertextPosition = Seq(
+      0,1,0,
+      1,0,0,
+      -1,0,0,
+      0,-1,0
+    )
+
+    // vec4 * 4
+    val vertextColor = Seq(
+      1,0,0,1,
+      0, 1, 0, 1,
+      0, 0, 1, 1,
+      1, 1, 1, 1
+    )
+
+    val index = Seq(
+      0,1,2,
+      1,2,3
+    )
+
+
   }
 
   def createShader(id: String)(implicit gl: WebGLRenderingContext): WebGLShader ={
@@ -53,5 +75,13 @@ object App {
     gl.useProgram(program)
 
     program
+  }
+
+  def createVBO(seq: Seq[Float])(implicit gl: WebGLRenderingContext): Unit ={
+    val vbo = gl.createBuffer()
+    gl.bindBuffer(ARRAY_BUFFER, vbo)
+    gl.bufferData(ARRAY_BUFFER, seq, STATIC_DRAW)
+//todo
+
   }
 }
