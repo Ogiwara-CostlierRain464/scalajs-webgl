@@ -34,8 +34,28 @@ case class Matrix(value: Tuple16[
     Matrix(a3,b3,c3,d3,e3,f3,g3,h3,i3,j3,k3,l3,m3,n3,o3,p3)
   }
 
+  /**
+    * 足し算
+    */
+  def +(other: Matrix): Matrix ={
+    val (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) = value
+    val (a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2,m2,n2,o2,p2) = other.value
 
-  def apply(index: Int): Float = value(index)
+    Matrix(a + a2,b + b2,c + c2,d + d2,e + e2,f + f2,g + g2,h + h2,i + i2,j + j2,k + k2,l + l2,m + m2,n + n2,o + o2,p + p2)
+  }
+
+  override def toString: String = {
+      s"""
+        |Matrix(
+        |${value._1} ${value._2} ${value._3} ${value._4}
+        |${value._5} ${value._6} ${value._7} ${value._8}
+        |${value._9} ${value._10} ${value._11} ${value._12}
+        |${value._13} ${value._14} ${value._15} ${value._16}
+        |)
+      """.stripMargin
+  }
+
+  def apply(index: Int) :Any = value.productElement(index)
 }
 
 object Matrix{
