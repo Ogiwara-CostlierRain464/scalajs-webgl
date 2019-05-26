@@ -59,23 +59,24 @@ case class Matrix(value: Tuple16[
 }
 
 object Matrix{
-  def apply() = new Matrix(
+  def apply(value: Tuple16[
+    Float, Float, Float, Float, Float,
+    Float, Float, Float, Float, Float,
+    Float, Float, Float, Float, Float,
+    Float
+    ]) = new Matrix(
     (
-      1,0,0,0,
-      0,1,0,0,
-      0,0,1,0,
-      0,0,0,1
+      value._1, value._2, value._3 , value._4,
+      value._5, value._6, value._7 , value._8,
+      value._9, value._10, value._11 , value._12,
+      value._13, value._14, value._15 , value._16,
     )
   )
 
-  def lookAt(eye: Vector, center: Vector, up: Vector): Unit ={
-    val (eyeX, eyeY, eyeZ) = eye.value
-    val (centerX, centerY, centerZ) = center.value
-    val (upX, upY, upZ) = up.value
-
-    if(eye == center) return Matrix()
-
-    val z = eye - center
-
-  }
+  def identity: Matrix = Matrix(
+    1,0,0,0,
+    0,1,0,0,
+    0,0,1,0,
+    0,0,0,1
+  )
 }

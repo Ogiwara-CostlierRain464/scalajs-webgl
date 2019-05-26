@@ -6,7 +6,7 @@ object AppTest extends TestSuite{
 
   def tests = Tests {
     '外積 - {
-      Matrix() %*% Matrix()
+      Matrix.identity %*% Matrix.identity
     }
   }
 }

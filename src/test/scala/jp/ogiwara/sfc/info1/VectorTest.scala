@@ -5,7 +5,10 @@ import utest._
 object VectorTest extends TestSuite{
   def tests = Tests {
     'ノルム - {
-      assert(Math.round( Vector(1,2,3).norm) == 4)
+      assert(Vector(1,2,3).norm.round == 4)
+    }
+    '正規化 - {
+      assert(Vector(1,2,3).normalize.norm.round == 1)
     }
   }
 }

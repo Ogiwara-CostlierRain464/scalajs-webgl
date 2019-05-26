@@ -62,11 +62,11 @@ object App {
 
     val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
 
-    val mMatrix = Matrix()
-    val vMatrix = Matrix()
-    val pMatrix = Matrix()
-    val tmpMatrix = Matrix()
-    val mvpMatrix = Matrix()
+    val mMatrix = Matrix.identity
+    val vMatrix = Matrix.identity
+    val pMatrix = Matrix.identity
+    val tmpMatrix = Matrix.identity
+    val mvpMatrix = Matrix.identity
 
 
 
