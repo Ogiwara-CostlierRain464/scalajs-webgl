@@ -75,7 +75,13 @@ object App {
       gl.clearDepth(1)
       gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
 
-      val mvpMatrix = tmp %*% Matrix.identity
+      count += 1
+
+      val rad = ((count % 360) * Math.PI / 180).toFloat
+
+      val mMatrix = Matrix.identity.rotate(rad, Vector.up)
+
+      val mvpMatrix = tmp %*% mMatrix
 
       gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.convert)
       gl.drawElements(TRIANGLES, index.length, UNSIGNED_SHORT, offset = 0)
