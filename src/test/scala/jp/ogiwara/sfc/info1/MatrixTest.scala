@@ -21,6 +21,24 @@ object MatrixTest extends TestSuite{
       assert(result(15) == 2)
     }
 
+    '外積2 - {
+      val one = Matrix(
+        1,1,1,0,
+        1,1,1,0,
+        0,2,1,0,
+        0,0,0,0
+      )
+
+      val two = Matrix(
+        1,0,1,0,
+        0,1,1,0,
+        0,0,1,0,
+        0,0,0,0
+      )
+
+      two %*% one
+    }
+
     '足し算 - {
       val i2Times = Matrix.identity + new Matrix(
         1,0,0,0,

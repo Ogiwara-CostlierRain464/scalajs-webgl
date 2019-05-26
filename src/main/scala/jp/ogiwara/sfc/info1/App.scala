@@ -64,7 +64,9 @@ object App {
 
 
     val vMatrix = Vector(0,1,3).lookAt(Vector(0,0,0))
-    val pMatrix = Matrix.perspective(0, canvas.width / canvas.height, 0.1.toFloat ,100)
+    println(vMatrix)
+
+    val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
     val tmp = pMatrix %*% vMatrix
 
 
@@ -73,8 +75,6 @@ object App {
     gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
 
     val mvpMatrix = tmp %*% Matrix.identity
-
-    println(mvpMatrix)
 
     gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.convert)
     gl.drawElements(TRIANGLES, index.length, UNSIGNED_SHORT, offset = 0)

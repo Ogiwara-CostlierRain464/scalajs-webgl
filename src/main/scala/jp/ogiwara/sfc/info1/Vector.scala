@@ -14,21 +14,21 @@ case class Vector(value: (Float, Float, Float)){
 
 
   def -(other: Vector): Vector = Vector(
-    value._1 - other._1,
-    value._2 - other._2,
-    value._3 - other._3
+    x - other.x,
+    y - other.y,
+    z - other.z
   )
 
   def +(other: Vector): Vector =  Vector(
-    value._1 + other._1,
-    value._2 + other._2,
-    value._3 + other._3
+    x + other.x,
+    y + other.y,
+    z + other.z
   )
 
   def *(scala: Float): Vector = Vector(
-    value._1 * scala,
-    value._2 * scala,
-    value._3 * scala
+    x * scala,
+    y * scala,
+    z * scala
   )
 
   /**
@@ -43,16 +43,23 @@ case class Vector(value: (Float, Float, Float)){
   /**
     * ノルム
     */
-  def norm: Float = sqrt(pow(_1,2) + pow(_2,2) + pow(_3,2)).toFloat
+  def norm: Float = sqrt(pow(x,2) + pow(y,2) + pow(z,2)).toFloat
 
   /**
     * 正規化
     */
-  def normalize: Vector = this * (1 / this.norm)
+  def normalize: Vector = {
+    val norm = this.norm
+
+    if(norm == 0)
+      Vector(0,0,0)
+    else
+      this * (1 / this.norm)
+  }
 
 
   def lookAt(target: Vector): Matrix ={
-    val z = (target - this).normalize
+    val z = (this - target).normalize
     val x = (Vector.up %*% z).normalize
     val y = (z %*% x).normalize
 
@@ -60,9 +67,9 @@ case class Vector(value: (Float, Float, Float)){
       x.x, y.x, z.x,0,
       x.y, y.y, z.y,0,
       x.z, y.z, z.z,0,
-      -(x.x * target.x + y.x * target.y + z.x * target.z),
-      -(x.y * target.x + y.y * target.y + z.y * target.z),
-      -(x.z * target.x + y.z * target.y + z.z * target.z), 1
+      -(x.x * this.x + x.y * this.y + x.z * this.z),
+      -(y.x * this.x + y.y * this.y + y.z * this.z),
+      -(z.x * this.x + z.y * this.y + z.z * this.z), 1
     )
   }
 }

@@ -105,7 +105,7 @@ object Matrix{
       r / aspect, 0,0,0,
       0, r,0,0,
       0,0, -(far + near) / d,-1,
-      0,0,-(far * near * 2) /d, 0
+      0,0, -(far * near * 2) /d, 0
     )
   }
 }
