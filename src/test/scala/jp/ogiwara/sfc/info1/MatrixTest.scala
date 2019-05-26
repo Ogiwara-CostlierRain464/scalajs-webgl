@@ -5,14 +5,14 @@ import utest._
 object MatrixTest extends TestSuite{
   def tests = Tests {
     '外積 - {
-      val i2Times = Matrix() + new Matrix(
+      val i2Times = Matrix.identity + new Matrix(
         1,0,0,0,
         0,1,0,0,
         0,0,1,0,
         0,0,0,1
       )
 
-      val result = i2Times %*% Matrix()
+      val result = i2Times %*% Matrix.identity
 
       assert(result(0) == 2)
       assert(result(1) == 0)
@@ -22,7 +22,7 @@ object MatrixTest extends TestSuite{
     }
 
     '足し算 - {
-      val i2Times = Matrix() + new Matrix(
+      val i2Times = Matrix.identity + new Matrix(
         1,0,0,0,
         0,1,0,0,
         0,0,1,0,

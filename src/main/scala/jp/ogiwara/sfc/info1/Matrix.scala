@@ -56,6 +56,18 @@ case class Matrix(value: Tuple16[
   }
 
   def apply(index: Int) :Any = value.productElement(index)
+
+  def convert: scalajs.js.Array[Double] = {
+    val result = scalajs.js.Array[Double]()
+    result.push(
+      value._1, value._2, value._3, value._4,
+      value._5, value._6, value._7, value._8,
+      value._9, value._10, value._11, value._12,
+      value._13, value._14, value._15, value._16,
+    )
+
+    result
+  }
 }
 
 object Matrix{
@@ -79,4 +91,21 @@ object Matrix{
     0,0,1,0,
     0,0,0,1
   )
+
+  /**
+    * 透視投影
+    */
+  def perspective(fovy: Float, aspect: Float, near: Float, far: Float): Matrix ={
+    import Math._
+
+    val r: Float = 1 / tan(fovy * PI / 360).toFloat
+    val d: Float = far - near
+
+    Matrix(
+      r / aspect, 0,0,0,
+      0, r,0,0,
+      0,0, -(far + near) / d,-1,
+      0,0,-(far * near * 2) /d, 0
+    )
+  }
 }

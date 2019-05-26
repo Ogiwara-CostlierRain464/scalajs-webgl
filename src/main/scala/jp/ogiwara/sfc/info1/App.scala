@@ -14,7 +14,7 @@ object App {
 
   @JSExportTopLevel("start")
   def start(): Unit ={
-    val canvas = document.createElement("canvas").asInstanceOf[Canvas]
+    val canvas = document.getElementById("gl_canvas").asInstanceOf[Canvas]
     implicit val gl: WebGLRenderingContext = canvas.getContext("webgl").asInstanceOf[WebGLRenderingContext]
 
     gl.enable(CULL_FACE)
@@ -62,13 +62,23 @@ object App {
 
     val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
 
-    val mMatrix = Matrix.identity
-    val vMatrix = Matrix.identity
-    val pMatrix = Matrix.identity
-    val tmpMatrix = Matrix.identity
-    val mvpMatrix = Matrix.identity
+
+    val vMatrix = Vector(0,1,3).lookAt(Vector(0,0,0))
+    val pMatrix = Matrix.perspective(0, canvas.width / canvas.height, 0.1.toFloat ,100)
+    val tmp = pMatrix %*% vMatrix
 
 
+    gl.clearColor(0,0,0,1)
+    gl.clearDepth(1)
+    gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
+
+    val mvpMatrix = tmp %*% Matrix.identity
+
+    println(mvpMatrix)
+
+    gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.convert)
+    gl.drawElements(TRIANGLES, index.length, UNSIGNED_SHORT, offset = 0)
+    gl.flush()
 
   }
 
