@@ -68,6 +68,8 @@ object App {
     val tmpMatrix = Matrix()
     val mvpMatrix = Matrix()
 
+
+
   }
 
   def createShader(id: String)(implicit gl: WebGLRenderingContext): WebGLShader ={

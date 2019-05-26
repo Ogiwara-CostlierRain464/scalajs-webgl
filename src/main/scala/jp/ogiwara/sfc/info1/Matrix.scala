@@ -68,4 +68,14 @@ object Matrix{
     )
   )
 
+  def lookAt(eye: Vector, center: Vector, up: Vector): Unit ={
+    val (eyeX, eyeY, eyeZ) = eye.value
+    val (centerX, centerY, centerZ) = center.value
+    val (upX, upY, upZ) = up.value
+
+    if(eye == center) return Matrix()
+
+    val z = eye - center
+
+  }
 }
