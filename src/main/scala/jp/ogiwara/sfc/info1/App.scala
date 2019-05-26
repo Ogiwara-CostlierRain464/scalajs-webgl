@@ -56,6 +56,17 @@ object App {
 
     setAttribute(Seq(positionVBO, colorVBO), Seq(positionAttr, colorAttr), Seq(3,4))
 
+    val ibo = createIBO(index)
+
+    gl.bindBuffer(ELEMENT_ARRAY_BUFFER, ibo)
+
+    val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
+
+    val mMatrix = Matrix()
+    val vMatrix = Matrix()
+    val pMatrix = Matrix()
+    val tmpMatrix = Matrix()
+    val mvpMatrix = Matrix()
 
   }
 
