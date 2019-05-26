@@ -28,22 +28,25 @@ object App {
     val colorAttr = gl.getAttribLocation(program, "color")
 
     // vec3 * 4
-    val vertextPosition = Seq(
-      0,1,0,
-      1,0,0,
-      -1,0,0,
-      0,-1,0
+    val vertextPosition = scalajs.js.Array[Float]()
+    vertextPosition.push(
+      0, 1, 0,
+      1, 0, 0,
+      -1, 0, 0,
+      0, -1, 0
     )
 
     // vec4 * 4
-    val vertextColor = Seq(
+    val vertextColor = scalajs.js.Array[Float]()
+    vertextColor.push(
       1,0,0,1,
-      0, 1, 0, 1,
-      0, 0, 1, 1,
-      1, 1, 1, 1
+      0,1,0,1,
+      0,0,1,1,
+      1,1,1,1
     )
 
-    val index = Seq(
+    val index = scalajs.js.Array[Float]()
+    index.push(
       0,1,2,
       1,2,3
     )
@@ -77,11 +80,14 @@ object App {
     program
   }
 
-  def createVBO(seq: Seq[Float])(implicit gl: WebGLRenderingContext): Unit ={
+  def createVBO(array: scalajs.js.Array[Float])(implicit gl: WebGLRenderingContext): WebGLBuffer ={
+    import scalajs.js.typedarray.Float32Array
+
     val vbo = gl.createBuffer()
     gl.bindBuffer(ARRAY_BUFFER, vbo)
-    gl.bufferData(ARRAY_BUFFER, seq, STATIC_DRAW)
-//todo
+    gl.bufferData(ARRAY_BUFFER, new Float32Array(array), STATIC_DRAW)
+    gl.bindBuffer(ARRAY_BUFFER, null)
 
+    vbo
   }
 }
