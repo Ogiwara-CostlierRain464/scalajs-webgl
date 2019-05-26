@@ -106,4 +106,15 @@ object App {
         gl.vertexAttribPointer(attLocationArr(index), attSizeArr(index), FLOAT, normalized = false,stride =  0,offset = 0)
     }
   }
+
+  def createIBO(array: scalajs.js.Array[Float])(implicit gl: WebGLRenderingContext): WebGLBuffer ={
+    import scalajs.js.typedarray.Int16Array
+
+    val ibo = gl.createBuffer()
+    gl.bindBuffer(ELEMENT_ARRAY_BUFFER, ibo)
+    gl.bufferData(ELEMENT_ARRAY_BUFFER, new Int16Array(array),usage = STATIC_DRAW)
+    gl.bindBuffer(ELEMENT_ARRAY_BUFFER, null)
+
+    ibo
+  }
 }
