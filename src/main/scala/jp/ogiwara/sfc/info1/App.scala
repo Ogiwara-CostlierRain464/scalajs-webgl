@@ -51,6 +51,11 @@ object App {
       1,2,3
     )
 
+    val positionVBO = createVBO(vertextPosition)
+    val colorVBO = createVBO(vertextColor)
+
+    setAttribute(Seq(positionVBO, colorVBO), Seq(positionAttr, colorAttr), Seq(3,4))
+
 
   }
 
@@ -89,5 +94,16 @@ object App {
     gl.bindBuffer(ARRAY_BUFFER, null)
 
     vbo
+  }
+
+  // VBOをバインドし登録する関数
+  def setAttribute(vboArr: Seq[WebGLBuffer],
+                   attLocationArr: Seq[Int],
+                   attSizeArr: Seq[Int])(implicit gl: WebGLRenderingContext): Unit ={
+    vboArr.zipWithIndex.foreach { case (buffer, index) =>
+        gl.bindBuffer(ARRAY_BUFFER, buffer)
+        gl.enableVertexAttribArray(attLocationArr(index))
+        gl.vertexAttribPointer(attLocationArr(index), attSizeArr(index), FLOAT, normalized = false,stride =  0,offset = 0)
+    }
   }
 }
