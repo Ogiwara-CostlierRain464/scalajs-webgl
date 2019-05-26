@@ -7,6 +7,7 @@ import dom._
 import org.scalajs.dom.raw._
 import WebGLRenderingContext._
 
+import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExportTopLevel
 
 object App {
@@ -64,22 +65,22 @@ object App {
 
 
     val vMatrix = Vector(0,1,3).lookAt(Vector(0,0,0))
-    println(vMatrix)
-
     val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
     val tmp = pMatrix %*% vMatrix
 
+    var count = 0
 
-    gl.clearColor(0,0,0,1)
-    gl.clearDepth(1)
-    gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
+    js.timers.setInterval(1000 / 30) {
+      gl.clearColor(0,0,0,1)
+      gl.clearDepth(1)
+      gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
 
-    val mvpMatrix = tmp %*% Matrix.identity
+      val mvpMatrix = tmp %*% Matrix.identity
 
-    gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.convert)
-    gl.drawElements(TRIANGLES, index.length, UNSIGNED_SHORT, offset = 0)
-    gl.flush()
-
+      gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.convert)
+      gl.drawElements(TRIANGLES, index.length, UNSIGNED_SHORT, offset = 0)
+      gl.flush()
+    }
   }
 
   def createShader(id: String)(implicit gl: WebGLRenderingContext): WebGLShader ={
