@@ -44,6 +44,43 @@ case class Matrix(value: Tuple16[
     Matrix(a + a2,b + b2,c + c2,d + d2,e + e2,f + f2,g + g2,h + h2,i + i2,j + j2,k + k2,l + l2,m + m2,n + n2,o + o2,p + p2)
   }
 
+  /**
+    *
+    * @param radian ラジアン角
+    * @param axis 回転する軸
+    */
+  def rotate(radian: Float, axis: Vector): Matrix ={
+    import Math._
+
+    val (a,b,c) = axis.normalize.value
+    val d = sin(radian).toFloat
+    val e = cos(radian).toFloat
+    val f = 1 - e
+    val (
+      g,h,i,j,
+      k,l,m,n,
+      o,p,q,r,
+      _,_,_,_
+      ) = value
+
+    val s = a * a * f + e
+    val t = b * a * f + c * d
+    val u = c * a * f - b * d
+    val v = a * b * f - c * d
+    val w = b * b * f + e
+    val x = c * b * f + a * d
+    val y = a * c * f + b * d
+    val z = b * c * f - a * d
+    val a2 = c * c * f + e
+
+    Matrix(
+      g * s + k * t + o * u, h * s + l * t + p * u, i * s + m * t + q * u, j * s + n * t + r * u,
+      g * v + k * w + o * x, h * v + l * w + p * x, i * v + m * w + q * x, j * v + n * w + r * x,
+      g * y + k * z + o * a2, h * y + l * z + p * a2, i * y + m * z + q * a2, j * y + n * z + r * a2,
+      value._13, value._14, value._15, value._16
+    )
+  }
+
   override def toString: String = {
       s"""
         |Matrix(
