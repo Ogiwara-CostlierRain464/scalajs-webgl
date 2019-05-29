@@ -29,8 +29,8 @@ object App {
     val colorAttr = gl.getAttribLocation(program, "color")
 
     // vec3 * 4
-    val vertextPosition = scalajs.js.Array[Float]()
-    vertextPosition.push(
+    val vertexPosition = scalajs.js.Array[Float]()
+    vertexPosition.push(
       0, 1, 0,
       1, 0, 0,
       -1, 0, 0,
@@ -38,8 +38,8 @@ object App {
     )
 
     // vec4 * 4
-    val vertextColor = scalajs.js.Array[Float]()
-    vertextColor.push(
+    val vertexColor = scalajs.js.Array[Float]()
+    vertexColor.push(
       1,0,0,1,
       0,1,0,1,
       0,0,1,1,
@@ -52,8 +52,8 @@ object App {
       1,2,3
     )
 
-    val positionVBO = createVBO(vertextPosition)
-    val colorVBO = createVBO(vertextColor)
+    val positionVBO = createVBO(vertexPosition)
+    val colorVBO = createVBO(vertexColor)
 
     setAttribute(Seq(positionVBO, colorVBO), Seq(positionAttr, colorAttr), Seq(3,4))
 
