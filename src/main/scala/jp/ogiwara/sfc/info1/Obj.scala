@@ -12,15 +12,21 @@ object Obj{
   def fromText(text: String): Obj ={
 
     var obj = Obj.empty()
-    //一行づつ読んでいく
-    text.lines.foreach { str =>
-      val element: ObjScanner = str.charAt(0) match {
-        case '#' => new CommentObjScanner(str)
-        case 'v' => new VertexObjScanner(str)
-        case  _ => ???
-      }
 
-      obj = element.applyTo(obj)
+    //一行づつ読んでいく
+    for(line <- text.lines){
+      Console.println(line)
+
+      //NOTE: なぜかString.charAtが動かない
+
+      var element: ObjScanner = null
+      if(line.startsWith("#"))
+        element = new CommentObjScanner(line)
+      if(line.startsWith("v"))
+        element = new VertexObjScanner(line)
+
+      if(element != null)
+        obj = element.applyTo(obj)
     }
 
     obj
@@ -36,7 +42,6 @@ sealed class VertexObjScanner(val line: String) extends ObjScanner{
     val splits = line.split(" ")
     assert(splits.length == 4, "Wrong vertex element")
 
-
     val x = splits(1).toFloat
     val y = splits(2).toFloat
     val z = splits(3).toFloat
@@ -48,6 +53,13 @@ sealed class VertexObjScanner(val line: String) extends ObjScanner{
 sealed class CommentObjScanner(val line: String) extends ObjScanner{
   override def applyTo(obj: Obj): Obj = {
     // 何もしない
+    obj
+  }
+}
+
+sealed class DebugObjScanner(val line: String) extends ObjScanner{
+  override def applyTo(obj: Obj): Obj = {
+    println(line)
     obj
   }
 }
