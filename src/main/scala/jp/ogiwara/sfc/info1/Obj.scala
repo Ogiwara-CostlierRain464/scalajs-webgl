@@ -57,9 +57,46 @@ sealed class CommentObjScanner(val line: String) extends ObjScanner{
   }
 }
 
-sealed class DebugObjScanner(val line: String) extends ObjScanner{
+sealed class FObjScanner(val line: String) extends ObjScanner {
+
+  class FElement(vertexIndex: Int,
+                 textureIndex: Option[Int],
+                 normalIndex: Option[Int]){
+  }
+
+  object FElement{
+    def fromStr(str: String): FElement ={
+      // "//"がある場合は分ける
+      if(str.contains("//")){
+        val splits = str.split("//")
+        assert(splits.length == 2)
+
+        val vertexIndex = splits(0).toFloat
+        val normalIndex = splits(1).toFloat
+
+        return FElement(vertexIndex, normalIndex)
+      }
+
+      val splits = str.split("/")
+      val vertexIndex = splits(0).toFloat
+      var textureIndex: Option[Int] = None
+      var normalIndex: Option[Int] = None
+
+      if(splits.length >= 2)
+        textureIndex = Option(splits(1).toInt)
+
+      if(splits.length >= 3)
+        normalIndex = Option(splits(2).toInt)
+
+      FElement(vertexIndex, textureIndex, normalIndex)
+    }
+  }
+
   override def applyTo(obj: Obj): Obj = {
-    println(line)
-    obj
+    val splits = line.split(" ")
+    assert(splits.length == 4, "Wrong f element")
+
+
   }
 }
+
