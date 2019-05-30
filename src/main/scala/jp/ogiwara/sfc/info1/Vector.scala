@@ -59,17 +59,24 @@ case class Vector(value: (Float, Float, Float)){
 
 
   def lookAt(target: Vector): Matrix ={
-    val z = (this - target).normalize
+    val camera = this
+
+    val z = (camera - target).normalize
     val x = (Vector.up %*% z).normalize
     val y = (z %*% x).normalize
+
+    println(x)
+    println(y)
+    println(z)
+
 
     Matrix(
       x.x, y.x, z.x,0,
       x.y, y.y, z.y,0,
       x.z, y.z, z.z,0,
-      -(x.x * this.x + x.y * this.y + x.z * this.z),
-      -(y.x * this.x + y.y * this.y + y.z * this.z),
-      -(z.x * this.x + z.y * this.y + z.z * this.z), 1
+      -(x.x * camera.x + x.y * camera.y + x.z * camera.z),
+      -(y.x * camera.x + y.y * camera.y + y.z * camera.z),
+      -(z.x * camera.x + z.y * camera.y + z.z * camera.z), 1
     )
   }
 }

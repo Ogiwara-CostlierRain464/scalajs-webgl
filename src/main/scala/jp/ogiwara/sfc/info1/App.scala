@@ -15,6 +15,8 @@ object App {
 
   @JSExportTopLevel("start")
   def start(): Unit ={
+    import Math._
+
     val canvas = document.getElementById("gl_canvas").asInstanceOf[Canvas]
     implicit val gl: WebGLRenderingContext = canvas.getContext("webgl").asInstanceOf[WebGLRenderingContext]
 
@@ -31,10 +33,10 @@ object App {
     // vec3 * 4
     val vertexPosition = scalajs.js.Array[Float]()
     vertexPosition.push(
-      0, 1, 0,
-      1, 0, 0,
-      -1, 0, 0,
-      0, -1, 0
+      0.5f, 1 / sqrt(3).toFloat, 0.5f,
+      0.5f, sqrt(3).toFloat, 0,
+      0,0,0,
+      1,0,0
     )
 
     // vec4 * 4
@@ -43,19 +45,23 @@ object App {
       1,0,0,1,
       0,1,0,1,
       0,0,1,1,
-      1,1,1,1
+      1,1,1,1,
     )
 
     val index = scalajs.js.Array[Float]()
     index.push(
       0,1,2,
-      1,2,3
+      0,2,3,
+      0,3,1,
+      3,2,1
     )
 
     val positionVBO = createVBO(vertexPosition)
     val colorVBO = createVBO(vertexColor)
 
-    setAttribute(Seq(positionVBO, colorVBO), Seq(positionAttr, colorAttr), Seq(3,4))
+    setAttribute(Seq(positionVBO, colorVBO), Seq(positionAttr, colorAttr),
+      // 各Vertexのサイズを指定
+      Seq(3,4))
 
     val ibo = createIBO(index)
 
@@ -64,15 +70,17 @@ object App {
     val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
 
 
-    val vMatrix = Vector(0,1,3).lookAt(Vector(0,0,0))
+    val vMatrix = Vector(0,0,4).lookAt(Vector(0,0,0))
     val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
     val tmp = pMatrix %*% vMatrix
 
     var count = 0
 
+    // ここでは、それぞれclear時のparamを設定している
+    gl.clearColor(0,0,0,1)
+    gl.clearDepth(1)
+
     js.timers.setInterval(1000 / 30) {
-      gl.clearColor(0,0,0,1)
-      gl.clearDepth(1)
       gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
 
       count += 1
