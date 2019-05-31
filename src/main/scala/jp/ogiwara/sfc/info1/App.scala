@@ -1,7 +1,7 @@
 package jp.ogiwara.sfc.info1
 
 import org.scalajs.dom.html
-import org.scalajs.dom.html.Canvas
+import org.scalajs.dom.html.{Canvas, Image}
 import org.scalajs._
 import dom._
 import org.scalajs.dom.raw._
@@ -12,6 +12,8 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 
 object App {
   def main(args: Array[String]): Unit = {}
+
+  var texture: WebGLTexture = null
 
   @JSExportTopLevel("start")
   def start(): Unit ={
@@ -29,46 +31,56 @@ object App {
 
     val positionAttr = gl.getAttribLocation(program, "position")
     val colorAttr = gl.getAttribLocation(program, "color")
+    val textureAttr = gl.getAttribLocation(program, "textureCoord")
 
     // vec3 * 4
     val vertexPosition = scalajs.js.Array[Float]()
     vertexPosition.push(
-      0.5f, 1 / sqrt(3).toFloat, 0.5f,
-      0.5f, sqrt(3).toFloat, 0,
-      0,0,0,
-      1,0,0
+      -1.0f,  1.0f,  0.0f,
+      1.0f,  1.0f,  0.0f,
+      -1.0f, -1.0f,  0.0f,
+      1.0f, -1.0f,  0.0f
     )
 
     // vec4 * 4
     val vertexColor = scalajs.js.Array[Float]()
     vertexColor.push(
-      1,0,0,1,
-      0,1,0,1,
-      0,0,1,1,
+      1,1,1,1,
+      1,1,1,1,
+      1,1,1,1,
       1,1,1,1,
     )
 
-    val index = scalajs.js.Array[Float]()
+    val textureCoord = scalajs.js.Array[Float]()
+    textureCoord.push(
+      0, 0,
+      1, 0,
+      0, 1,
+      1, 1
+    )
+
+    val index = scalajs.js.Array[Int]()
     index.push(
-      0,1,2,
-      0,2,3,
-      0,3,1,
-      3,2,1
+      0, 1, 2,
+      3, 2, 1
     )
 
     val positionVBO = createVBO(vertexPosition)
     val colorVBO = createVBO(vertexColor)
+    val textureCoordVBO = createVBO(textureCoord)
 
-    setAttribute(Seq(positionVBO, colorVBO), Seq(positionAttr, colorAttr),
+    setAttribute(
+      Seq(positionVBO, colorVBO, textureCoordVBO),
+      Seq(positionAttr, colorAttr, textureAttr),
       // 各Vertexのサイズを指定
-      Seq(3,4))
+      Seq(3,4,2))
 
     val ibo = createIBO(index)
 
     gl.bindBuffer(ELEMENT_ARRAY_BUFFER, ibo)
 
     val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
-
+    val uniTextureLocation = gl.getUniformLocation(program, "texture")
 
     val vMatrix = Vector(0,0,4).lookAt(Vector(0,0,0))
     val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
@@ -80,12 +92,19 @@ object App {
     gl.clearColor(0,0,0,1)
     gl.clearDepth(1)
 
+    gl.activeTexture(TEXTURE0)
+
+    createTexture("../../wood.png")
+
     js.timers.setInterval(1000 / 30) {
       gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
 
       count += 1
 
       val rad = ((count % 360) * Math.PI / 180).toFloat
+
+      gl.bindTexture(TEXTURE_2D, texture)
+      gl.uniform1i(uniTextureLocation, 0)
 
       val mMatrix = Matrix.identity.rotate(rad, Vector.up)
 
@@ -145,7 +164,7 @@ object App {
     }
   }
 
-  def createIBO(array: scalajs.js.Array[Float])(implicit gl: WebGLRenderingContext): WebGLBuffer ={
+  def createIBO(array: scalajs.js.Array[Int])(implicit gl: WebGLRenderingContext): WebGLBuffer ={
     import scalajs.js.typedarray.Int16Array
 
     val ibo = gl.createBuffer()
@@ -154,5 +173,20 @@ object App {
     gl.bindBuffer(ELEMENT_ARRAY_BUFFER, null)
 
     ibo
+  }
+
+  def createTexture(path: String)(implicit gl: WebGLRenderingContext): Unit ={
+    val img = document.createElement("img").asInstanceOf[Image]
+
+    img.onload = { event =>
+      val tex = gl.createTexture()
+      gl.bindTexture(TEXTURE_2D, tex)
+      gl.texImage2D(TEXTURE_2D, 0, RGBA, RGBA, UNSIGNED_BYTE, img)
+      gl.generateMipmap(TEXTURE_2D)
+      gl.bindTexture(TEXTURE_2D, null)
+
+      texture = tex
+    }
+    img.src = path
   }
 }

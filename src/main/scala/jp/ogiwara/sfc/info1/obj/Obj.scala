@@ -6,7 +6,7 @@ import jp.ogiwara.sfc.info1.obj.scanner._
 case class Obj(
                 vertexes: Seq[Vector],
                 faces: Seq[Face],
-                vertexTextures: Seq[Tuple2[Float, Float]]
+                vertexTextures: Seq[(Float, Float)]
               ){
   def addVertex(vector: Vector): Obj =
     copy(vertexes = vertexes :+ vector)
@@ -14,7 +14,7 @@ case class Obj(
   def addFace(face: Face): Obj =
     copy(faces = faces :+ face)
 
-  def addVertexTexture(vertexTexture: Tuple2[Float, Float]): Obj =
+  def addVertexTexture(vertexTexture: (Float, Float)): Obj =
     copy(vertexTextures = vertexTextures :+ vertexTexture)
 
   override def toString: String = s"Obj(vertex=$vertexes faces=$faces)"
@@ -41,7 +41,7 @@ object Obj{
       var element: ObjScanner = null
       if(line.startsWith("#")){
         element = new CommentObjScanner(line)
-      }else if(line.startsWith("vs")){
+      }else if(line.startsWith("vt")){
         element = new VertexTextureObjScanner(line)
       }else if(line.startsWith("v")){
         element = new VertexObjScanner(line)

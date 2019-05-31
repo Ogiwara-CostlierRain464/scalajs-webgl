@@ -14,6 +14,7 @@ object ObjTest extends TestSuite{
           |v 0.5 1.732 0
           |v 0 0 0
           |v 1 0 0
+          |vt 1 2
           |f 1 1 1
         """.stripMargin)
     }
