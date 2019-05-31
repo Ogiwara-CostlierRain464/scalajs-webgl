@@ -1,5 +1,6 @@
 package jp.ogiwara.sfc.info1
 
+import jp.ogiwara.sfc.info1.obj.Obj
 import utest._
 
 object ObjTest extends TestSuite{
@@ -13,6 +14,7 @@ object ObjTest extends TestSuite{
           |v 0.5 1.732 0
           |v 0 0 0
           |v 1 0 0
+          |f 1 1 1
         """.stripMargin)
     }
   }

@@ -4,7 +4,7 @@ case class Face(elements: Seq[FaceElement]){
 
 }
 
-class FaceElement(vertexIndex: Int,
+case class FaceElement(vertexIndex: Int,
                   textureIndex: Option[Int],
                   normalIndex: Option[Int]){
 

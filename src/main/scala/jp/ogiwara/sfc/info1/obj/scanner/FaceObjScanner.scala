@@ -8,7 +8,7 @@ sealed class FaceObjScanner(val line: String) extends ObjScanner {
   override def applyTo(obj: Obj): Obj = {
     val splits = line.split(" ")
     // splitsの長さは3か4
-    assert(splits.length >= 3, "Wrong face element")
+    assert(splits.length >= 4, "Wrong face element")
 
 
 
@@ -18,7 +18,7 @@ sealed class FaceObjScanner(val line: String) extends ObjScanner {
 
     var elements = Seq[FaceElement](one, two, three)
 
-    if(splits.length >= 4){
+    if(splits.length >= 5){
       elements = elements :+ FaceElement.fromStr(splits(4))
     }
 

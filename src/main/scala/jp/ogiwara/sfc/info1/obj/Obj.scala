@@ -1,19 +1,32 @@
 package jp.ogiwara.sfc.info1.obj
 
 import jp.ogiwara.sfc.info1.Vector
-import jp.ogiwara.sfc.info1.obj.scanner.{CommentObjScanner, ObjScanner, VertexObjScanner}
+import jp.ogiwara.sfc.info1.obj.scanner._
 
-case class Obj(vertex: Seq[Vector],faces: Seq[Face]){
+case class Obj(
+                vertexes: Seq[Vector],
+                faces: Seq[Face],
+                vertexTextures: Seq[Tuple2[Float, Float]]
+              ){
   def addVertex(vector: Vector): Obj =
-    copy(vertex = vertex :+ vector)
+    copy(vertexes = vertexes :+ vector)
 
   def addFace(face: Face): Obj =
     copy(faces = faces :+ face)
 
+  def addVertexTexture(vertexTexture: Tuple2[Float, Float]): Obj =
+    copy(vertexTextures = vertexTextures :+ vertexTexture)
+
+  override def toString: String = s"Obj(vertex=$vertexes faces=$faces)"
+
 }
 
 object Obj{
-  def empty(): Obj = new Obj(vertex = Seq(), faces = Seq())
+  def empty(): Obj = new Obj(
+    vertexes = Seq(),
+    faces = Seq(),
+    vertexTextures = Seq()
+  )
 
   def fromText(text: String): Obj ={
 
@@ -26,10 +39,15 @@ object Obj{
       //NOTE: なぜかString.charAtが動かない
 
       var element: ObjScanner = null
-      if(line.startsWith("#"))
+      if(line.startsWith("#")){
         element = new CommentObjScanner(line)
-      if(line.startsWith("v"))
+      }else if(line.startsWith("vs")){
+        element = new VertexTextureObjScanner(line)
+      }else if(line.startsWith("v")){
         element = new VertexObjScanner(line)
+      }else if(line.startsWith("f")){
+        element = new FaceObjScanner(line)
+      }
 
       if(element != null)
         obj = element.applyTo(obj)
