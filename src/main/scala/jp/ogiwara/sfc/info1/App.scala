@@ -13,7 +13,7 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 object App {
   def main(args: Array[String]): Unit = {}
 
-  var texture: WebGLTexture = null
+  var texture: WebGLTexture = _
 
   @JSExportTopLevel("start")
   def start(): Unit ={
@@ -82,8 +82,8 @@ object App {
     val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
     val uniTextureLocation = gl.getUniformLocation(program, "texture")
 
-    val vMatrix = Vector(0,0,4).lookAt(Vector(0,0,0))
-    val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
+    val vMatrix = Vector(0,2,5).lookAt(Vector(0,0,0))
+    val pMatrix = Matrix.perspective(45, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
     val tmp = pMatrix %*% vMatrix
 
     var count = 0
@@ -94,7 +94,7 @@ object App {
 
     gl.activeTexture(TEXTURE0)
 
-    createTexture("../../wood.png")
+    createTexture("wood.png")
 
     js.timers.setInterval(1000 / 30) {
       gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
@@ -178,7 +178,8 @@ object App {
   def createTexture(path: String)(implicit gl: WebGLRenderingContext): Unit ={
     val img = document.createElement("img").asInstanceOf[Image]
 
-    img.onload = { event =>
+    img.onload = { _ =>
+
       val tex = gl.createTexture()
       gl.bindTexture(TEXTURE_2D, tex)
       gl.texImage2D(TEXTURE_2D, 0, RGBA, RGBA, UNSIGNED_BYTE, img)
@@ -187,6 +188,7 @@ object App {
 
       texture = tex
     }
+
     img.src = path
   }
 }
