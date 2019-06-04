@@ -1,6 +1,7 @@
 package jp.ogiwara.sfc.info1.obj
 
 import Math._
+import jp.ogiwara.sfc.info1.Vector
 
 // 四元数
 // q = a + bi + cj + dk
@@ -30,6 +31,18 @@ case class Quaternion(a: Float, b: Float, c: Float, d: Float){
   }
 
   def tuple: (Float, Float, Float, Float) = (a,b,c,d)
+
+  def toVector: Vector = Vector(x,y,z)
+
+  // q = cos(θ/2) + (xi + yj + zk) sin(θ/2)
+  def rotate(angle: Float, axis: Vector): Quaternion ={
+    val normalize = axis.normalize
+
+    val _w = cos(angle * 0.5).toFloat
+    val (_x, _y, _z) = (normalize * sin(angle * 0.5).toFloat).value
+
+    Quaternion(_w, _x, _y, _z)
+  }
 }
 
 

@@ -2,6 +2,8 @@ package jp.ogiwara.sfc.info1
 
 import Math._
 
+import jp.ogiwara.sfc.info1.obj.Quaternion
+
 case class Vector(value: (Float, Float, Float)){
 
   def _1: Float = value._1
@@ -79,6 +81,17 @@ case class Vector(value: (Float, Float, Float)){
       -(z.x * camera.x + z.y * camera.y + z.z * camera.z), 1
     )
   }
+
+  def rotate(by: Quaternion): Vector ={
+    val inverse = by.conjugate
+    val qq = inverse %*% this
+    val qr = qq.toQuaternion %*% by
+
+    qr.toVector
+  }
+
+  def toQuaternion: Quaternion =
+    Quaternion(0,x,y,z)
 }
 
 object Vector{
