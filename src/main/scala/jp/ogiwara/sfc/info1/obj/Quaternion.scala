@@ -34,8 +34,11 @@ case class Quaternion(a: Float, b: Float, c: Float, d: Float){
 
   def toVector: Vector = Vector(x,y,z)
 
+  // Rotateさせる四元数を生成
   // q = cos(θ/2) + (xi + yj + zk) sin(θ/2)
+  // angleはRadian角
   def rotate(angle: Float, axis: Vector): Quaternion ={
+    // 回転軸を正規化
     val normalize = axis.normalize
 
     val _w = cos(angle * 0.5).toFloat

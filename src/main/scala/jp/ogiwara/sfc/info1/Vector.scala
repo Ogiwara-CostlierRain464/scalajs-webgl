@@ -82,12 +82,14 @@ case class Vector(value: (Float, Float, Float)){
     )
   }
 
+  // b = q*a*bar(q)
   def rotate(by: Quaternion): Vector ={
-    val inverse = by.conjugate
-    val qq = inverse %*% this
-    val qr = qq.toQuaternion %*% by
+    val q = by
+    val a = this
 
-    qr.toVector
+    val b = q.%*%(a.toQuaternion).%*%(q.conjugate)
+
+    b.toVector
   }
 
   def toQuaternion: Quaternion =
