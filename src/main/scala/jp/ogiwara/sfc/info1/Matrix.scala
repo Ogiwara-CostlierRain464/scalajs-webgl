@@ -94,6 +94,7 @@ case class Matrix(value: Tuple16[
 
   def apply(index: Int) :Any = value.productElement(index)
 
+  // JsArrayに変換
   def convert: scalajs.js.Array[Double] = {
     val result = scalajs.js.Array[Double]()
     result.push(

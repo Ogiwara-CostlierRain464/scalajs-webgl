@@ -56,7 +56,7 @@ object App {
       0, 0,
       1, 0,
       0, 1,
-      1, 1
+      1,1
     )
 
     val index = scalajs.js.Array[Int]()
@@ -83,7 +83,7 @@ object App {
     val uniTextureLocation = gl.getUniformLocation(program, "texture")
 
     val vMatrix = Vector(0,2,5).lookAt(Vector(0,0,0))
-    val pMatrix = Matrix.perspective(45, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
+    val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
     val tmp = pMatrix %*% vMatrix
 
     var count = 0
@@ -94,7 +94,7 @@ object App {
 
     gl.activeTexture(TEXTURE0)
 
-    createTexture("wood.png")
+    createTexture("wood.jpg")
 
     js.timers.setInterval(1000 / 30) {
       gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
@@ -103,8 +103,8 @@ object App {
 
       val rad = ((count % 360) * Math.PI / 180).toFloat
 
-      gl.bindTexture(TEXTURE_2D, texture)
       gl.uniform1i(uniTextureLocation, 0)
+      gl.bindTexture(TEXTURE_2D, texture)
 
       val mMatrix = Matrix.identity.rotate(rad, Vector.up)
 
