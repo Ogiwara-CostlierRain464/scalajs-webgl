@@ -6,6 +6,7 @@ import org.scalajs._
 import dom._
 import org.scalajs.dom.raw._
 import WebGLRenderingContext._
+import jp.ogiwara.sfc.info1.obj.Quaternion
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExportTopLevel
@@ -82,10 +83,6 @@ object App {
     val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
     val uniTextureLocation = gl.getUniformLocation(program, "texture")
 
-    val vMatrix = Vector(0,2,5).lookAt(Vector(0,0,0))
-    val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
-    val tmp = pMatrix %*% vMatrix
-
     var count = 0
 
     // ここでは、それぞれclear時のparamを設定している
@@ -101,12 +98,22 @@ object App {
 
       count += 1
 
-      val rad = ((count % 360) * Math.PI / 180).toFloat
+      val rad = ((count % 180) * Math.PI / 45).toFloat
+      val rad2 = ((count % 720) * Math.PI / 360).toFloat
+
+      val q = Quaternion.identity.rotate(rad2, Vector.up)
+      val camPosition = Vector(0,0,10).rotate(q)
+      val camUpDirection = Vector(0,1,0).rotate(q)
+
+      val vMatrix = camPosition.lookAt(Vector(0,0,0))
+      val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
+      val tmp = pMatrix %*% vMatrix
+
 
       gl.uniform1i(uniTextureLocation, 0)
       gl.bindTexture(TEXTURE_2D, texture)
 
-      val mMatrix = Matrix.identity.rotate(rad, Vector.up)
+      val mMatrix = Matrix.identity.rotate(-rad, Vector.up)
 
       val mvpMatrix = tmp %*% mMatrix
 
