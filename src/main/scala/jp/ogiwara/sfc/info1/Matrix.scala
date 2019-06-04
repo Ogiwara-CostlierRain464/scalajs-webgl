@@ -1,5 +1,6 @@
 package jp.ogiwara.sfc.info1
 
+@deprecated
 case class Matrix(value: Tuple16[
   Float, Float, Float, Float, Float,
   Float, Float, Float, Float, Float,

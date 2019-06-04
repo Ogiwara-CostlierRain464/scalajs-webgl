@@ -56,6 +56,11 @@ case class Vector3(x: Number, y: Number,z: Number){
     else
       this * (1 / this.norm)
   }
+
+
+  def lookAt(target: Vector3): Unit ={
+
+  }
 }
 
 object Vector3{
