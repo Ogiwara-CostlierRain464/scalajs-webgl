@@ -58,8 +58,14 @@ case class Vector3(x: Number, y: Number,z: Number){
   }
 
 
-  def lookAt(target: Vector3): Unit ={
-
+  /**
+    * [this]が[target]の方向を向くための行列を作る
+    */
+  def makeLookAt(target: Vector3): Matrix4 ={
+    /**
+      * M_{modelView} = M_view * M_model
+      *
+      */
   }
 }
 

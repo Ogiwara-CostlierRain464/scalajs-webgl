@@ -1,10 +1,10 @@
 package jp.ogiwara.sfc.info1.math
 
 case class Matrix4(value: Tuple16[
-  Float, Float, Float, Float, Float,
-  Float, Float, Float, Float, Float,
-  Float, Float, Float, Float, Float,
-  Float
+  Number, Number, Number, Number, Number,
+  Number, Number, Number, Number, Number,
+  Number, Number, Number, Number, Number,
+  Number
   ]){
   /**
     * Notice that 16 elements in the matrix are stored as
@@ -36,7 +36,12 @@ case class Matrix4(value: Tuple16[
     val o3 = m2 * c + n2 * g + o2 * k + p2 * o
     val p3 = m2 * d + n2 * h + o2 * l + p2 * p
 
-    Matrix4(a3,b3,c3,d3,e3,f3,g3,h3,i3,j3,k3,l3,m3,n3,o3,p3)
+    Matrix4(
+      a3, e3, i3, m3,
+      b3, f3, j3, n3,
+      c3, g3, k3, o3,
+      d3, h3, l3, p3
+    )
   }
 
   def +(rhs: Matrix4): Matrix4 ={
@@ -44,20 +49,45 @@ case class Matrix4(value: Tuple16[
     val (a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2,m2,n2,o2,p2) = rhs.value
 
     Matrix4(
-      a + a2,b + b2,c + c2,d + d2,
-      e + e2,f + f2,g + g2,h + h2,
-      i + i2,j + j2,k + k2,l + l2,
-      m + m2,n + n2,o + o2,p + p2)
+      a + a2, e + e2, i + i2, m + m2,
+      b + b2, f + f2, j + j2, n + n2,
+      c + c2, g + g2, k + k2, o + o2,
+      d + d2, h + h2, l + l2, p + p2
+    )
   }
 
   override def toString: String = {
     s"""
        |Matrix4(
-       |${value._1} ${value._2} ${value._3} ${value._4}
-       |${value._5} ${value._6} ${value._7} ${value._8}
-       |${value._9} ${value._10} ${value._11} ${value._12}
-       |${value._13} ${value._14} ${value._15} ${value._16}
+       |${value._1} ${value._5} ${value._9} ${value._13}
+       |${value._2} ${value._6} ${value._10} ${value._14}
+       |${value._3} ${value._7} ${value._11} ${value._15}
+       |${value._4} ${value._8} ${value._12} ${value._16}
        |)
       """.stripMargin
   }
+}
+
+object Matrix4{
+
+  /**
+    * 列オーダーのため、そのままTupleコンストラクタを使うと転置してしまう
+    * 直感的に行列が生成できるように定義。
+    */
+  def apply(
+             a: Number, e: Number, i: Number, m: Number,
+             b: Number, f: Number, j: Number, n: Number,
+             c: Number, g: Number, k: Number, o: Number,
+             d: Number, h: Number, l: Number, p: Number,
+           ) =
+    new Matrix4(
+      (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
+    )
+
+  def identity: Matrix4 = Matrix4(
+    1,0,0,0,
+    0,1,0,0,
+    0,0,1,0,
+    0,0,0,1
+  )
 }
