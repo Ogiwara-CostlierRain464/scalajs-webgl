@@ -4,6 +4,7 @@ import Math._
 
 import jp.ogiwara.sfc.info1.obj.Quaternion
 
+@deprecated
 case class Vector(value: (Float, Float, Float)){
 
   def _1: Float = value._1
@@ -66,11 +67,6 @@ case class Vector(value: (Float, Float, Float)){
     val z = (camera - target).normalize
     val x = (Vector.up %*% z).normalize
     val y = (z %*% x).normalize
-
-    println(x)
-    println(y)
-    println(z)
-
 
     Matrix(
       x.x, y.x, z.x,0,
