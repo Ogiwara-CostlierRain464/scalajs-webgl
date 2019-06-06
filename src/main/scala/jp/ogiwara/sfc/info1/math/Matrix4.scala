@@ -15,7 +15,7 @@ case class Matrix4(value: Tuple16[
     * | d h l p |
     */
 
-  def %*%(rhs: Matrix4): Unit ={
+  def ×(rhs: Matrix4): Matrix4 ={
     val (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) = value
     val (a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2,m2,n2,o2,p2) = rhs.value
 
