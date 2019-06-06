@@ -31,9 +31,17 @@ case class Vector3(x: Number, y: Number,z: Number){
   )
 
   /**
-    * Vector同士の外積
+    * スカラー積
     */
-  def %*%(other: Vector3): Vector3 = Vector3(
+  def *(rhs: Vector3): Number =
+    x * rhs.x + y * rhs.y + z * rhs.z
+
+
+
+  /**
+    * クロス積(ベクトル積)
+    */
+  def ×(other: Vector3): Vector3 = Vector3(
     y * other.z - z * other.y,
     z * other.x - x * other.z,
     x * other.y - y * other.x,
@@ -57,7 +65,7 @@ case class Vector3(x: Number, y: Number,z: Number){
     if(norm == 0)
       Vector3(0,0,0)
     else
-      this * (1 / this.norm)
+      this  (1 / this.norm)
   }
 
   /**
@@ -124,8 +132,8 @@ case class Vector3(x: Number, y: Number,z: Number){
       */
 
     val forward = (this - target).normalized
-    val left = (up %*% forward).normalized
-    val trueUp = forward %*% left
+    val left = (up × forward).normalized
+    val trueUp = forward × left
 
     val (f,l,u) = (forward, left, trueUp)
     val (eX, eY, eZ) = (this.x, this.y, this.z)
@@ -142,12 +150,36 @@ case class Vector3(x: Number, y: Number,z: Number){
     * この座標を、[axis]をもとに[radian]度回転して移動する
     * @see https://mathtrain.jp/quaternion
     *
-    * @param radian ラジアン角
+    * @param θ ラジアン角
     * @param axis 回転軸。正規化されている必要がある
     */
-  def rotate(radian: Number, axis: Vector3): Unit ={
+  def rotate(θ: Number, axis: Vector3): Unit ={
+    /**
+      *
+      * aをqによって回転して、bにするなら
+      * b = qa bar(q)
+      *
+      */
+    val q = Quaternion.byRotate(θ, axis)
 
+    rotate(by = q)
   }
+
+  def rotate(by: Quaternion): Vector3 ={
+    val q = by
+    val a = this
+
+    val b = q * a.asQuaternion * q.inverse
+
+    b.asVector
+  }
+
+  def tuple: (Number, Number, Number) = (x,y,z)
+
+  /**
+    * Vectorを四元数と見なして計算するときに使う
+    */
+  def asQuaternion: Quaternion = Quaternion(0, x, y, z)
 }
 
 object Vector3{

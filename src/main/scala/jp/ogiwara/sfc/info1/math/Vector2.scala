@@ -14,7 +14,7 @@ case class Vector2(x: Number,y: Number){
   )
 
   // スカラ積
-  def *(scala: Number): Vector2 = Vector2(
+  def `･`(scala: Number): Vector2 = Vector2(
     x * scala,
     y * scala
   )
