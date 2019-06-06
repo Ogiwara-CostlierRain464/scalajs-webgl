@@ -5,6 +5,7 @@ import jp.ogiwara.sfc.info1.Vector
 
 // 四元数
 // q = a + bi + cj + dk
+@deprecated
 case class Quaternion(a: Float, b: Float, c: Float, d: Float){
 
   @inline def w: Float = a

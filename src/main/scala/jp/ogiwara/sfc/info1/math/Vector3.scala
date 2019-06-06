@@ -1,8 +1,11 @@
 package jp.ogiwara.sfc.info1.math
 
-import java.lang.Math.{pow, sqrt}
+import java.lang.Math.{pow, sqrt, round}
 
-
+/**
+  * 方向を表すのか、それとも座標を表すのか、
+  * 意味論的な違いがあることに注意する
+  */
 case class Vector3(x: Number, y: Number,z: Number){
   /**
     * OpenGL系は右手系座標
@@ -56,6 +59,12 @@ case class Vector3(x: Number, y: Number,z: Number){
     else
       this * (1 / this.norm)
   }
+
+  /**
+    * Normalizeされているか確認
+    */
+  def hasNormalized: Boolean =
+    round(norm) == 1
 
 
   /**
@@ -127,6 +136,17 @@ case class Vector3(x: Number, y: Number,z: Number){
       f.x, f.y, f.z, -f.x * eX - f.y * eY - f.z * eZ,
       0,    0,   0,                  1
     )
+  }
+
+  /**
+    * この座標を、[axis]をもとに[radian]度回転して移動する
+    * @see https://mathtrain.jp/quaternion
+    *
+    * @param radian ラジアン角
+    * @param axis 回転軸。正規化されている必要がある
+    */
+  def rotate(radian: Number, axis: Vector3): Unit ={
+
   }
 }
 
