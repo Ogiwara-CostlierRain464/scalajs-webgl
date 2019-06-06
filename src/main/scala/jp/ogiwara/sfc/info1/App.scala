@@ -1,12 +1,11 @@
 package jp.ogiwara.sfc.info1
 
-import org.scalajs.dom.html
 import org.scalajs.dom.html.{Canvas, Image}
 import org.scalajs._
 import dom._
 import org.scalajs.dom.raw._
 import WebGLRenderingContext._
-import jp.ogiwara.sfc.info1.obj.Quaternion
+import jp.ogiwara.sfc.info1.math.{Matrix4, Quaternion, Vector3}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExportTopLevel
@@ -101,12 +100,11 @@ object App {
       val rad = ((count % 180) * Math.PI / 45).toFloat
       val rad2 = ((count % 720) * Math.PI / 360).toFloat
 
-      val q = Quaternion.identity.rotate(rad2, Vector.up)
-      val camPosition = Vector(0,0,10).rotate(q)
-      val camUpDirection = Vector(0,1,0).rotate(q)
+      val camPosition = Vector3(0,0,10).rotate(rad2.toRadians, Vector3.up)
+      val camUpDirection = Vector3(0,1,0).rotate(rad2.toRadians, Vector3.up)
 
-      val vMatrix = camPosition.lookAt(Vector(0,0,0))
-      val pMatrix = Matrix.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
+      val vMatrix = camPosition.makeLookAt(Vector3(0,0,0))
+      val pMatrix = Matrix4.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
       val tmp = pMatrix %*% vMatrix
 
 

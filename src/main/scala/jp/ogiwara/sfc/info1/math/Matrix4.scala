@@ -90,4 +90,52 @@ object Matrix4{
     0,0,1,0,
     0,0,0,1
   )
+
+  /**
+    * 遠近法を表す行列を作る
+    * CameraServiceとかに移動するのもいいかも…
+    * @param fovy 画角。ラジアン角で指定
+    * @param aspect width/height
+    * @param near Front of ViewPort
+    * @param far Back of ViewPort
+    */
+  def makePerspective(fovy: Number, aspect: Number, near: Number, far: Number): Matrix4 ={
+    /**
+      * NOTE: the eye coordinates are defined in the right-handed coordinate system,
+      * but NDC uses the left-handed coordinate system. That is, the camera at the origin is looking along -Z axis in eye space,
+      * but it is looking along +Z axis in NDC.
+      *
+      * Xe,Ye,ZeをViewPortに対応付け、それをNDCの1*1*1の空間に収まるようにする
+      *
+      * @see http://www.songho.ca/opengl/gl_projectionmatrix.html
+      *
+      * だるかったから上みて
+      *
+      * right, left, top, bottom, near, farで指定する
+      * RightとLeft, TopとBottomが対照な場合は以下のように簡素化できる
+      *
+      * | n/r  0       0            0      |
+      * |  0  n/t      0            0      |
+      * |  0   0 (-f-n)/(f-n) (-2fn)/(f-n) |
+      * |  0   0      -1            0      |
+      *
+      * ここでは、[fovy]と[aspect]を用いている
+      *
+      * top = near * tan(fovy / 2)
+      * right = top * aspect
+      * のように対応するので、
+      *
+      * | fovy/aspect 0        0             0      |
+      * |    0       fovy      0             0      |
+      * |    0        0   (-f-n)/(f-n) (-2fn)/(f-n) |
+      * |    0        0       -1             0      |
+      */
+
+    Matrix4(
+      fovy / aspect, 0,0, 0,
+      0, fovy, 0,0,
+      0,0,  (-far-near) / (far- near) , (-2*far * near) / (far - near),
+      0,0,-1,0
+    )
+  }
 }

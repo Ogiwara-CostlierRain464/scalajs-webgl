@@ -7,7 +7,7 @@ object ObjTest extends TestSuite{
 
   def tests = Tests {
     '読み込み - {
-      Obj.fromText(
+      val obj =Obj.fromText(
         """
           |# this is comment
           |v 0.5 0.577 0.5
@@ -17,6 +17,8 @@ object ObjTest extends TestSuite{
           |vt 1 2
           |f 1 1 1
         """.stripMargin)
+
+      assert(obj.vertexes.nonEmpty)
     }
   }
 }

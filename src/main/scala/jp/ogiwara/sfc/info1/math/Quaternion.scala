@@ -72,4 +72,6 @@ object Quaternion{
 
     Quaternion(_w, _x, _y, _z)
   }
+
+  def identity: Quaternion = Quaternion(1,0,0,0)
 }

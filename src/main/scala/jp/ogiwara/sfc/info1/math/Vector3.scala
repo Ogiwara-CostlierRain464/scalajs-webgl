@@ -182,4 +182,6 @@ case class Vector3(x: Number, y: Number,z: Number){
 
 object Vector3{
   @inline def up = Vector3(0,1,0)
+  // 原点
+  @inline def origin = Vector3(0,0,0)
 }
