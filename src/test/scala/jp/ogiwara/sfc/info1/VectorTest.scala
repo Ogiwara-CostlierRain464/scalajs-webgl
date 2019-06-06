@@ -20,5 +20,8 @@ object VectorTest extends TestSuite{
 
       Vector(3,0,0).rotate(by = p)
     }
+    'lookAt - {
+      Vector(5,5,5).lookAt(Vector(0,0,0))
+    }
   }
 }

@@ -20,6 +20,7 @@ import Math._
   */
 case class Quaternion(w: Number, x: Number, y: Number, z: Number){
 
+  //　共役数
   def inverse: Quaternion = Quaternion(w, -x, -y, -z)
 
   def norm: Number =

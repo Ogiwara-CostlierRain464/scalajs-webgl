@@ -36,8 +36,6 @@ case class Vector3(x: Number, y: Number,z: Number){
   def *(rhs: Vector3): Number =
     x * rhs.x + y * rhs.y + z * rhs.z
 
-
-
   /**
     * クロス積(ベクトル積)
     */
@@ -65,7 +63,7 @@ case class Vector3(x: Number, y: Number,z: Number){
     if(norm == 0)
       Vector3(0,0,0)
     else
-      this  (1 / this.norm)
+      this * (1 / this.norm)
   }
 
   /**
@@ -136,13 +134,13 @@ case class Vector3(x: Number, y: Number,z: Number){
     val trueUp = forward × left
 
     val (f,l,u) = (forward, left, trueUp)
-    val (eX, eY, eZ) = (this.x, this.y, this.z)
+    val e = this
 
     Matrix4(
-      l.x, l.y, l.z, -l.x * eX - l.y * eY - l.z * eZ,
-      u.x, u.y, u.z, -u.x * eX - u.y * eY - u.z * eZ,
-      f.x, f.y, f.z, -f.x * eX - f.y * eY - f.z * eZ,
-      0,    0,   0,                  1
+      l.x, l.y, l.z, -l.x * e.x - l.y * e.y - l.z * e.z,
+      u.x, u.y, u.z, -u.x * e.x - u.y * e.y - u.z * e.z,
+      f.x, f.y, f.z, -f.x * e.x - f.y * e.y - f.z * e.z,
+       0,   0,   0,                   1
     )
   }
 
@@ -153,7 +151,7 @@ case class Vector3(x: Number, y: Number,z: Number){
     * @param θ ラジアン角
     * @param axis 回転軸。正規化されている必要がある
     */
-  def rotate(θ: Number, axis: Vector3): Unit ={
+  def rotate(θ: Number, axis: Vector3): Vector3 ={
     /**
       *
       * aをqによって回転して、bにするなら
