@@ -1,14 +1,14 @@
 package jp.ogiwara.sfc.info1.obj
 
-import jp.ogiwara.sfc.info1.Vector
+import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.obj.scanner._
 
 case class Obj(
-                vertexes: Seq[Vector],
+                vertexes: Seq[Vector3],
                 faces: Seq[Face],
                 vertexTextures: Seq[(Float, Float)]
               ){
-  def addVertex(vector: Vector): Obj =
+  def addVertex(vector: Vector3): Obj =
     copy(vertexes = vertexes :+ vector)
 
   def addFace(face: Face): Obj =

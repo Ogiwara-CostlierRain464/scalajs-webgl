@@ -1,7 +1,7 @@
 package jp.ogiwara.sfc.info1.obj.scanner
 
+import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.obj.Obj
-import jp.ogiwara.sfc.info1.Vector
 
 sealed class VertexObjScanner(val line: String) extends ObjScanner{
   override def applyTo(obj: Obj): Obj = {
@@ -12,6 +12,6 @@ sealed class VertexObjScanner(val line: String) extends ObjScanner{
     val y = splits(2).toFloat
     val z = splits(3).toFloat
 
-    obj.addVertex(Vector(x,y,z))
+    obj.addVertex(Vector3(x,y,z))
   }
 }

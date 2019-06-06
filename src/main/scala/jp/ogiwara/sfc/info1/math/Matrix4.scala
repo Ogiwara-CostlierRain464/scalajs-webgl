@@ -1,5 +1,8 @@
 package jp.ogiwara.sfc.info1.math
 
+import Math._
+import jp.ogiwara.sfc.info1.math
+
 case class Matrix4(value: Tuple16[
   Number, Number, Number, Number, Number,
   Number, Number, Number, Number, Number,
@@ -65,6 +68,56 @@ case class Matrix4(value: Tuple16[
        |${value._4} ${value._8} ${value._12} ${value._16}
        |)
       """.stripMargin
+  }
+
+  def toJsArray: scalajs.js.Array[Double] ={
+    val arr = new scalajs.js.Array[Double]()
+    val (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) = value
+
+    arr.push(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
+
+    arr
+  }
+
+
+  /**
+    * [θ]はラジアン角で！
+    */
+  def rotate(θ: Number, axis: Vector3): Matrix4 ={
+    /**
+      * ロドゲリスの回転公式を用いる
+      * @see https://ja.wikipedia.org/wiki/ロドリゲスの回転公式
+      *
+      */
+    require(axis.hasNormalized)
+
+    val (a,b,c) = axis.tuple
+    val d = sin(θ)
+    val e = cos(θ)
+    val f = 1 - e
+    val (
+      g,h,i,j,
+      k,l,m,n,
+      o,p,q,r,
+      _,_,_,_
+      ) = value
+
+    val s = a * a * f + e
+    val t = b * a * f + c * d
+    val u = c * a * f - b * d
+    val v = a * b * f - c * d
+    val w = b * b * f + e
+    val x = c * b * f + a * d
+    val y = a * c * f + b * d
+    val z = b * c * f - a * d
+    val a2 = c * c * f + e
+
+    Matrix4(
+      g * s + k * t + o * u, g * v + k * w + o * x,  g * y + k * z + o * a2, value._13,
+      h * s + l * t + p * u,  h * v + l * w + p * x, h * y + l * z + p * a2,, value._14,
+      i * s + m * t + q * u,  i * v + m * w + q * x, i * y + m * z + q * a2, value._15,
+      j * s + n * t + r * u,  j * v + n * w + r * x, j * y + n * z + r * a2,, value._16
+    )
   }
 }
 

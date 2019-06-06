@@ -5,7 +5,7 @@ import org.scalajs._
 import dom._
 import org.scalajs.dom.raw._
 import WebGLRenderingContext._
-import jp.ogiwara.sfc.info1.math.{Matrix4, Quaternion, Vector3}
+import jp.ogiwara.sfc.info1.math._
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExportTopLevel
@@ -92,30 +92,29 @@ object App {
 
     createTexture("wood.jpg")
 
-    js.timers.setInterval(1000 / 30) {
+    js.timers.setInterval(100 / 30) {
       gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
 
       count += 1
 
       val rad = ((count % 180) * Math.PI / 45).toFloat
-      val rad2 = ((count % 720) * Math.PI / 360).toFloat
+      val rad2 = ((count % 180) * Math.PI / 45).toFloat
 
-      val camPosition = Vector3(0,0,10).rotate(rad2.toRadians, Vector3.up)
+      val camPosition = Vector3(50,50,10).rotate(rad2.toRadians, Vector3.up)
       val camUpDirection = Vector3(0,1,0).rotate(rad2.toRadians, Vector3.up)
 
       val vMatrix = camPosition.makeLookAt(Vector3(0,0,0))
-      val pMatrix = Matrix4.perspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1.toFloat ,100)
-      val tmp = pMatrix %*% vMatrix
-
+      val pMatrix = Matrix4.makePerspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1 ,100)
+      val tmp = pMatrix × vMatrix
 
       gl.uniform1i(uniTextureLocation, 0)
       gl.bindTexture(TEXTURE_2D, texture)
 
-      val mMatrix = Matrix.identity.rotate(-rad, Vector.up)
+      val mMatrix = Matrix4.identity
 
-      val mvpMatrix = tmp %*% mMatrix
+      val mvpMatrix = tmp × mMatrix
 
-      gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.convert)
+      gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.toJsArray)
       gl.drawElements(TRIANGLES, index.length, UNSIGNED_SHORT, offset = 0)
       gl.flush()
     }
