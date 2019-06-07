@@ -36,19 +36,20 @@ object App {
     // vec3 * 4
     val vertexPosition = scalajs.js.Array[Float]()
     vertexPosition.push(
-      -1.0f,  1.0f,  0.0f,
-      1.0f,  1.0f,  0.0f,
-      -1.0f, -1.0f,  0.0f,
-      1.0f, -1.0f,  0.0f
+      0,  2,  1,
+      2,  2,  1,
+      0,  0,  1,
+      2,  0,  1
     )
 
     // vec4 * 4
     val vertexColor = scalajs.js.Array[Float]()
     vertexColor.push(
+      // 合成頂点の数だけ指定
       1,1,1,1,
-      1,1,1,1,
-      1,1,1,1,
-      1,1,1,1,
+      0,0,0,0,
+      0,0,0,0,
+      0,0,0,0,
     )
 
     val textureCoord = scalajs.js.Array[Float]()
@@ -88,9 +89,9 @@ object App {
     gl.clearColor(0,0,0,1)
     gl.clearDepth(1)
 
-    gl.activeTexture(TEXTURE0)
+    //gl.activeTexture(TEXTURE0)
 
-    createTexture("wood.jpg")
+    //createTexture("wood.jpg")
 
     js.timers.setInterval(1000 / 30) {
       gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
@@ -108,7 +109,7 @@ object App {
       val tmp = pMatrix × vMatrix
 
       gl.uniform1i(uniTextureLocation, 0)
-      gl.bindTexture(TEXTURE_2D, texture)
+      //gl.bindTexture(TEXTURE_2D, texture)
 
       val mMatrix = Matrix4.identity.rotate(rad, Vector3.up)
 
