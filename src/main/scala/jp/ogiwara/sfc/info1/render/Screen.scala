@@ -32,6 +32,10 @@ class Screen(
 
     gl.enable(CULL_FACE)
     gl.enable(DEPTH_TEST)
+    // ここでは、それぞれclear時のparamを設定している
+    gl.clearColor(0,0,0,1)
+    gl.clearDepth(1)
+
     val program = ProgramService.makeAndLink(vShader, fShader)
 
     val positionAttrLocation = gl.getAttribLocation(program, "position")
@@ -60,10 +64,6 @@ class Screen(
 
     var count = 0
 
-    // ここでは、それぞれclear時のparamを設定している
-    gl.clearColor(0,0,0,1)
-    gl.clearDepth(1)
-
     //gl.activeTexture(TEXTURE0)
 
     //createTexture("wood.jpg")
@@ -76,11 +76,11 @@ class Screen(
       val rad = ((count % 180) * Math.PI / 45).toFloat
       val rad2 = ((0 % 180) * Math.PI / 45).toFloat
 
-      val camPosition = Vector3(-5,5,-5).rotate(rad2.toRadians, Vector3.up)
+      val camPosition = camera.position
       val camUpDirection = Vector3(0,1,0).rotate(rad2.toRadians, Vector3.up)
 
-      val vMatrix = camPosition.makeLookAt(Vector3(0,0,0), up = camUpDirection)
-      val pMatrix = Matrix4.makePerspective(90.toRadians, 1.5, 0.1 ,100)
+      val vMatrix = camPosition.makeLookAt(camera.lookAt, up = camUpDirection)
+      val pMatrix = Matrix4.makePerspective(camera.fovy.toRadians, camera.aspect, camera.near ,camera.far)
       val tmp = pMatrix × vMatrix
 
       gl.uniform1i(uniTextureLocation, 0)

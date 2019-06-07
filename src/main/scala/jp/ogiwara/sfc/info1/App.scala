@@ -27,7 +27,6 @@ object App {
     val scriptElement2 = document.getElementById("fs").asInstanceOf[HTMLScriptElement]
     val fs = ShaderService.create(scriptElement2.text, FragmentShader)
 
-
     val screen = Screen(vs, fs)
 
     val vertexes: Seq[Vertex] = Seq(
