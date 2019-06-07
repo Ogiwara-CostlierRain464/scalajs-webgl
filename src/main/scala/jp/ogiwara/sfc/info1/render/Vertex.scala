@@ -8,3 +8,7 @@ import jp.ogiwara.sfc.info1.math.Vector3
 case class Vertex(position: Vector3){
 
 }
+
+object Vertex{
+  implicit def vector2Vertex(vector: Vector3) = Vertex(vector)
+}

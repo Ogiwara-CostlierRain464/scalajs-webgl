@@ -51,6 +51,22 @@ object BufferObjectService {
   }
 
 
+  def createIBO(indexes: Seq[Int])(implicit gl: WebGLRenderingContext): WebGLBuffer ={
+    import scalajs.js.typedarray.Int16Array
+
+    val arr = new scalajs.js.Array[Number]
+    indexes.foreach(i => arr.push(i.toFloat))
+
+    val ibo = gl.createBuffer()
+    gl.bindBuffer(ELEMENT_ARRAY_BUFFER, ibo)
+    gl.bufferData(ELEMENT_ARRAY_BUFFER, new Int16Array(arr), usage = STATIC_DRAW)
+    gl.bindBuffer(ELEMENT_ARRAY_BUFFER, null)
+
+    ibo
+  }
+
+
+
   def vertexesToJsArray(vertexes: Seq[Vertex]): scalajs.js.Array[Number] ={
     import scalajs.js.Array
 
@@ -73,4 +89,5 @@ object BufferObjectService {
 
     arr
   }
+
 }

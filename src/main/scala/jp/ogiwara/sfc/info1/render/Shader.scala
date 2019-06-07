@@ -7,6 +7,6 @@ case class Shader(rawShader: WebGLShader, aType: ShaderType){
 }
 
 sealed trait ShaderType
-case object Vertex extends ShaderType
-case object Fragment extends ShaderType
+case object VertexShader extends ShaderType
+case object FragmentShader extends ShaderType
 

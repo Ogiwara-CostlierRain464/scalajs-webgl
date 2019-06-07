@@ -184,4 +184,7 @@ object Vector3{
   @inline def up = Vector3(0,1,0)
   // 原点
   @inline def origin = Vector3(0,0,0)
+
+  implicit def tuple2Vector3(tuple: (Number, Number, Number)) =
+    Vector3(tuple._1, tuple._2, tuple._3)
 }
