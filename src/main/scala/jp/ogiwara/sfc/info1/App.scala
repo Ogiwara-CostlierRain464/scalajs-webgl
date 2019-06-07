@@ -5,6 +5,7 @@ import jp.ogiwara.sfc.info1.render._
 import jp.ogiwara.sfc.info1.render.service.ShaderService
 import org.scalajs._
 import org.scalajs.dom._
+import org.scalajs.dom.ext.KeyValue
 import org.scalajs.dom.html.Canvas
 import org.scalajs.dom.raw._
 
@@ -30,7 +31,7 @@ object App {
 
     val mesh = Mesh.sample.square
 
-    val camera = Camera(
+    var camera = Camera(
       position = Vector3(5,5,5),
       lookAt = Vector3.origin,
       fovy = 90,
@@ -43,8 +44,26 @@ object App {
     screen.meshes = mutable.Seq(mesh)
 
     screen.setup()
-    screen.flush()
-  }
 
+    screen.flush()
+
+    dom.window.addEventListener("keydown", { event: dom.KeyboardEvent =>
+      val keycode = event.key
+
+      camera = keycode match {
+        case KeyValue.ArrowDown => camera.down
+        case KeyValue.ArrowUp => camera.up
+        case KeyValue.ArrowLeft => camera.left
+        case KeyValue.ArrowRight => camera.right
+        case _ => camera
+      }
+
+      println(s"$camera")
+
+      screen.camera = camera
+      screen.flush()
+    })
+
+  }
 
 }

@@ -65,6 +65,8 @@ class Screen(
   }
 
   def flush(): Unit ={
+    println("flushed!")
+
     val mesh = meshes.head
 
     val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
@@ -81,7 +83,7 @@ class Screen(
 
       count += 1
 
-      val rad = ((count % 180) * Math.PI / 45).toFloat
+      val rad = ((0 % 180) * Math.PI / 45).toFloat
       val rad2 = ((0 % 180) * Math.PI / 45).toFloat
 
       val camPosition = camera.position

@@ -10,5 +10,24 @@ case class Camera(
                    near: Number,
                    far: Number
                  ){
-  
+  def up: Camera = copy(
+    position = position.vector + Vector3(0,0.5,0),
+    lookAt = lookAt.vector + Vector3(0,0.5,0),
+  )
+  def down: Camera = copy(
+    position = position.vector - Vector3(0,0.5,0),
+    lookAt = lookAt.vector - Vector3(0,0.5,0),
+
+  )
+  def left: Camera = copy(
+    position = position.vector + Vector3(0.5,0,0),
+    lookAt = lookAt.vector + Vector3(0.5,0,0),
+  )
+  def right: Camera = copy(
+    position = position.vector - Vector3(0.5,0,0),
+    lookAt = lookAt.vector - Vector3(0.5,0,0)
+  )
+
+
+  //TODO カメラが見たい向きからではなく、とにかく位置移動とか簡単にしよう
 }
