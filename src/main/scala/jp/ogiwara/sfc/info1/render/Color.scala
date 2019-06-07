@@ -13,7 +13,14 @@ case class Color(r: Int, g: Int, b: Int, alpha: Int = 0xff){
     * WenGLでは0~1の範囲で表す
     */
   def normalized: (Number, Number, Number, Number) =
-    (r/256, g/256, b/256, alpha/256)
+    (r.toFloat /256, g.toFloat /256, b.toFloat /256, alpha.toFloat /256)
+
+}
+
+object Color{
+
+  val black = Color(0, 0, 0)
+  val white = Color(256, 256, 256)
 
   object material{
     val red = Color(0xf4, 0x43, 0x36)

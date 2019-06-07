@@ -1,13 +1,12 @@
 package jp.ogiwara.sfc.info1
 
-import org.scalajs.dom.html.{Canvas, Image}
-import org.scalajs._
-import dom._
-import org.scalajs.dom.raw._
-import WebGLRenderingContext._
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render._
 import jp.ogiwara.sfc.info1.render.service.ShaderService
+import org.scalajs._
+import org.scalajs.dom._
+import org.scalajs.dom.html.Canvas
+import org.scalajs.dom.raw._
 
 import scala.collection.mutable
 import scala.scalajs.js
@@ -29,34 +28,15 @@ object App {
 
     val screen = Screen(vs, fs)
 
-    val vertexes: Seq[Vertex] = Seq(
-      Vector3(-1,1,0),
-      Vector3(1,1,0),
-      Vector3(-1,-1,0),
-      Vector3(-1,1,0),
-    )
-
-    val colors = Seq(
-      Color(0,0,0,256),
-      Color(256,256,256,256),
-      Color(0,0,0,128),
-      Color(256,256,256,256),
-    )
-
-    val indexes = Seq(
-      0,1,2,
-      3,2,1
-    )
-
-    val mesh = Mesh(vertexes, colors, indexes)
+    val mesh = Mesh.sample.square
 
     val camera = Camera(
       position = Vector3(5,5,5),
       lookAt = Vector3.origin,
       fovy = 90,
-      aspect = 1.5,
+      aspect = canvas.width / canvas.height,
       near = 0.1,
-      far = 100
+      far = 1000
     )
 
     screen.camera = camera

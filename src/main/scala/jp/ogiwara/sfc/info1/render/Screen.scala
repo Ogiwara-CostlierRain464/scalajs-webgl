@@ -33,8 +33,8 @@ class Screen(
   def setup(): Unit ={
     require(camera != null)
 
-    gl.enable(CULL_FACE)
-    gl.enable(DEPTH_TEST)
+    //gl.enable(CULL_FACE)
+    //gl.enable(DEPTH_TEST)
     // ここでは、それぞれclear時のparamを設定している
     gl.clearColor(0,0,0,1)
     gl.clearDepth(1)
@@ -99,7 +99,7 @@ class Screen(
       val mvpMatrix = tmp × mMatrix
 
       gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.toJsArray)
-      gl.drawElements(TRIANGLES, mesh.colors.length, UNSIGNED_SHORT, offset = 0)
+      gl.drawElements(TRIANGLES, mesh.indexes.length, UNSIGNED_SHORT, offset = 0)
       gl.flush()
     }
   }

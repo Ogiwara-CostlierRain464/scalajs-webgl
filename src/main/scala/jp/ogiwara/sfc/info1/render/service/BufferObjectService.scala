@@ -72,6 +72,7 @@ object BufferObjectService {
 
     val arr = new Array[Number]
     vertexes.foreach { v =>
+
       arr.push(v.position.x, v.position.y, v.position.z)
     }
 
@@ -83,7 +84,9 @@ object BufferObjectService {
 
     val arr = new Array[Number]
     colors.foreach { c =>
+
       val normalized = c.normalized
+
       arr.push(normalized._1, normalized._2, normalized._3, normalized._4)
     }
 
