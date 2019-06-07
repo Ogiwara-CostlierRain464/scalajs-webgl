@@ -36,10 +36,10 @@ object App {
     // vec3 * 4
     val vertexPosition = scalajs.js.Array[Float]()
     vertexPosition.push(
-      0,  2,  1,
-      2,  2,  1,
-      0,  0,  1,
-      2,  0,  1
+      -1, 1, 0,
+       1, 1, 0,
+      -1,-1, 0,
+       1,-1, 0,
     )
 
     // vec4 * 4
