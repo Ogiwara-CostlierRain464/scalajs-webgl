@@ -114,9 +114,9 @@ case class Matrix4(value: Tuple16[
 
     Matrix4(
       g * s + k * t + o * u, g * v + k * w + o * x,  g * y + k * z + o * a2, value._13,
-      h * s + l * t + p * u,  h * v + l * w + p * x, h * y + l * z + p * a2,, value._14,
+      h * s + l * t + p * u,  h * v + l * w + p * x, h * y + l * z + p * a2, value._14,
       i * s + m * t + q * u,  i * v + m * w + q * x, i * y + m * z + q * a2, value._15,
-      j * s + n * t + r * u,  j * v + n * w + r * x, j * y + n * z + r * a2,, value._16
+      j * s + n * t + r * u,  j * v + n * w + r * x, j * y + n * z + r * a2, value._16
     )
   }
 }

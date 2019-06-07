@@ -56,7 +56,7 @@ object App {
       0, 0,
       1, 0,
       0, 1,
-      1,1
+      1, 1
     )
 
     val index = scalajs.js.Array[Int]()
@@ -92,25 +92,25 @@ object App {
 
     createTexture("wood.jpg")
 
-    js.timers.setInterval(100 / 30) {
+    js.timers.setInterval(1000 / 30) {
       gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
 
       count += 1
 
       val rad = ((count % 180) * Math.PI / 45).toFloat
-      val rad2 = ((count % 180) * Math.PI / 45).toFloat
+      val rad2 = ((0 % 180) * Math.PI / 45).toFloat
 
-      val camPosition = Vector3(50,50,10).rotate(rad2.toRadians, Vector3.up)
+      val camPosition = Vector3(-5,5,-5).rotate(rad2.toRadians, Vector3.up)
       val camUpDirection = Vector3(0,1,0).rotate(rad2.toRadians, Vector3.up)
 
-      val vMatrix = camPosition.makeLookAt(Vector3(0,0,0))
-      val pMatrix = Matrix4.makePerspective(90, canvas.width.toFloat / canvas.height.toFloat, 0.1 ,100)
+      val vMatrix = camPosition.makeLookAt(Vector3(0,0,0), up = camUpDirection)
+      val pMatrix = Matrix4.makePerspective(90.toRadians, canvas.width.toFloat / canvas.height.toFloat, 0.1 ,100)
       val tmp = pMatrix × vMatrix
 
       gl.uniform1i(uniTextureLocation, 0)
       gl.bindTexture(TEXTURE_2D, texture)
 
-      val mMatrix = Matrix4.identity
+      val mMatrix = Matrix4.identity.rotate(rad, Vector3.up)
 
       val mvpMatrix = tmp × mMatrix
 
