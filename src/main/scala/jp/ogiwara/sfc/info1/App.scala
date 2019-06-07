@@ -63,6 +63,7 @@ object App {
     screen.meshes = mutable.Seq(mesh)
 
     screen.setup()
+    screen.flush()
   }
 
 

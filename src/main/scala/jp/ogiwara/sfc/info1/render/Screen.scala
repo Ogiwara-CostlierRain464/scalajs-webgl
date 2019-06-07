@@ -2,7 +2,7 @@ package jp.ogiwara.sfc.info1.render
 
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.mutable
-import org.scalajs.dom.raw.WebGLRenderingContext
+import org.scalajs.dom.raw.{WebGLProgram, WebGLRenderingContext}
 import WebGLRenderingContext._
 import jp.ogiwara.sfc.info1.render.service.{BufferObjectService, ProgramService}
 
@@ -19,8 +19,11 @@ class Screen(
              implicit val gl: WebGLRenderingContext,
             ){
 
+
+
   var camera: Camera = _
   var meshes: mutable.Seq[Mesh] = mutable.Seq()
+  private var program: WebGLProgram = _
 
 
   def render(): Unit ={
@@ -36,7 +39,7 @@ class Screen(
     gl.clearColor(0,0,0,1)
     gl.clearDepth(1)
 
-    val program = ProgramService.makeAndLink(vShader, fShader)
+    program = ProgramService.makeAndLink(vShader, fShader)
 
     val positionAttrLocation = gl.getAttribLocation(program, "position")
     val colorAttrLocation = gl.getAttribLocation(program, "color")
@@ -58,6 +61,11 @@ class Screen(
     val ibo = BufferObjectService.createIBO(mesh.indexes)
 
     gl.bindBuffer(ELEMENT_ARRAY_BUFFER, ibo)
+
+  }
+
+  def flush(): Unit ={
+    val mesh = meshes.head
 
     val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
     val uniTextureLocation = gl.getUniformLocation(program, "texture")
@@ -94,11 +102,6 @@ class Screen(
       gl.drawElements(TRIANGLES, mesh.colors.length, UNSIGNED_SHORT, offset = 0)
       gl.flush()
     }
-
-  }
-
-  def flush(): Unit ={
-
   }
 }
 
