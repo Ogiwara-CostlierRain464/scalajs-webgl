@@ -5,6 +5,7 @@ import jp.ogiwara.sfc.info1.mutable
 import org.scalajs.dom.raw.{WebGLProgram, WebGLRenderingContext}
 import WebGLRenderingContext._
 import jp.ogiwara.sfc.info1.render.service.{BufferObjectService, ProgramService}
+import jp.ogiwara.sfc.info1.world.WorldSnapshot
 
 import scala.collection.mutable
 import scala.scalajs.js
@@ -26,7 +27,7 @@ class Screen(
   private var program: WebGLProgram = _
 
 
-  def render(view: View): Unit ={
+  def render(snapshot: WorldSnapshot): Unit ={
 
   }
 
