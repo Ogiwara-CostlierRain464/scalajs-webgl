@@ -25,7 +25,7 @@ object App {
     val vs = ShaderService.byId("vs", document)
     val fs = ShaderService.byId("fs", document)
 
-    val screen = Screen(vs, fs)
+    val screen = new render.Screen(vs, fs, gl)
 
     val mesh = Mesh.sample.square
 
@@ -40,8 +40,6 @@ object App {
 
     screen.camera = camera
     screen.meshes = mutable.Seq(mesh)
-
-    screen.setup()
 
     var count = 0
 

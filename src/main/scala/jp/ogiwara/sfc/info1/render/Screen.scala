@@ -14,13 +14,11 @@ import scala.scalajs.js
   * 一つの画面を表す
   */
 @mutable
-class Screen(
-             val vShader: Shader,
-             val fShader: Shader,
-             implicit val gl: WebGLRenderingContext,
-            ){
+class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRenderingContext){
 
-
+  {
+    setup()
+  }
 
   var camera: Camera = _
   var meshes: mutable.Seq[Mesh] = mutable.Seq()
@@ -34,8 +32,8 @@ class Screen(
   def setup(): Unit ={
     require(camera != null)
 
-    //gl.enable(CULL_FACE)
-    //gl.enable(DEPTH_TEST)
+    gl.enable(CULL_FACE)
+    gl.enable(DEPTH_TEST)
     // ここでは、それぞれclear時のparamを設定している
     gl.clearColor(0,0,0,1)
     gl.clearDepth(1)
@@ -106,17 +104,4 @@ class Screen(
       gl.flush()
     }
   }
-}
-
-object Screen{
-  private var shared: Screen = _
-
-  def apply(vShader: Shader,fShader: Shader)(implicit gl: WebGLRenderingContext): Screen = {
-    if(shared == null){
-      shared = new Screen(vShader, fShader, gl)
-    }
-
-    shared
-  }
-
 }
