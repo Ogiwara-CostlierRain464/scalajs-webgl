@@ -45,7 +45,16 @@ object App {
 
     screen.setup()
 
-    screen.flush()
+    var count = 0
+
+    js.timers.setInterval(1000 / 30){
+
+      count += 1
+
+
+      screen.flush()
+    }
+
 
     dom.window.addEventListener("keydown", { event: dom.KeyboardEvent =>
       val keycode = event.key
