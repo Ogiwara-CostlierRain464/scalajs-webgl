@@ -22,11 +22,8 @@ object App {
     val canvas = document.getElementById("gl_canvas").asInstanceOf[Canvas]
     implicit val gl: WebGLRenderingContext = canvas.getContext("webgl").asInstanceOf[WebGLRenderingContext]
 
-    val scriptElement = document.getElementById("vs").asInstanceOf[HTMLScriptElement]
-    val vs = ShaderService.create(scriptElement.text, VertexShader)
-
-    val scriptElement2 = document.getElementById("fs").asInstanceOf[HTMLScriptElement]
-    val fs = ShaderService.create(scriptElement2.text, FragmentShader)
+    val vs = ShaderService.byId("vs", document)
+    val fs = ShaderService.byId("fs", document)
 
     val screen = Screen(vs, fs)
 
