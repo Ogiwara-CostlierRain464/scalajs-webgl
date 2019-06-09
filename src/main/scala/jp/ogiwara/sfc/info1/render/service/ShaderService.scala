@@ -19,7 +19,7 @@ object ShaderService {
 
   def byId(id: String, document: Document)(implicit gl: WebGLRenderingContext): Shader ={
     val elem = document.getElementById(id).asInstanceOf[HTMLScriptElement]
-    val _type = if(elem.`type` == "x-shader/x-vertex") VertexShader() else FragmentShader()
+    val _type = if(elem.`type` == "x-shader/x-vertex") VertexShader else FragmentShader
 
     create(elem.text, _type)
   }

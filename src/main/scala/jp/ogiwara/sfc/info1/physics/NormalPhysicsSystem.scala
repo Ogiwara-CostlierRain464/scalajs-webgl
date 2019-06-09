@@ -11,7 +11,7 @@ class NormalPhysicsSystem extends System{
     */
   val map: Map[EntityID, RigidBody] = Map()
 
-  override def update(state: State): State = {
+  override def update(state: WorldState): WorldState = {
     // 重力を加えるだけなのもよし！
     state
   }

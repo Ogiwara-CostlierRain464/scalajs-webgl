@@ -7,7 +7,7 @@ import jp.ogiwara.sfc.info1.physics._
   * World(世界)とは、宇宙である。
   */
 @mutable
-class World(val systems: Seq[System], val state: State){
+class World(val systems: Seq[System], val state: WorldState){
 
   /**
     * 世界の時間を進める
@@ -17,4 +17,4 @@ class World(val systems: Seq[System], val state: State){
 
 }
 
-object NormalWorld extends World(systems = Seq(new NormalPhysicsSystem()), state = State(entities = Seq()))
+object NormalWorld extends World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq()))
