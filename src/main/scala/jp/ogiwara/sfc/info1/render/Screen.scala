@@ -26,7 +26,7 @@ class Screen(
   private var program: WebGLProgram = _
 
 
-  def render(): Unit ={
+  def render(view: View): Unit ={
 
   }
 

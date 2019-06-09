@@ -10,5 +10,5 @@ case class Vertex(position: Vector3){
 }
 
 object Vertex{
-  implicit def vector2Vertex(vector: Vector3) = Vertex(vector)
+  implicit def vector2Vertex(vector: Vector3): Vertex = Vertex(vector)
 }

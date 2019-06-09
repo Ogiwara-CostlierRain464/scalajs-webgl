@@ -6,8 +6,8 @@ package jp.ogiwara.sfc.info1.world
   */
 abstract class System {
 
-
-  abstract def update(): Unit ={
-
-  }
+  /**
+    * 現在の状態を受け取って、Systemを介して新たな状態を返す
+    */
+  abstract def update(state: State): State
 }

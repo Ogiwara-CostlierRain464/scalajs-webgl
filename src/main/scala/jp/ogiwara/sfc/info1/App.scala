@@ -3,6 +3,7 @@ package jp.ogiwara.sfc.info1
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render._
 import jp.ogiwara.sfc.info1.render.service.ShaderService
+import jp.ogiwara.sfc.info1.world.NormalWorld
 import org.scalajs._
 import org.scalajs.dom._
 import org.scalajs.dom.ext.KeyValue
@@ -47,13 +48,22 @@ object App {
 
     var count = 0
 
-    js.timers.setInterval(1000 / 30){
+    js.timers.setInterval(1000 / 60){
+
 
       count += 1
 
 
       screen.flush()
     }
+
+
+    val world = NormalWorld
+    js.timers.setInterval(1000 / 60){
+      val view = world.update()
+      screen.render(view)
+    }
+
 
 
     dom.window.addEventListener("keydown", { event: dom.KeyboardEvent =>

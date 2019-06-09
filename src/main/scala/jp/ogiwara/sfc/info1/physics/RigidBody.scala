@@ -1,8 +1,10 @@
 package jp.ogiwara.sfc.info1.physics
 
+import jp.ogiwara.sfc.info1.math._
+
 /**
   * 剛体を表す
   */
-class RigidBody {
+case class RigidBody(mass: Number){
 
 }

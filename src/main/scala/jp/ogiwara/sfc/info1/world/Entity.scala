@@ -8,3 +8,5 @@ import jp.ogiwara.sfc.info1.render.Mesh
 abstract class Entity {
   abstract def render(): Mesh
 }
+
+case class EntityID(id: Int)
