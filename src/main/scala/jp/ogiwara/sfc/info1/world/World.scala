@@ -16,4 +16,5 @@ class World(val systems: Seq[System], val state: WorldState){
 
 }
 
-object NormalWorld extends World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq()))
+object NormalWorld extends
+  World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq()))

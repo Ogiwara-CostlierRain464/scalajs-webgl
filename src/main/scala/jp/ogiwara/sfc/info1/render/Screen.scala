@@ -16,10 +16,6 @@ import scala.scalajs.js
 @mutable
 class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRenderingContext){
 
-  {
-    setup()
-  }
-
   var camera: Camera = _
   var meshes: mutable.Seq[Mesh] = mutable.Seq()
   private var program: WebGLProgram = _
@@ -30,7 +26,6 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
   }
 
   def setup(): Unit ={
-    require(camera != null)
 
     gl.enable(CULL_FACE)
     gl.enable(DEPTH_TEST)
@@ -64,6 +59,8 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
   }
 
   def flush(): Unit ={
+    require(camera != null)
+
     println("flushed!")
 
     val mesh = meshes.head
@@ -87,6 +84,10 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
 
       val camPosition = camera.position
       val camUpDirection = Vector3(0,1,0).rotate(rad2.toRadians, Vector3.up)
+
+      //1. Cameraの平行移動以外に、Rotationを定義する。これはそんなに難しくはないはず
+      //2. 複数のMeshに対応
+      // @see https://learnopengl.com/Getting-started/Camera
 
       val vMatrix = camPosition.makeLookAt(camera.lookAt, up = camUpDirection)
       val pMatrix = Matrix4.makePerspective(camera.fovy.toRadians, camera.aspect, camera.near ,camera.far)

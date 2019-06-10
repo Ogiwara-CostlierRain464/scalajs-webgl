@@ -41,34 +41,29 @@ object App {
     screen.camera = camera
     screen.meshes = mutable.Seq(mesh)
 
-    var count = 0
+    screen.setup()
 
-    js.timers.setInterval(1000 / 60){
-
-
-      count += 1
+    screen.flush()
 
 
-      screen.flush()
-    }
-
-
+    /*
     val world = NormalWorld
     js.timers.setInterval(1000 / 60){
       val view = world.update()
       screen.render(view)
     }
-
-
+    */
 
     dom.window.addEventListener("keydown", { event: dom.KeyboardEvent =>
       val keycode = event.key
 
+      println(keycode)
+
       camera = keycode match {
-        case KeyValue.ArrowDown => camera.down
-        case KeyValue.ArrowUp => camera.up
-        case KeyValue.ArrowLeft => camera.left
-        case KeyValue.ArrowRight => camera.right
+        case "s" => camera.down
+        case "w" => camera.up
+        case "a" => camera.left
+        case "d" => camera.right
         case _ => camera
       }
 
