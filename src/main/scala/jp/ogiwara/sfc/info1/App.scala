@@ -35,7 +35,8 @@ object App {
       fovy = 90.rad,
       aspect = canvas.width / canvas.height,
       near = 0.1,
-      far = 1000
+      far = 1000,
+      rotateX = Radians(0)
     )
 
     screen.camera = camera
@@ -64,6 +65,9 @@ object App {
         case "w" => camera.up
         case "a" => camera.left
         case "d" => camera.right
+        case KeyValue.ArrowRight => camera.turnRight
+        case KeyValue.ArrowUp => camera.turnY
+        case KeyValue.Spacebar => camera.turnZ
         case _ => camera
       }
 

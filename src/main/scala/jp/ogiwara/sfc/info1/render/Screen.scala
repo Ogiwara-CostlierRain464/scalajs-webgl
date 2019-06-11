@@ -90,9 +90,6 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
       //2. 複数のMeshに対応
       // @see https://learnopengl.com/Getting-started/Camera
 
-      //val vMatrix = camPosition.makeLookAt(camera.lookAt, up = camUpDirection)
-      //val pMatrix = Matrix4.makePerspective(camera.fovy.rad, camera.aspect, camera.near ,camera.far)
-      // tmp = pMatrix × vMatrix
       val vMatrix = camera.makeVMatrix
       val pMatrix = camera.makePMatrix
 

@@ -2,6 +2,7 @@ package jp.ogiwara.sfc.info1.render
 
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render.mvp.{ProjectionMatrix, ViewMatrix}
+import Math._
 
 case class Camera(
                    position: Position,
@@ -9,7 +10,10 @@ case class Camera(
                    fovy: Radians,
                    aspect: Number,
                    near: Number,
-                   far: Number
+                   far: Number,
+                   rotateX: Radians = Radians(0),
+                   rotateY: Radians = Radians(0),
+                   rotateZ: Radians = Radians(0),
                  ){
   def up: Camera = copy(
     position = position.vector + Vector3(0,0.1,0),
@@ -29,10 +33,26 @@ case class Camera(
     lookAt = lookAt.vector - Vector3(0.1,0,0)
   )
 
+  def turnRight: Camera = copy(
+    rotateX = Radians(rotateX.value + 1.toRadians)
+  )
+
+  def turnY: Camera = copy(
+    rotateY = Radians(rotateX.value + 1.toRadians)
+  )
+
+  def turnZ: Camera = copy(
+    rotateZ = Radians(rotateX.value + 1.toRadians)
+  )
+
   def makeVMatrix: ViewMatrix ={
     val matrix = makeLookAt(lookAt)
 
-    ViewMatrix(matrix)
+    val applyX = matrix × makeRotateX(rotateX)
+    val applyY = applyX × makeRotateY(rotateY)
+    val applyZ = applyY × makeRotateZ(rotateZ)
+
+    ViewMatrix(applyZ)
   }
 
   def makePMatrix: ProjectionMatrix ={
@@ -160,6 +180,41 @@ case class Camera(
       0,0,-1,0
     )
   }
+
+
+  def makeRotateX(radians: Radians): Matrix4 ={
+    val θ = radians.value
+
+    Matrix4(
+      1,   0,      0,     0,
+      0, cos(θ), -sin(θ), 0,
+      0, sin(θ),  cos(θ), 0,
+      0,   0,      0,     1
+    )
+  }
+
+  def makeRotateY(radians: Radians): Matrix4 ={
+    val θ = radians.value
+
+    Matrix4(
+      cos(θ), 0, sin(θ), 0,
+       0,     1,   0,    0,
+     -sin(θ), 0, cos(θ), 0,
+       0,     0,   0,    1
+    )
+  }
+
+  def makeRotateZ(radians: Radians): Matrix4 ={
+    val θ = radians.value
+
+    Matrix4(
+      cos(θ), -sin(θ), 0, 0,
+      sin(θ),  cos(θ), 0, 0,
+        0,      0,     1, 0,
+        0,      0,     0, 1
+    )
+  }
+
 
 
   //TODO カメラが見たい向きからではなく、とにかく位置移動とか簡単にしよう
