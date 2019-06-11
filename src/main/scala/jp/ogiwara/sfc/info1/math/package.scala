@@ -29,5 +29,7 @@ package object math{
   /**
     * Radian済みの値を格納する
     */
-  case class Radians(value: Number)
+  case class Radians(value: Number){
+    def +(rhs: Radians): Radians = Radians(value + rhs.value)
+  }
 }

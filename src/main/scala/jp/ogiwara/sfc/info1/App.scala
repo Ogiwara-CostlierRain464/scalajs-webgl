@@ -27,7 +27,7 @@ object App {
 
     val screen = new render.Screen(vs, fs, gl)
 
-    val mesh = Mesh.sample.square
+    val mesh = Mesh.sample.cube
 
     var camera = Camera(
       position = Vector3(5,5,5),
@@ -58,7 +58,6 @@ object App {
     dom.window.addEventListener("keydown", { event: dom.KeyboardEvent =>
       val keycode = event.key
 
-      println(keycode)
 
       camera = keycode match {
         case "s" => camera.down
@@ -71,7 +70,6 @@ object App {
         case _ => camera
       }
 
-      println(s"$camera")
 
       screen.camera = camera
       screen.flush()

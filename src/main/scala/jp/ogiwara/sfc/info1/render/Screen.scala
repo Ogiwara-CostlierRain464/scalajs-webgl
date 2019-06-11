@@ -31,7 +31,7 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
     gl.enable(CULL_FACE)
     gl.enable(DEPTH_TEST)
     // ここでは、それぞれclear時のparamを設定している
-    gl.clearColor(0,0,0,1)
+    gl.clearColor(0.33,1,1,1)
     gl.clearDepth(1)
 
     program = ProgramService.makeAndLink(vShader, fShader)
@@ -61,8 +61,6 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
 
   def flush(): Unit ={
     require(camera != null)
-
-    println("flushed!")
 
     val mesh = meshes.head
 

@@ -34,15 +34,15 @@ case class Camera(
   )
 
   def turnRight: Camera = copy(
-    rotateX = Radians(rotateX.value + 1.toRadians)
+    rotateX = rotateX + 1.rad
   )
 
   def turnY: Camera = copy(
-    rotateY = Radians(rotateX.value + 1.toRadians)
+    rotateY = rotateY + 1.rad
   )
 
   def turnZ: Camera = copy(
-    rotateZ = Radians(rotateX.value + 1.toRadians)
+    rotateZ = rotateZ + 1.rad
   )
 
   def makeVMatrix: ViewMatrix ={
