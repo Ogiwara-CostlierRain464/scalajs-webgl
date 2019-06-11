@@ -178,6 +178,11 @@ case class Vector3(x: Number, y: Number,z: Number){
     * Vectorを四元数と見なして計算するときに使う
     */
   def asQuaternion: Quaternion = Quaternion(0, x, y, z)
+
+  /**
+    * X-Z平面
+    */
+  def xzPlane: Vector2 = Vector2(x,z)
 }
 
 object Vector3{

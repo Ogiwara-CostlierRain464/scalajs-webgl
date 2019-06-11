@@ -57,7 +57,7 @@ object App {
 
     var caches: mutable.Seq[String] = mutable.Seq()
 
-    document.body.onkeypress = { event =>
+    document.body.onkeydown = { event =>
       val keycode = event.key
 
       caches = caches :+ keycode
@@ -69,15 +69,16 @@ object App {
 
       caches.foreach { code =>
         camera = code match {
-          case "s" => camera.front
-          case "w" => camera.back
+          case "w" => camera.front
+          case "s" => camera.back
           case "a" => camera.left
           case "d" => camera.right
-          case KeyValue.Spacebar => camera.up
-          case KeyValue.Shift => camera.down
-          case KeyValue.ArrowRight => camera.turnRight
+          case "j" => camera.up
+          case "k" => camera.down
           case KeyValue.ArrowUp => camera.lookUp
           case KeyValue.ArrowDown => camera.lookDown
+          case KeyValue.ArrowLeft => camera.lookLeft
+          case KeyValue.ArrowRight => camera.lookRight
           case _ => camera
         }
       }

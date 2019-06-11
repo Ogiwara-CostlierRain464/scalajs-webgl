@@ -16,7 +16,7 @@ case class Camera(
                    rotateZ: Radians = Radians(0),
                  ){
 
-  final val scale = 0.1
+  final val scale: Number = 0.1
 
   def up: Camera = copy(
     position = position.vector + Vector3(0,scale,0),
@@ -27,17 +27,7 @@ case class Camera(
     lookAt = lookAt.vector - Vector3(0,scale,0),
   )
   def front: Camera = {
-    val lookAtVec = (position - lookAt).normalized
-    val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
-
-    copy(
-      position = position.vector + move,
-      lookAt = lookAt.vector + move,
-    )
-  }
-
-  def back: Camera = {
-    val lookAtVec = (position - lookAt).normalized
+    val lookAtVec = (position - lookAt).normalized * scale
     val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
 
     copy(
@@ -46,33 +36,63 @@ case class Camera(
     )
   }
 
-  def left: Camera = copy(
-    position = position.vector + Vector3(scale,0,0),
-    lookAt = lookAt.vector + Vector3(scale,0,0),
-  )
-  def right: Camera = copy(
-    position = position.vector - Vector3(0.1,0,0),
-    lookAt = lookAt.vector - Vector3(0.1,0,0)
-  )
+  def back: Camera = {
+    val lookAtVec = (position - lookAt).normalized * scale
+    val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
 
-  def turnRight: Camera = copy(
-    rotateX = rotateX + 1.rad
-  )
+    copy(
+      position = position.vector + move,
+      lookAt = lookAt.vector + move,
+    )
+  }
 
-  def turnY: Camera = copy(
-    rotateY = rotateY + 1.rad
-  )
+  def left: Camera = {
+    val lookAtVec = (position - lookAt).normalized.xzPlane * scale
+    val move = lookAtVec.rotate(90.rad)
+
+    copy(
+      position = position.vector - Vector3(move.x,0,move.y),
+      lookAt = lookAt.vector - Vector3(move.x,0,move.y),
+    )
+  }
+
+
+  def right: Camera = {
+    val lookAtVec = (position - lookAt).normalized.xzPlane * scale
+    val move = lookAtVec.rotate(90.rad)
+
+    copy(
+      position = position.vector + Vector3(move.x,0,move.y),
+      lookAt = lookAt.vector + Vector3(move.x,0,move.y),
+    )
+  }
 
   def lookUp: Camera = copy(
-    lookAt = lookAt.vector + Vector3(0,0.1,0)
+    lookAt = lookAt.vector + Vector3(0,scale,0)
   )
 
   def lookDown: Camera = copy(
-    lookAt = lookAt.vector - Vector3(0,0.1,0)
+    lookAt = lookAt.vector - Vector3(0,scale,0)
   )
 
-  def turnZ: Camera = copy(
-    rotateZ = rotateZ + 1.rad
+  def lookLeft: Camera = copy(
+    lookAt = lookAt.vector - Vector3(scale,0,0)
+  )
+
+  def lookRight: Camera = copy(
+    lookAt = lookAt.vector + Vector3(scale,0,0)
+  )
+
+  def turnPitch: Camera = copy(
+    rotateX = rotateX + scale.rad
+  )
+
+  def turnYow: Camera = copy(
+    rotateY = rotateY + scale.rad
+  )
+
+  def turnRoll: Camera = copy(
+    rotateZ = rotateZ + scale.rad
   )
 
   def makeVMatrix: ViewMatrix ={
