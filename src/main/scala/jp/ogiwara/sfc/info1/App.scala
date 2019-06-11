@@ -29,7 +29,7 @@ object App {
     screen.setup()
 
     var camera = Camera(
-      position = Vector3(5,5,5),
+      position = Vector3(3,3,3),
       lookAt = Vector3.origin,
       fovy = 90.rad,
       aspect = canvas.width / canvas.height,
@@ -43,7 +43,6 @@ object App {
     var caches: mutable.Seq[String] = mutable.Seq()
 
     js.timers.setInterval(1000 / 30){
-      println(caches.length)
 
       caches.foreach { code =>
         camera = code match {
@@ -64,6 +63,7 @@ object App {
       caches = mutable.Seq()
 
       val snap = world.update()
+
       screen.render(snap, camera)
     }
 
@@ -71,7 +71,6 @@ object App {
       val keycode = event.key
 
       caches = caches :+ keycode
-      println(caches)
     }
   }
 

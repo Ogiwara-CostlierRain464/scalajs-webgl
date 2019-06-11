@@ -5,6 +5,6 @@ import jp.ogiwara.sfc.info1.math._
 /**
   * 剛体を表す
   */
-case class RigidBody(mass: Number){
+case class RigidBody(mass: Number, speed: Vector3){
 
 }
