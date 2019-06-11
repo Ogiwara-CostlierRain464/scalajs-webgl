@@ -3,7 +3,7 @@ package jp.ogiwara.sfc.info1
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render._
 import jp.ogiwara.sfc.info1.render.service.ShaderService
-import jp.ogiwara.sfc.info1.world.NormalWorld
+import jp.ogiwara.sfc.info1.world.{NormalWorld, PrimitiveWorld}
 import org.scalajs._
 import org.scalajs.dom._
 import org.scalajs.dom.ext.KeyValue
@@ -26,8 +26,7 @@ object App {
     val fs = ShaderService.byId("fs", document)
 
     val screen = new render.Screen(vs, fs, gl)
-
-    val mesh = Mesh.sample.cube
+    screen.setup()
 
     var camera = Camera(
       position = Vector3(5,5,5),
@@ -39,30 +38,9 @@ object App {
       rotateX = Radians(0)
     )
 
-    screen.camera = camera
-    screen.meshes = mutable.Seq(mesh, Mesh.sample.square)
-
-    screen.setup()
-
-    screen.flush()
-
-
-    /*
-    val world = NormalWorld
-    js.timers.setInterval(1000 / 60){
-      val view = world.update()
-      screen.render(view)
-    }
-    */
+    val world = PrimitiveWorld
 
     var caches: mutable.Seq[String] = mutable.Seq()
-
-    document.body.onkeydown = { event =>
-      val keycode = event.key
-
-      caches = caches :+ keycode
-      println(caches)
-    }
 
     js.timers.setInterval(1000 / 30){
       println(caches.length)
@@ -83,12 +61,17 @@ object App {
         }
       }
 
-      if(caches.nonEmpty){
-        caches = mutable.Seq()
+      caches = mutable.Seq()
 
-        screen.camera = camera
-        screen.flush()
-      }
+      val snap = world.update()
+      screen.render(snap, camera)
+    }
+
+    document.body.onkeydown = { event =>
+      val keycode = event.key
+
+      caches = caches :+ keycode
+      println(caches)
     }
   }
 

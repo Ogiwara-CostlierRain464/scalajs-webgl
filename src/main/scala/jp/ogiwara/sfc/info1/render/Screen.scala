@@ -17,9 +17,6 @@ import scala.scalajs.js
 @mutable
 class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRenderingContext){
 
-  var camera: Camera = _
-  var meshes: mutable.Seq[Mesh] = mutable.Seq()
-
   @lateInit
   private var program: WebGLProgram = _
   @lateInit
@@ -30,10 +27,6 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
   private var uniLocation: WebGLUniformLocation = _
   @lateInit
   private var uniTextureLocation: WebGLUniformLocation = _
-
-  def render(snapshot: WorldSnapshot): Unit ={
-
-  }
 
   def setup(): Unit ={
     gl.enable(CULL_FACE)
@@ -50,7 +43,7 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
     uniTextureLocation = gl.getUniformLocation(program, "texture")
   }
 
-  def flush(): Unit ={
+  def flush(meshes: Seq[Mesh], camera: Camera): Unit ={
     require(camera != null)
 
     gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
@@ -98,4 +91,6 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
 
     gl.flush()
   }
+
+  def render(snapshot: WorldSnapshot, camera: Camera): Unit = flush(snapshot.meshes, camera)
 }

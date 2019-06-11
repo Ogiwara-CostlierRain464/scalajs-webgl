@@ -7,14 +7,14 @@ import jp.ogiwara.sfc.info1.world.{Entity, EntityID}
 class Cube(position: Position = Vector3.origin) extends Entity(EntityID(0) ,position){
   override def render(): Mesh = Mesh(
     vertexes = Seq(
-      position + Vector3(0,1,0),
-      position + Vector3(1,1,0),
-      position + Vector3(0,1,1),
-      position + Vector3(1,1,1),
-      position + Vector3(0,0,0),
-      position + Vector3(1,0,0),
-      position + Vector3(0,0,1),
-      position + Vector3(1,0,1),
+      position.vector + Vector3(0,1,0),
+      position.vector + Vector3(1,1,0),
+      position.vector + Vector3(0,1,1),
+      position.vector + Vector3(1,1,1),
+      position.vector + Vector3(0,0,0),
+      position.vector + Vector3(1,0,0),
+      position.vector + Vector3(0,0,1),
+      position.vector + Vector3(1,0,1),
     ),
     colors = Seq(
       Color.blue,
