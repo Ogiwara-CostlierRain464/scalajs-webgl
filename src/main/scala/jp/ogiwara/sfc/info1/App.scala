@@ -32,7 +32,7 @@ object App {
     var camera = Camera(
       position = Vector3(5,5,5),
       lookAt = Vector3.origin,
-      fovy = 90,
+      fovy = 90.rad,
       aspect = canvas.width / canvas.height,
       near = 0.1,
       far = 1000

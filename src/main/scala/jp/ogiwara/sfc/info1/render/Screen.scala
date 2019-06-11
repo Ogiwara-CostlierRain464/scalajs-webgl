@@ -4,6 +4,7 @@ import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.mutable
 import org.scalajs.dom.raw.{WebGLProgram, WebGLRenderingContext}
 import WebGLRenderingContext._
+import jp.ogiwara.sfc.info1.render.mvp.ModelMatrix
 import jp.ogiwara.sfc.info1.render.service.{BufferObjectService, ProgramService}
 import jp.ogiwara.sfc.info1.world.WorldSnapshot
 
@@ -89,18 +90,22 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
       //2. 複数のMeshに対応
       // @see https://learnopengl.com/Getting-started/Camera
 
-      val vMatrix = camPosition.makeLookAt(camera.lookAt, up = camUpDirection)
-      val pMatrix = Matrix4.makePerspective(camera.fovy.rad, camera.aspect, camera.near ,camera.far)
-      val tmp = pMatrix × vMatrix
+      //val vMatrix = camPosition.makeLookAt(camera.lookAt, up = camUpDirection)
+      //val pMatrix = Matrix4.makePerspective(camera.fovy.rad, camera.aspect, camera.near ,camera.far)
+      // tmp = pMatrix × vMatrix
+      val vMatrix = camera.makeVMatrix
+      val pMatrix = camera.makePMatrix
+
+      val pvMatrix = pMatrix × vMatrix
 
       gl.uniform1i(uniTextureLocation, 0)
       //gl.bindTexture(TEXTURE_2D, texture)
 
       val mMatrix = Matrix4.identity.rotate(rad.rad, Vector3.up)
 
-      val mvpMatrix = tmp × mMatrix
+      val mvpMatrix = pvMatrix × ModelMatrix(mMatrix)
 
-      gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.toJsArray)
+      gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.matrix.toJsArray)
       gl.drawElements(TRIANGLES, mesh.indexes.length, UNSIGNED_SHORT, offset = 0)
       gl.flush()
     }
