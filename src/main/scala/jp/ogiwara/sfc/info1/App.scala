@@ -29,7 +29,7 @@ object App {
     screen.setup()
 
     var camera = Camera(
-      position = Vector3(3,3,3),
+      position = Vector3(50,50,50),
       lookAt = Vector3.origin,
       fovy = 90.rad,
       aspect = canvas.width / canvas.height,

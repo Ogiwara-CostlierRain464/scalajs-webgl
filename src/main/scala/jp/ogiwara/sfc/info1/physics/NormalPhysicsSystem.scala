@@ -18,13 +18,13 @@ class NormalPhysicsSystem extends System{
     // 重力を加えるだけなのもよし！
     val newEntities = state.entities.map { entity =>
       if(!map.contains(entity.id)){
-        map += (entity.id -> RigidBody(0, Vector3(0,0.1,0)))
+        map += (entity.id -> RigidBody(0, Vector3(0,0,0)))
       }
 
       val rigidBody = map(entity.id)
 
       val update = rigidBody.copy(
-        speed = rigidBody.speed + Vector3(0,rigidBody.speed.y + 0.000001, 0)
+        speed = rigidBody.speed + Vector3(0, - (-rigidBody.speed.y + 0.000323), 0)
       )
 
       map(entity.id) = update
