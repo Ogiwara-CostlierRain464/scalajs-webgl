@@ -24,8 +24,8 @@ case class Camera(
     lookAt = lookAt.vector - Vector3(0,0.1,0),
   )
   def front: Camera = copy(
-    position = position.vector + Vector3(0,0,0.1),
-    lookAt = lookAt.vector + Vector3(0,0,0.1),
+    position = position.vector + Vector3(0,0,0.05),
+    lookAt = lookAt.vector + Vector3(0,0,0.05),
   )
   def back: Camera = copy(
     position = position.vector - Vector3(0,0,0.1),

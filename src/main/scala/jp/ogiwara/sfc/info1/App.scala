@@ -55,9 +55,8 @@ object App {
     }
     */
 
-    dom.window.addEventListener("keypress", { event: dom.KeyboardEvent =>
+    document.body.onkeydown = { event =>
       val keycode = event.key
-
 
       camera = keycode match {
         case "s" => camera.front
@@ -72,11 +71,9 @@ object App {
         case _ => camera
       }
 
-
       screen.camera = camera
       screen.flush()
-    })
-
+    }
   }
 
 }
