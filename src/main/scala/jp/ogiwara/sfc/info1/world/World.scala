@@ -2,6 +2,7 @@ package jp.ogiwara.sfc.info1.world
 
 import jp.ogiwara.sfc.info1.mutable
 import jp.ogiwara.sfc.info1.physics._
+import jp.ogiwara.sfc.info1.world.sample.Cube
 /**
   * World(世界)とは、宇宙である。
   */
@@ -18,10 +19,13 @@ class World(val systems: Seq[System], val state: WorldState){
       tmp = system.update(tmp)
     }
 
-    ???
+    tmp.makeSnapShot
   }
 
 }
 
 object NormalWorld extends
   World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq()))
+
+object PrimitiveWorld extends
+  World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq(new Cube())))

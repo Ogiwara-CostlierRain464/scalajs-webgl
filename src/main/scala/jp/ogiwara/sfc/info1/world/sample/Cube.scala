@@ -4,7 +4,7 @@ import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.render.{Color, Mesh, Position}
 import jp.ogiwara.sfc.info1.world.{Entity, EntityID}
 
-class Cube(position: Position) extends Entity(EntityID(0) ,position){
+class Cube(position: Position = Vector3.origin) extends Entity(EntityID(0) ,position){
   override def render(): Mesh = Mesh(
     vertexes = Seq(
       position + Vector3(0,1,0),
