@@ -64,11 +64,11 @@ object Quaternion{
     * @param θ ラジアン角
     * @param axis 回転軸。正規化されている必要がある
     */
-  def byRotate(θ: Number, axis: Vector3): Quaternion ={
+  def byRotate(θ: Radians, axis: Vector3): Quaternion ={
     require(axis.hasNormalized)
 
-    val _w = cos(θ * 0.5).toFloat
-    val (_x, _y, _z) = (axis * sin(θ * 0.5)).tuple
+    val _w = cos(θ.value * 0.5).toFloat
+    val (_x, _y, _z) = (axis * sin(θ.value * 0.5)).tuple
 
     Quaternion(_w, _x, _y, _z)
   }

@@ -83,7 +83,7 @@ case class Matrix4(value: Tuple16[
   /**
     * [θ]はラジアン角で！
     */
-  def rotate(θ: Number, axis: Vector3): Matrix4 ={
+  def rotate(θ: Radians, axis: Vector3): Matrix4 ={
     /**
       * ロドゲリスの回転公式を用いる
       * @see https://ja.wikipedia.org/wiki/ロドリゲスの回転公式
@@ -92,8 +92,8 @@ case class Matrix4(value: Tuple16[
     require(axis.hasNormalized)
 
     val (a,b,c) = axis.tuple
-    val d = sin(θ)
-    val e = cos(θ)
+    val d = sin(θ.value)
+    val e = cos(θ.value)
     val f = 1 - e
     val (
       g,h,i,j,
@@ -152,7 +152,7 @@ object Matrix4{
     * @param near Front of ViewPort
     * @param far Back of ViewPort
     */
-  def makePerspective(fovy: Number, aspect: Number, near: Number, far: Number): Matrix4 ={
+  def makePerspective(fovy: Radians, aspect: Number, near: Number, far: Number): Matrix4 ={
     /**
       * NOTE: the eye coordinates are defined in the right-handed coordinate system,
       * but NDC uses the left-handed coordinate system. That is, the camera at the origin is looking along -Z axis in eye space,
@@ -185,8 +185,8 @@ object Matrix4{
       */
 
     Matrix4(
-      fovy / aspect, 0,0, 0,
-      0, fovy, 0,0,
+      fovy.value / aspect, 0,0, 0,
+      0, fovy.value, 0,0,
       0,0,  (-far-near) / (far- near) , (-2*far * near) / (far - near),
       0,0,-1,0
     )

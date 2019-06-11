@@ -151,7 +151,7 @@ case class Vector3(x: Number, y: Number,z: Number){
     * @param θ ラジアン角
     * @param axis 回転軸。正規化されている必要がある
     */
-  def rotate(θ: Number, axis: Vector3): Vector3 ={
+  def rotate(θ: Radians, axis: Vector3): Vector3 ={
     /**
       *
       * aをqによって回転して、bにするなら

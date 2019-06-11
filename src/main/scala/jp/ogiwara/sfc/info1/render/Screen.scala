@@ -83,20 +83,20 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
       val rad2 = ((0 % 180) * Math.PI / 45).toFloat
 
       val camPosition = camera.position
-      val camUpDirection = Vector3(0,1,0).rotate(rad2.toRadians, Vector3.up)
+      val camUpDirection = Vector3(0,1,0).rotate(rad2.rad, Vector3.up)
 
       //1. Cameraの平行移動以外に、Rotationを定義する。これはそんなに難しくはないはず
       //2. 複数のMeshに対応
       // @see https://learnopengl.com/Getting-started/Camera
 
       val vMatrix = camPosition.makeLookAt(camera.lookAt, up = camUpDirection)
-      val pMatrix = Matrix4.makePerspective(camera.fovy.toRadians, camera.aspect, camera.near ,camera.far)
+      val pMatrix = Matrix4.makePerspective(camera.fovy.rad, camera.aspect, camera.near ,camera.far)
       val tmp = pMatrix × vMatrix
 
       gl.uniform1i(uniTextureLocation, 0)
       //gl.bindTexture(TEXTURE_2D, texture)
 
-      val mMatrix = Matrix4.identity.rotate(rad, Vector3.up)
+      val mMatrix = Matrix4.identity.rotate(rad.rad, Vector3.up)
 
       val mvpMatrix = tmp × mMatrix
 

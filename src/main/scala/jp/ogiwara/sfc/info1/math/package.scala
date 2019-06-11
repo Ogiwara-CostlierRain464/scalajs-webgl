@@ -15,11 +15,19 @@ package object math{
     def ^(rhs: Int): Number ={
       pow(body,rhs)
     }
+
+    def rad: Radians = Radians(body.toRadians)
   }
 
   class IntMeta(val body: Int){
     def withIn(range: Range): Boolean =
       range.start <= body && body <= range.end
 
+    def rad: Radians = Radians(body.toRadians)
   }
+
+  /**
+    * Radian済みの値を格納する
+    */
+  case class Radians(value: Number)
 }
