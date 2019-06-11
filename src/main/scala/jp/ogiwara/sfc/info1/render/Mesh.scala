@@ -25,10 +25,10 @@ object Mesh{
       */
     val square = Mesh(
       vertexes = Seq(
-        Vector3(0,1,0),
-        Vector3(1,0,0),
-        Vector3(-1,0,0),
-        Vector3(0,-1,0),
+        Vector3(0,5,0),
+        Vector3(1,5,0),
+        Vector3(-1,5,0),
+        Vector3(0,4,0),
       ),
       colors = Seq(
         Color.black,

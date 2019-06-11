@@ -40,7 +40,7 @@ object App {
     )
 
     screen.camera = camera
-    screen.meshes = mutable.Seq(mesh)
+    screen.meshes = mutable.Seq(mesh, Mesh.sample.square)
 
     screen.setup()
 
@@ -55,24 +55,39 @@ object App {
     }
     */
 
-    document.body.onkeydown = { event =>
+    var caches: mutable.Seq[String] = mutable.Seq()
+
+    document.body.onkeypress = { event =>
       val keycode = event.key
 
-      camera = keycode match {
-        case "s" => camera.front
-        case "w" => camera.back
-        case "a" => camera.left
-        case "d" => camera.right
-        case KeyValue.Spacebar => camera.up
-        case KeyValue.Shift => camera.down
-        case KeyValue.ArrowRight => camera.turnRight
-        case KeyValue.ArrowUp => camera.lookUp
-        case KeyValue.ArrowDown => camera.lookDown
-        case _ => camera
+      caches = caches :+ keycode
+      println(caches)
+    }
+
+    js.timers.setInterval(1000 / 30){
+      println(caches.length)
+
+      caches.foreach { code =>
+        camera = code match {
+          case "s" => camera.front
+          case "w" => camera.back
+          case "a" => camera.left
+          case "d" => camera.right
+          case KeyValue.Spacebar => camera.up
+          case KeyValue.Shift => camera.down
+          case KeyValue.ArrowRight => camera.turnRight
+          case KeyValue.ArrowUp => camera.lookUp
+          case KeyValue.ArrowDown => camera.lookDown
+          case _ => camera
+        }
       }
 
-      screen.camera = camera
-      screen.flush()
+      if(caches.nonEmpty){
+        caches = mutable.Seq()
+
+        screen.camera = camera
+        screen.flush()
+      }
     }
   }
 

@@ -1,8 +1,8 @@
 package jp.ogiwara.sfc.info1.render
 
 import jp.ogiwara.sfc.info1.math._
-import jp.ogiwara.sfc.info1.mutable
-import org.scalajs.dom.raw.{WebGLProgram, WebGLRenderingContext}
+import jp.ogiwara.sfc.info1.{lateInit, mutable}
+import org.scalajs.dom.raw.{WebGLProgram, WebGLRenderingContext, WebGLUniformLocation}
 import WebGLRenderingContext._
 import jp.ogiwara.sfc.info1.render.mvp.ModelMatrix
 import jp.ogiwara.sfc.info1.render.service.{BufferObjectService, ProgramService}
@@ -19,15 +19,23 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
 
   var camera: Camera = _
   var meshes: mutable.Seq[Mesh] = mutable.Seq()
-  private var program: WebGLProgram = _
 
+  @lateInit
+  private var program: WebGLProgram = _
+  @lateInit
+  private var positionAttrLocation: Int = _
+  @lateInit
+  private var colorAttrLocation: Int = _
+  @lateInit
+  private var uniLocation: WebGLUniformLocation = _
+  @lateInit
+  private var uniTextureLocation: WebGLUniformLocation = _
 
   def render(snapshot: WorldSnapshot): Unit ={
 
   }
 
   def setup(): Unit ={
-
     gl.enable(CULL_FACE)
     gl.enable(DEPTH_TEST)
     // ここでは、それぞれclear時のparamを設定している
@@ -35,74 +43,59 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
     gl.clearDepth(1)
 
     program = ProgramService.makeAndLink(vShader, fShader)
+    positionAttrLocation = gl.getAttribLocation(program, "position")
+    colorAttrLocation = gl.getAttribLocation(program, "color")
 
-    val positionAttrLocation = gl.getAttribLocation(program, "position")
-    val colorAttrLocation = gl.getAttribLocation(program, "color")
-
-    //TODO: 複数のMeshに対応
-    val mesh = meshes.head
-
-    val positionVBO = BufferObjectService.createVBO(mesh.vertexes)
-    val colorVBO = BufferObjectService.createVBO2(mesh.colors)
-
-    gl.bindBuffer(ARRAY_BUFFER, positionVBO)
-    gl.enableVertexAttribArray(positionAttrLocation)
-    gl.vertexAttribPointer(positionAttrLocation, 3, FLOAT, normalized = false, stride = 0, offset = 0)
-
-    gl.bindBuffer(ARRAY_BUFFER, colorVBO)
-    gl.enableVertexAttribArray(colorAttrLocation)
-    gl.vertexAttribPointer(colorAttrLocation, 4, FLOAT, normalized = false, stride = 0, offset = 0)
-
-    val ibo = BufferObjectService.createIBO(mesh.indexes)
-
-    gl.bindBuffer(ELEMENT_ARRAY_BUFFER, ibo)
-
+    uniLocation = gl.getUniformLocation(program, "mvpMatrix")
+    uniTextureLocation = gl.getUniformLocation(program, "texture")
   }
 
   def flush(): Unit ={
     require(camera != null)
 
-    val mesh = meshes.head
-
-    val uniLocation = gl.getUniformLocation(program, "mvpMatrix")
-    val uniTextureLocation = gl.getUniformLocation(program, "texture")
-
-    var count = 0
+    gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
 
     //gl.activeTexture(TEXTURE0)
 
     //createTexture("wood.jpg")
 
-    js.timers.setInterval(1000 / 30) {
-      gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT)
+    //1. Cameraの平行移動以外に、Rotationを定義する。これはそんなに難しくはないはず
+    //2. 複数のMeshに対応
+    // @see https://learnopengl.com/Getting-started/Camera
 
-      count += 1
+    val vMatrix = camera.makeVMatrix
+    val pMatrix = camera.makePMatrix
 
-      val rad = ((0 % 180) * Math.PI / 45).toFloat
-      val rad2 = ((0 % 180) * Math.PI / 45).toFloat
+    val pvMatrix = pMatrix × vMatrix
 
-      val camPosition = camera.position
-      val camUpDirection = Vector3(0,1,0).rotate(rad2.rad, Vector3.up)
+    gl.uniform1i(uniTextureLocation, 0)
+    //gl.bindTexture(TEXTURE_2D, texture)
 
-      //1. Cameraの平行移動以外に、Rotationを定義する。これはそんなに難しくはないはず
-      //2. 複数のMeshに対応
-      // @see https://learnopengl.com/Getting-started/Camera
+    val mMatrix = Matrix4.identity
 
-      val vMatrix = camera.makeVMatrix
-      val pMatrix = camera.makePMatrix
+    val mvpMatrix = pvMatrix × ModelMatrix(mMatrix)
 
-      val pvMatrix = pMatrix × vMatrix
+    gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.matrix.toJsArray)
 
-      gl.uniform1i(uniTextureLocation, 0)
-      //gl.bindTexture(TEXTURE_2D, texture)
+    meshes.foreach { mesh =>
+      val positionVBO = BufferObjectService.createVBO(mesh.vertexes)
+      val colorVBO = BufferObjectService.createVBO2(mesh.colors)
 
-      val mMatrix = Matrix4.identity.rotate(rad.rad, Vector3.up)
+      gl.bindBuffer(ARRAY_BUFFER, positionVBO)
+      gl.enableVertexAttribArray(positionAttrLocation)
+      gl.vertexAttribPointer(positionAttrLocation, 3, FLOAT, normalized = false, stride = 0, offset = 0)
 
-      val mvpMatrix = pvMatrix × ModelMatrix(mMatrix)
+      gl.bindBuffer(ARRAY_BUFFER, colorVBO)
+      gl.enableVertexAttribArray(colorAttrLocation)
+      gl.vertexAttribPointer(colorAttrLocation, 4, FLOAT, normalized = false, stride = 0, offset = 0)
 
-      gl.uniformMatrix4fv(uniLocation, transpose = false, mvpMatrix.matrix.toJsArray)
+      val ibo = BufferObjectService.createIBO(mesh.indexes)
+
+      gl.bindBuffer(ELEMENT_ARRAY_BUFFER, ibo)
+
       gl.drawElements(TRIANGLES, mesh.indexes.length, UNSIGNED_SHORT, offset = 0)
-      gl.flush()
     }
+
+    gl.flush()
   }
 }

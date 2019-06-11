@@ -15,25 +15,40 @@ case class Camera(
                    rotateY: Radians = Radians(0),
                    rotateZ: Radians = Radians(0),
                  ){
+
+  final val scale = 0.1
+
   def up: Camera = copy(
-    position = position.vector + Vector3(0,0.1,0),
-    lookAt = lookAt.vector + Vector3(0,0.1,0),
+    position = position.vector + Vector3(0,scale,0),
+    lookAt = lookAt.vector + Vector3(0,scale,0),
   )
   def down: Camera = copy(
-    position = position.vector - Vector3(0,0.1,0),
-    lookAt = lookAt.vector - Vector3(0,0.1,0),
+    position = position.vector - Vector3(0,scale,0),
+    lookAt = lookAt.vector - Vector3(0,scale,0),
   )
-  def front: Camera = copy(
-    position = position.vector + Vector3(0,0,0.05),
-    lookAt = lookAt.vector + Vector3(0,0,0.05),
-  )
-  def back: Camera = copy(
-    position = position.vector - Vector3(0,0,0.1),
-    lookAt = lookAt.vector - Vector3(0,0,0.1),
-  )
+  def front: Camera = {
+    val lookAtVec = (position - lookAt).normalized
+    val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
+
+    copy(
+      position = position.vector + move,
+      lookAt = lookAt.vector + move,
+    )
+  }
+
+  def back: Camera = {
+    val lookAtVec = (position - lookAt).normalized
+    val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
+
+    copy(
+      position = position.vector - move,
+      lookAt = lookAt.vector - move,
+    )
+  }
+
   def left: Camera = copy(
-    position = position.vector + Vector3(0.1,0,0),
-    lookAt = lookAt.vector + Vector3(0.1,0,0),
+    position = position.vector + Vector3(scale,0,0),
+    lookAt = lookAt.vector + Vector3(scale,0,0),
   )
   def right: Camera = copy(
     position = position.vector - Vector3(0.1,0,0),
