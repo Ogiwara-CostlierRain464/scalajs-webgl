@@ -68,19 +68,19 @@ case class Camera(
   }
 
   def lookUp: Camera = copy(
-    lookAt = lookAt.vector + Vector3(0,scale,0)
+    lookAt = lookAt.vector + Vector3(0,scale * 10,0)
   )
 
   def lookDown: Camera = copy(
-    lookAt = lookAt.vector - Vector3(0,scale,0)
+    lookAt = lookAt.vector - Vector3(0,scale * 10,0)
   )
 
   def lookLeft: Camera = copy(
-    lookAt = lookAt.vector - Vector3(scale,0,0)
+    lookAt = lookAt.vector - Vector3(scale * 10,0,0)
   )
 
   def lookRight: Camera = copy(
-    lookAt = lookAt.vector + Vector3(scale,0,0)
+    lookAt = lookAt.vector + Vector3(scale * 10,0,0)
   )
 
   def turnPitch: Camera = copy(
