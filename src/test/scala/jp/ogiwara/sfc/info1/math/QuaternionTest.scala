@@ -14,7 +14,7 @@ object QuaternionTest extends TestSuite{
       assert(q * q == Quaternion(-28, 4,6,8))
     }
     'byRotate - {
-      val q = Quaternion.byRotate(180.toRadians, Vector3(0,0,1))
+      val q = Quaternion.byRotate(180.rad, Vector3(0,0,1))
 
       assert(q.z == 1)
     }

@@ -25,7 +25,7 @@ object Vector3Test extends TestSuite{
     }
 
     'rotate - {
-      val after = Vector3(3,0,0).rotate(90.toRadians, Vector3(0,0,1))
+      val after = Vector3(3,0,0).rotate(90.rad, Vector3(0,0,1))
 
       assert(round(after.y) == 3)
     }

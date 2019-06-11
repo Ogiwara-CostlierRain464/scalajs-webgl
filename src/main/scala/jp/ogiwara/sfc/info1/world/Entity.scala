@@ -10,3 +10,4 @@ abstract class Entity {
 }
 
 case class EntityID(id: Int)
+
