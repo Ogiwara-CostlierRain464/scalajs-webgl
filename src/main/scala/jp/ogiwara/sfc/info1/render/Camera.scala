@@ -22,7 +22,14 @@ case class Camera(
   def down: Camera = copy(
     position = position.vector - Vector3(0,0.1,0),
     lookAt = lookAt.vector - Vector3(0,0.1,0),
-
+  )
+  def front: Camera = copy(
+    position = position.vector + Vector3(0,0,0.1),
+    lookAt = lookAt.vector + Vector3(0,0,0.1),
+  )
+  def back: Camera = copy(
+    position = position.vector - Vector3(0,0,0.1),
+    lookAt = lookAt.vector - Vector3(0,0,0.1),
   )
   def left: Camera = copy(
     position = position.vector + Vector3(0.1,0,0),
@@ -39,6 +46,14 @@ case class Camera(
 
   def turnY: Camera = copy(
     rotateY = rotateY + 1.rad
+  )
+
+  def lookUp: Camera = copy(
+    lookAt = lookAt.vector + Vector3(0,0.1,0)
+  )
+
+  def lookDown: Camera = copy(
+    lookAt = lookAt.vector - Vector3(0,0.1,0)
   )
 
   def turnZ: Camera = copy(

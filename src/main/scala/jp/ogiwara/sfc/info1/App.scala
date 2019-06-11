@@ -55,18 +55,20 @@ object App {
     }
     */
 
-    dom.window.addEventListener("keydown", { event: dom.KeyboardEvent =>
+    dom.window.addEventListener("keypress", { event: dom.KeyboardEvent =>
       val keycode = event.key
 
 
       camera = keycode match {
-        case "s" => camera.down
-        case "w" => camera.up
+        case "s" => camera.front
+        case "w" => camera.back
         case "a" => camera.left
         case "d" => camera.right
+        case KeyValue.Spacebar => camera.up
+        case KeyValue.Shift => camera.down
         case KeyValue.ArrowRight => camera.turnRight
-        case KeyValue.ArrowUp => camera.turnY
-        case KeyValue.Spacebar => camera.turnZ
+        case KeyValue.ArrowUp => camera.lookUp
+        case KeyValue.ArrowDown => camera.lookDown
         case _ => camera
       }
 
