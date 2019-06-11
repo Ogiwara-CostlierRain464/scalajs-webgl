@@ -12,7 +12,14 @@ class World(val systems: Seq[System], val state: WorldState){
     * 世界の時間を進める
     * 毎フレーム毎に呼び出す。
     */
-  def update(): WorldSnapshot = ???
+  def update(): WorldSnapshot = {
+    var tmp = state
+    for(system <- systems){
+      tmp = system.update(tmp)
+    }
+
+
+  }
 
 }
 
