@@ -1,7 +1,7 @@
 package jp.ogiwara.sfc.info1
 
 import jp.ogiwara.sfc.info1.math.Number
-import jp.ogiwara.sfc.info1.physics.units.{Length, Mass, Time}
+import jp.ogiwara.sfc.info1.physics.units._
 
 package object physics {
 
@@ -11,5 +11,8 @@ package object physics {
     def m: Length = Length(body)
     def kg: Mass = Mass(body)
     def s: Time = Time(body)
+
+    def mPerS: Speed = Speed(body)
+    def mPerS2: Acceleration = Acceleration(body)
   }
 }
