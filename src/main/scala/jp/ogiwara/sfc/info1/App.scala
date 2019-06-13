@@ -2,6 +2,7 @@ package jp.ogiwara.sfc.info1
 
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render._
+import jp.ogiwara.sfc.info1.physics._
 import jp.ogiwara.sfc.info1.render.service.ShaderService
 import jp.ogiwara.sfc.info1.world.{NormalWorld, PrimitiveWorld}
 import org.scalajs._
@@ -29,12 +30,12 @@ object App {
     screen.setup()
 
     var camera = Camera(
-      position = Vector3(20,20,20),
-      lookAt = Vector3.origin,
+      position = Position(20f.m,20f.m,20f.m),
+      lookAt = Position.origin,
       fovy = 100.rad,
       aspect = canvas.width / canvas.height,
-      near = 0.1,
-      far = 1000,
+      near = 0.1f.m,
+      far = 1000f.m,
       rotateX = Radians(0)
     )
 

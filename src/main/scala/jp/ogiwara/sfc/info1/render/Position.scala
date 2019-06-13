@@ -1,13 +1,29 @@
 package jp.ogiwara.sfc.info1.render
 
 import jp.ogiwara.sfc.info1.math.Vector3
+import jp.ogiwara.sfc.info1.physics.units.Length
+import jp.ogiwara.sfc.info1.physics._
 
-case class Position(vector: Vector3)
+
+case class Position(x: Length,y: Length, z: Length){
+
+  def vector: Vector3 = Vector3(x.meter, y.meter, z.meter)
+
+  def this(vector3: Vector3) = this(vector3.x.m, vector3.y.m, vector3.z.m)
+
+  def +(rhs: Position): Position =
+    this.+(rhs.vector)
+
+  def +(rhs: Vector3): Position =
+    new Position(vector + rhs)
+
+  def -(rhs: Position): Position =
+    this.-(rhs.vector)
+
+  def -(rhs: Vector3): Position =
+    new Position(vector - rhs)
+}
 
 object Position{
-  implicit def vector2Position(vector: Vector3): Position =
-    Position(vector)
-
-  implicit def position2Vector(position: Position): Vector3 =
-    position.vector
+  def origin = new Position(Vector3.origin)
 }

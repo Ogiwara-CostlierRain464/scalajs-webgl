@@ -2,15 +2,18 @@ package jp.ogiwara.sfc.info1.render
 
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render.mvp.{ProjectionMatrix, ViewMatrix}
+import jp.ogiwara.sfc.info1.physics._
 import Math._
+
+import jp.ogiwara.sfc.info1.physics.units.Length
 
 case class Camera(
                    position: Position,
                    lookAt: Position,
                    fovy: Radians,
                    aspect: Number,
-                   near: Number,
-                   far: Number,
+                   near: Length,
+                   far: Length,
                    rotateX: Radians = Radians(0),
                    rotateY: Radians = Radians(0),
                    rotateZ: Radians = Radians(0),
@@ -19,68 +22,68 @@ case class Camera(
   final val scale: Number = 0.1
 
   def up: Camera = copy(
-    position = position.vector + Vector3(0,scale,0),
-    lookAt = lookAt.vector + Vector3(0,scale,0),
+    position = position + Vector3(0, scale,0),
+    lookAt = lookAt + Vector3(0,scale,0),
   )
   def down: Camera = copy(
-    position = position.vector - Vector3(0,scale,0),
-    lookAt = lookAt.vector - Vector3(0,scale,0),
+    position = position - Vector3(0,scale,0),
+    lookAt = lookAt - Vector3(0,scale,0),
   )
   def front: Camera = {
-    val lookAtVec = (position - lookAt).normalized * scale
+    val lookAtVec = (position - lookAt).vector.normalized * scale
     val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
 
     copy(
-      position = position.vector - move,
-      lookAt = lookAt.vector - move,
+      position = position - move,
+      lookAt = lookAt - move,
     )
   }
 
   def back: Camera = {
-    val lookAtVec = (position - lookAt).normalized * scale
+    val lookAtVec = (position - lookAt).vector.normalized * scale
     val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
 
     copy(
-      position = position.vector + move,
-      lookAt = lookAt.vector + move,
+      position = position + move,
+      lookAt = lookAt + move,
     )
   }
 
   def left: Camera = {
-    val lookAtVec = (position - lookAt).normalized.xzPlane * scale
+    val lookAtVec = (position - lookAt).vector.normalized.xzPlane * scale
     val move = lookAtVec.rotate(90.rad)
 
     copy(
-      position = position.vector - Vector3(move.x,0,move.y),
-      lookAt = lookAt.vector - Vector3(move.x,0,move.y),
+      position = position - Vector3(move.x,0,move.y),
+      lookAt = lookAt - Vector3(move.x,0,move.y),
     )
   }
 
 
   def right: Camera = {
-    val lookAtVec = (position - lookAt).normalized.xzPlane * scale
+    val lookAtVec = (position - lookAt).vector.normalized.xzPlane * scale
     val move = lookAtVec.rotate(90.rad)
 
     copy(
-      position = position.vector + Vector3(move.x,0,move.y),
-      lookAt = lookAt.vector + Vector3(move.x,0,move.y),
+      position = position + Vector3(move.x,0,move.y),
+      lookAt = lookAt + Vector3(move.x,0,move.y),
     )
   }
 
   def lookUp: Camera = copy(
-    lookAt = lookAt.vector + Vector3(0,scale * 10,0)
+    lookAt = lookAt + Vector3(0,scale * 10,0)
   )
 
   def lookDown: Camera = copy(
-    lookAt = lookAt.vector - Vector3(0,scale * 10,0)
+    lookAt = lookAt - Vector3(0,scale * 10,0)
   )
 
   def lookLeft: Camera = copy(
-    lookAt = lookAt.vector - Vector3(scale * 10,0,0)
+    lookAt = lookAt - Vector3(scale * 10,0,0)
   )
 
   def lookRight: Camera = copy(
-    lookAt = lookAt.vector + Vector3(scale * 10,0,0)
+    lookAt = lookAt + Vector3(scale * 10,0,0)
   )
 
   def turnPitch: Camera = copy(
@@ -96,7 +99,7 @@ case class Camera(
   )
 
   def makeVMatrix: ViewMatrix ={
-    val matrix = makeLookAt(lookAt)
+    val matrix = makeLookAt(lookAt.vector)
 
     val applyX = matrix × makeRotateX(rotateX)
     val applyY = applyX × makeRotateY(rotateY)
@@ -167,12 +170,12 @@ case class Camera(
       *
       */
 
-    val forward = (position - target).normalized
+    val forward = (position - target).vector.normalized
     val left = (up × forward).normalized
     val trueUp = forward × left
 
     val (f,l,u) = (forward, left, trueUp)
-    val e = position
+    val e = position.vector
 
     Matrix4(
       l.x, l.y, l.z, -l.x * e.x - l.y * e.y - l.z * e.z,
@@ -191,7 +194,7 @@ case class Camera(
     * @param near Front of ViewPort
     * @param far Back of ViewPort
     */
-  def makePerspective(fovy: Radians, aspect: Number, near: Number, far: Number): Matrix4 ={
+  def makePerspective(fovy: Radians, aspect: Number, near: Length, far: Length): Matrix4 ={
     /**
       * NOTE: the eye coordinates are defined in the right-handed coordinate system,
       * but NDC uses the left-handed coordinate system. That is, the camera at the origin is looking along -Z axis in eye space,
@@ -223,10 +226,13 @@ case class Camera(
       * |    0        0       -1             0      |
       */
 
+    val aFar = far.meter
+    val aNear = near.meter
+
     Matrix4(
       fovy.value / aspect, 0,0, 0,
       0, fovy.value, 0,0,
-      0,0,  (-far-near) / (far- near) , (-2*far * near) / (far - near),
+      0,0,  (-aFar-aNear) / (aFar- aNear) , (-2*aFar *aNear) / (aFar - aNear),
       0,0,-1,0
     )
   }

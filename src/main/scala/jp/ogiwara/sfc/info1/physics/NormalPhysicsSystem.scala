@@ -27,9 +27,7 @@ class NormalPhysicsSystem extends System{
 
       map(entity.id) = update
 
-      entity.position = entity.position.vector + update.speed
-
-      entity
+      update.applyToEntity(entity)
     }
 
     val newState = state.copy(
