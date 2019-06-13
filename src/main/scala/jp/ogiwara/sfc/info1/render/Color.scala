@@ -39,6 +39,5 @@ object Color{
     val red = Color(255, 85, 85)
     val blue = Color(85, 85, 255)
     val yellow = Color(255, 255, 85)
-
   }
 }

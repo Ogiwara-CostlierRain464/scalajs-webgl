@@ -29,9 +29,9 @@ object App {
     screen.setup()
 
     var camera = Camera(
-      position = Vector3(50,50,50),
+      position = Vector3(20,20,20),
       lookAt = Vector3.origin,
-      fovy = 90.rad,
+      fovy = 100.rad,
       aspect = canvas.width / canvas.height,
       near = 0.1,
       far = 1000,
@@ -42,7 +42,7 @@ object App {
 
     var caches: mutable.Seq[String] = mutable.Seq()
 
-    js.timers.setInterval(1000 / 30){
+    js.timers.setInterval(500){
 
       caches.foreach { code =>
         camera = code match {

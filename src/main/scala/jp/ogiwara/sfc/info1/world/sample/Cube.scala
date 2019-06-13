@@ -7,9 +7,6 @@ import jp.ogiwara.sfc.info1.world.{Entity, EntityID}
 class Cube(aPosition: Position) extends Entity(EntityID(0),aPosition){
   override def render(): Mesh = {
 
-    // 更新できていない！
-    println(this.position)
-
     Mesh(
       vertexes = Seq(
         position.vector + Vector3(0,1,0),

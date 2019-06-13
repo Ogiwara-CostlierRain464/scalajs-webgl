@@ -15,6 +15,27 @@ class NormalPhysicsSystem extends System{
   var map: mutable.Map[EntityID, RigidBody] = mutable.Map()
 
   override def update(state: WorldState): WorldState = {
-    state
+    // 重力を加えるだけなのもよし！
+    val newEntities = state.entities.map { entity =>
+      if(!map.contains(entity.id)){
+        map += (entity.id -> RigidBody(entity.position, 10))
+      }
+
+      val rigidBody = map(entity.id)
+
+      val update = rigidBody.step
+
+      map(entity.id) = update
+
+      entity.position = entity.position.vector + update.speed
+
+      entity
+    }
+
+    val newState = state.copy(
+      entities = newEntities
+    )
+
+    newState
   }
 }
