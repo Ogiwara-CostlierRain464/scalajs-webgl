@@ -19,7 +19,7 @@ case class Camera(
                    rotateZ: Radians = Radians(0),
                  ){
 
-  final val scale: Number = 0.1
+  final val scale: Number = 1
 
   def up: Camera = copy(
     position = position + Vector3(0, scale,0),

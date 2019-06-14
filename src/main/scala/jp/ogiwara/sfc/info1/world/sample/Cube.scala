@@ -1,22 +1,32 @@
 package jp.ogiwara.sfc.info1.world.sample
 
 import jp.ogiwara.sfc.info1.math.Vector3
+import jp.ogiwara.sfc.info1.physics._
 import jp.ogiwara.sfc.info1.render.{Color, Mesh, Position}
 import jp.ogiwara.sfc.info1.world.{Entity, EntityID}
+import jp.ogiwara.sfc.info1.math._
 
-class Cube(aPosition: Position) extends Entity(EntityID(0),aPosition){
+import scala.collection.mutable
+
+class Cube(aPosition: Position, size: Number = 1) extends Entity(
+  EntityID(0),
+  aPosition,
+  mutable.Map(RigidBody.key -> RigidBody(
+    aPosition,1f.kg
+  ))
+){
   override def render(): Mesh = {
 
     Mesh(
       vertexes = Seq(
-        position.vector + Vector3(0,1,0),
-        position.vector + Vector3(1,1,0),
-        position.vector + Vector3(0,1,1),
-        position.vector + Vector3(1,1,1),
+        position.vector + Vector3(0,size,0),
+        position.vector + Vector3(size,size,0),
+        position.vector + Vector3(0,size,size),
+        position.vector + Vector3(size,size,size),
         position.vector + Vector3(0,0,0),
-        position.vector + Vector3(1,0,0),
-        position.vector + Vector3(0,0,1),
-        position.vector + Vector3(1,0,1),
+        position.vector + Vector3(size,0,0),
+        position.vector + Vector3(0,0,size),
+        position.vector + Vector3(size,0,size),
       ),
       colors = Seq(
         Color.blue,
@@ -45,3 +55,4 @@ class Cube(aPosition: Position) extends Entity(EntityID(0),aPosition){
     )
   }
 }
+

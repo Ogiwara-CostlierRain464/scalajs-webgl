@@ -29,4 +29,4 @@ object NormalWorld extends
   World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq()))
 
 object PrimitiveWorld extends
-  World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq(new Cube(Position.origin))))
+  World(systems = Seq(), state = WorldState(entities = Seq(new Cube(Position.origin, size = 10))))

@@ -1,20 +1,21 @@
 package jp.ogiwara.sfc.info1.physics
 
 import jp.ogiwara.sfc.info1.math._
+import jp.ogiwara.sfc.info1.physics.units.Mass
 import jp.ogiwara.sfc.info1.render.Position
-import jp.ogiwara.sfc.info1.world.Entity
+import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta}
 
 /**
   * 剛体を表す
   */
-case class RigidBody(position: Position,mass: Number,
+case class RigidBody(position: Position, mass: Mass,
                      speed: Speeds = new Speeds(Vector3.origin),
-
-                    ){
+                     accelerations: Accelerations = Accelerations(0f.mPerS2, (-0.98f).mPerS2,0f.mPerS2)
+                    ) extends EntityMeta{
 
   def step: RigidBody = {
-    // 重力
-    val newSpeed = speed + Vector3(0,-0.98,0)
+    // 一定加速度
+    val newSpeed = speed + accelerations.vector
     val newPosition = position + newSpeed.vector
 
     copy(
@@ -28,4 +29,8 @@ case class RigidBody(position: Position,mass: Number,
 
     entity
   }
+}
+
+object RigidBody{
+  final val key = "phy"
 }

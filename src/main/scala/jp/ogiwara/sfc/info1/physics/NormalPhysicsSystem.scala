@@ -9,25 +9,16 @@ import scala.collection.mutable
 @mutable
 class NormalPhysicsSystem extends System{
 
-  /**
-    * EntityとRigidBodyを紐付け、update毎にRigidBodyを更新して、Entityに適用する
-    */
-  var map: mutable.Map[EntityID, RigidBody] = mutable.Map()
-
   override def update(state: WorldState): WorldState = {
-    // 重力を加えるだけなのもよし！
     val newEntities = state.entities.map { entity =>
-      if(!map.contains(entity.id)){
-        map += (entity.id -> RigidBody(entity.position, 10))
-      }
+      require(entity.metadatas.contains(RigidBody.key))
 
-      val rigidBody = map(entity.id)
-
+      val rigidBody = entity.metadatas(RigidBody.key).asInstanceOf[RigidBody]
       val update = rigidBody.step
-
-      map(entity.id) = update
-
       update.applyToEntity(entity)
+
+      entity.metadatas(RigidBody.key) = update
+      entity
     }
 
     val newState = state.copy(
