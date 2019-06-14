@@ -8,12 +8,10 @@ import jp.ogiwara.sfc.info1.math._
 
 import scala.collection.mutable
 
-class Cube(aPosition: Position, size: Number = 1) extends Entity(
+class Cube(aPosition: Position, size: Number = 1, rigidBody: RigidBody) extends Entity(
   EntityID(0),
   aPosition,
-  mutable.Map(RigidBody.key -> RigidBody(
-    aPosition,1f.kg
-  ))
+  mutable.Map(RigidBody.key -> rigidBody)
 ){
   override def render(): Mesh = {
 

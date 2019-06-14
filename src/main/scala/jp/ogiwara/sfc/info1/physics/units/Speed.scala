@@ -6,4 +6,10 @@ case class Speed(mPerS: Number){
   def /(rhs: Time): Acceleration = Acceleration(mPerS / rhs.second)
 
   override def toString: String = s"${mPerS}m/s"
+
+  def *(number: Number): Speed =
+    Speed(mPerS * number)
+
+  def -(rhs: Speed): Speed =
+    Speed(mPerS - rhs.mPerS)
 }

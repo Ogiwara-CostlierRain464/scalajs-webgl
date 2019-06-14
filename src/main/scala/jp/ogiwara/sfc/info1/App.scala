@@ -4,7 +4,7 @@ import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render._
 import jp.ogiwara.sfc.info1.physics._
 import jp.ogiwara.sfc.info1.render.service.ShaderService
-import jp.ogiwara.sfc.info1.world.{NormalWorld, PrimitiveWorld}
+import jp.ogiwara.sfc.info1.world.{NormalWorld, PrimitiveWorld, StopWorld}
 import org.scalajs._
 import org.scalajs.dom._
 import org.scalajs.dom.ext.KeyValue
@@ -30,12 +30,12 @@ object App {
     screen.setup()
 
     var camera = Camera(
-      position = Position(50f.m,50f.m,50f.m),
+      position = Position((-100f).m,25f.m,200f.km),
       lookAt = Position.origin,
       fovy = 100.rad,
       aspect = canvas.width / canvas.height,
-      near = 0.1f.m,
-      far = 1000f.m,
+      near = 1f.m,
+      far = 100000f.km,
       rotateX = Radians(0)
     )
 
@@ -43,7 +43,7 @@ object App {
 
     var caches: mutable.Seq[String] = mutable.Seq()
 
-    js.timers.setInterval(1000 / 120){
+    js.timers.setInterval(1000 / 60){
 
       caches.foreach { code =>
         camera = code match {

@@ -86,7 +86,7 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
 
       gl.bindBuffer(ELEMENT_ARRAY_BUFFER, ibo)
 
-      gl.drawElements(TRIANGLES, mesh.indexes.length, UNSIGNED_SHORT, offset = 0)
+      gl.drawElements( if(mesh.aType == Triangle) TRIANGLES else LINES , mesh.indexes.length, UNSIGNED_SHORT, offset = 0)
     }
 
     gl.flush()

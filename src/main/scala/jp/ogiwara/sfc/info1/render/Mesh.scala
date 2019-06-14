@@ -10,12 +10,16 @@ import jp.ogiwara.sfc.info1.math.Vector3
   * IBOも含めて考えると、ここで頂点、色、テクスチャ、インデックス
   * を指定することになる
   */
-case class Mesh(vertexes: Seq[Vertex], colors: Seq[Color], indexes: Seq[Int]){
+case class Mesh(vertexes: Seq[Vertex], colors: Seq[Color], indexes: Seq[Int], aType: MeshRenderType = Triangle){
   require(vertexes.length == colors.length)
   require(vertexes.length == indexes.max + 1)
-
-
 }
+
+sealed trait MeshRenderType
+
+case object Triangle extends MeshRenderType
+case object Line extends MeshRenderType
+case object Point extends MeshRenderType
 
 object Mesh{
   object sample{
@@ -81,7 +85,26 @@ object Mesh{
         7,3,6
       )
     )
-  }
 
+    val axises = Mesh(
+      vertexes = Seq(
+        Vector3(-100000, 0,0),
+        Vector3(100000, 0,0),
+        Vector3(0,-100000,0),
+        Vector3(0,100000,0),
+        Vector3(0,0,-100000),
+        Vector3(0,0,100000),
+      ),
+      colors = Seq(
+        Color.red,Color.red,
+        Color.green, Color.green,
+        Color.blue, Color.blue
+      ),
+      indexes = Seq(
+        0,1,2,3,4,5
+      ),
+      aType = Line
+    )
+  }
 
 }
