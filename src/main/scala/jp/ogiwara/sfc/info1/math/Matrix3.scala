@@ -8,6 +8,18 @@ case class Matrix3(value:
                      )
                   ){
 
+  /**
+    * 転置
+    */
+  def transpose: Matrix3 ={
+    val (a,b,c,d,e,f,h,i,j) = value
+
+    Matrix3(
+      a,b,c,
+      d,e,f,
+      h,i,j
+    )
+  }
 }
 
 object Matrix3{

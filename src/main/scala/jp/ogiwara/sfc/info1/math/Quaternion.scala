@@ -52,6 +52,13 @@ case class Quaternion(w: Number, x: Number, y: Number, z: Number){
 
 
   def asVector: Vector3 = Vector3(x,y,z)
+
+  def asMatrix: Matrix4 = Matrix4(
+    1-2*y^2,     2*x*y+2*w*z,     2*x*z-2*w*y,      0,
+    2*x*y-2*w*z, 1-(2*x^2)-2*z^2, 2*y*z+2*w*x,      0,
+    2*x*z+2*w*y, 2*y*z-2*w*x,     1-(2*x^2) -2*y^2, 0,
+        0,            0,                 0,         1,
+  )
 }
 
 object Quaternion{

@@ -119,6 +119,16 @@ case class Matrix4(value: Tuple16[
       j * s + n * t + r * u,  j * v + n * w + r * x, j * y + n * z + r * a2, value._16
     )
   }
+
+  def asMatrix3: Matrix3 ={
+    val (a,b,c,_,e,f,g,_,i,j,k,_,_,_,_,_) = value
+
+    Matrix3(
+      a,e,i,
+      b,f,j,
+      c,g,k
+    )
+  }
 }
 
 object Matrix4{
