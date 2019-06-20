@@ -7,6 +7,11 @@ import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta}
 
 /**
   * 剛体を表す
+  *
+  * 剛体の性質は三つの要素から構成される
+  * - 形状(Collidable)
+  * - 状態(位置、姿勢、速度)
+  * - 属性(重さ、摩擦、反発)
   */
 case class RigidBody(position: Position, mass: Mass,
                      speed: Speeds = new Speeds(Vector3.origin),

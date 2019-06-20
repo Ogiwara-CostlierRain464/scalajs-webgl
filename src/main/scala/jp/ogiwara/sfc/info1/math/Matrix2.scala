@@ -15,8 +15,9 @@ case class Matrix2(value: (Number, Number, Number, Number)){
 
 object Matrix2{
   def apply(
-           a: Number, c: Number, b: Number, d: Number
-           ): Unit ={
+           a: Number, c: Number,
+           b: Number, d: Number
+           ): Matrix2 ={
     new Matrix2((a,b,c,d))
   }
 }
