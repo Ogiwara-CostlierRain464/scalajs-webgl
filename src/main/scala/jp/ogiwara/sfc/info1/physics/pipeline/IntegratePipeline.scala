@@ -26,6 +26,21 @@ object IntegratePipeline {
     val orientation = state.orientation.asMatrix.asMatrix3
     val worldInertia = orientation × attribute.inertia × orientation.transpose
     val worldInertiaInverse = orientation × attribute.inertia.inverse × orientation.transpose
+    // 角運動量 = I' * v
     val angularMomentum = worldInertia × state.angularVelocity
+
+    // 並進速度の更新
+    var newState = state.copy(
+      linearVelocity = externalForce / attribute.mass.kg * timeStep
+    )
+
+    val newAngularMomentum: Vector3 = angularMomentum + externalTorque * timeStep
+
+    // 角速度の更新
+    newState = newState.copy(
+      angularVelocity = worldInertiaInverse × newAngularMomentum
+    )
+
+    // TODO: 最大速度への対応
   }
 }

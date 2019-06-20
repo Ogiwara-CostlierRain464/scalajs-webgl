@@ -30,6 +30,12 @@ case class Vector3(x: Number, y: Number,z: Number){
     z * scala
   )
 
+  def /(scala: Number): Vector3 = Vector3(
+    x / scala,
+    y / scala,
+    z / scala
+  )
+
   /**
     * スカラー積
     */
