@@ -1,6 +1,6 @@
 package jp.ogiwara.sfc.info1.physics.elements
 
-import jp.ogiwara.sfc.info1.math.Quaternion
+import jp.ogiwara.sfc.info1.math.{Quaternion, Vector3}
 import jp.ogiwara.sfc.info1.physics.Speeds
 import jp.ogiwara.sfc.info1.render.Position
 
@@ -10,9 +10,9 @@ case class State(
                   // 姿勢
                   orientation: Quaternion,
                   // 並進速度
-                  linearVelocity: Speeds,
+                  linearVelocity: Vector3,
                   // 回転速度
-                  angularVelocity: Speeds,
+                  angularVelocity: Vector3,
                   motionType: MotionType
                 )
 

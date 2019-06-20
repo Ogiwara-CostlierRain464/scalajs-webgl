@@ -19,6 +19,28 @@ case class Matrix3(value:
     )
   }
 
+  def ×(rhs: Vector3): Vector3 ={
+    val (a,b,c,d,e,f,g,h,i) = value
+    val (j,k,l) = rhs.tuple
+
+    Vector3(
+      a*j+d*k+g*l,
+      b*j+e*k+h*l,
+      c*j+f*k+i*l,
+    )
+  }
+
+  def *(scala: Number): Matrix3 ={
+    val (a,b,c,d,e,f,g,h,i) = value
+
+    Matrix3(
+      a*scala, d*scala, g*scala,
+      b*scala, e*scala, h*scala,
+      c*scala, f*scala, i*scala,
+    )
+  }
+
+
   /**
     * 転置
     */
@@ -30,6 +52,22 @@ case class Matrix3(value:
       d,e,f,
       g,h,i
     )
+  }
+
+  /**
+    * 逆行列
+    */
+  def inverse: Matrix3 ={
+    val (a,b,c,d,e,f,g,h,i) = value
+    val det = 1/(a*e*i+d*h*c+g*b*f-g*e*c-d*b*i-a*h*f)
+
+    val right = Matrix3(
+      e*i-h*f, -(d*i-g*f), d*h-g*e,
+      -(b*i-h*c), a*i-g*c, -(a*h-g*b),
+      b*f-e*c, -(a*f-d*c), a*e-d*b
+    )
+
+    right * det
   }
 }
 
