@@ -16,12 +16,13 @@ object IntegratePipeline {
                           externalTorque: Vector3,
                           timeStep: Number
                         ): RigidBody ={
-    if(rigidBody.state.motionType == Static) return rigidBody
+    val state = rigidBody.state
+
+    if(state.motionType == Static) return rigidBody
 
     // 軸dを元にした回転後の物体の原点に対する慣性テンソルをI'とすると、
     // I' = RIR^t が成り立つ
-
-    //worldInertia = rigidBody.state.orientation.*(rigidBody.attribute.inertia)
-    // how 2 convert Quat to Mat3x3?
+    val orientation = state.orientation.asMatrix.asMatrix3
+    val worldInertia = orientation
   }
 }
