@@ -1,5 +1,7 @@
 package jp.ogiwara.sfc.info1.math
 
+import Math._
+
 case class Matrix3(value:
                    (
                      Number, Number, Number,
@@ -68,6 +70,19 @@ case class Matrix3(value:
     )
 
     right * det
+  }
+
+  /**
+    * 絶対値
+    */
+  def abs: Matrix3 ={
+    val (a,b,c,d,e,f,g,h,i) = value
+
+    Matrix3(
+      a.abs, d.abs, g.abs,
+      b.abs, e.abs, h.abs,
+      c.abs, f.abs, i.abs,
+    )
   }
 }
 
