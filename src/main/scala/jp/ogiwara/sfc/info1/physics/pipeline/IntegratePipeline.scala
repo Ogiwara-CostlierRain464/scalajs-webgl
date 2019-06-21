@@ -42,5 +42,6 @@ object IntegratePipeline {
     )
 
     // TODO: 最大速度への対応
+    rigidBody
   }
 }
