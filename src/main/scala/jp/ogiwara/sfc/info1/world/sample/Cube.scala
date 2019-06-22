@@ -27,15 +27,15 @@ class Cube(aPosition: Position, size: Number = 1) extends Entity(
     ),
     state = State(
       position = aPosition,
-      orientation = Quaternion.identity,
+      orientation = Quaternion.byRotate(0.rad, Vector3.up),
       linearVelocity = Vector3.origin,
       angularVelocity = Vector3.origin
     ),
     attribute = Attribute(
       inertia = Matrix3(
-        (1/12)*(2*(size^2)),0,0,
-        0,(1/12)*(2*(size^2)),0,
-        0,0,(1/12)*(2*(size^2)),
+        (1f/12)*(2*(size^2)),0,0,
+        0,(1f/12)*(2*(size^2)),0,
+        0,0,(1f/12)*(2*(size^2)),
       ),
       mass = 1f.kg,
       restitution = 0,
@@ -45,6 +45,7 @@ class Cube(aPosition: Position, size: Number = 1) extends Entity(
 ){
 
   override def render(): Mesh = {
+
     Mesh(
       vertexes = Seq(
         position.vector + Vector3(0,size,0).rotate(rotation),

@@ -60,8 +60,11 @@ case class Matrix3(value:
     * 逆行列
     */
   def inverse: Matrix3 ={
+
     val (a,b,c,d,e,f,g,h,i) = value
-    val det = 1/(a*e*i+d*h*c+g*b*f-g*e*c-d*b*i-a*h*f)
+
+    val det = a*e*i+d*h*c+g*b*f-g*e*c-d*b*i-a*h*f
+    if(det == 0) return this
 
     val right = Matrix3(
       e*i-h*f, -(d*i-g*f), d*h-g*e,
@@ -69,7 +72,7 @@ case class Matrix3(value:
       b*f-e*c, -(a*f-d*c), a*e-d*b
     )
 
-    right * det
+    right * (1f / det)
   }
 
   /**

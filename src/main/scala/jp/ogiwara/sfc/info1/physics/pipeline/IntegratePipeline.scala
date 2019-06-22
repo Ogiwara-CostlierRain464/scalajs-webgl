@@ -24,8 +24,10 @@ object IntegratePipeline {
     // 軸dを元にした回転後の物体の原点に対する慣性テンソルをI'とすると、
     // I' = RIR^t が成り立つ(P111)
     val orientation = state.orientation.asMatrix.asMatrix3
+
     val worldInertia = orientation × attribute.inertia × orientation.transpose
     val worldInertiaInverse = orientation × attribute.inertia.inverse × orientation.transpose
+
     // 角運動量 = I' * v
     val angularMomentum = worldInertia × state.angularVelocity
 
@@ -40,8 +42,6 @@ object IntegratePipeline {
     newState = newState.copy(
       angularVelocity = worldInertiaInverse × newAngularMomentum
     )
-
-    println(newState)
 
     rigidBody.copy(
       state = newState
