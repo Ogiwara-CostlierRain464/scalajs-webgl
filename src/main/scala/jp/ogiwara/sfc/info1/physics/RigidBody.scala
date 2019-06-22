@@ -14,16 +14,11 @@ import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta}
   * - 状態(位置、姿勢、速度)
   * - 属性(重さ、摩擦、反発)
   */
-case class RigidBody(position: Position, mass: Mass,
-                     speed: Speeds = new Speeds(Vector3.origin),
-                     accelerations: Accelerations = Accelerations(0f.mPerS2, (-0.98f).mPerS2,0f.mPerS2)
-                    ) extends EntityMeta{
-
-  val collidable: Collidable = null
-  val state: State = null
-  val attribute: Attribute = null
+case class RigidBody(collidable: Collidable, state: State, attribute: Attribute) extends EntityMeta{
 
   def step: RigidBody = {
+
+    /*
     // 一定加速度
     val newSpeed = speed + accelerations.vector
     val newPosition = position + newSpeed.vector
@@ -32,10 +27,13 @@ case class RigidBody(position: Position, mass: Mass,
       speed = newSpeed,
       position = newPosition
     )
+    */
+    this
   }
 
   def applyToEntity(entity: Entity): Entity ={
-    entity.position = position
+    entity.position = state.position
+    entity.rotation = state.orientation
 
     entity
   }
