@@ -18,7 +18,7 @@ class NormalPhysicsSystem extends System{
       val rigidBody = entity.metadatas(RigidBody.key).asInstanceOf[RigidBody]
 
       // TODO: Pipeline
-      val update0 = IntegratePipeline(rigidBody, Gravity * rigidBody.attribute.mass.kg, Vector3.origin, 0.016f)
+      val update0 = IntegratePipeline(rigidBody, Gravity * rigidBody.attribute.mass.kg, Vector3(0,0,0), 0.016f)
       val update = FakePipeline(update0)
 
       update.applyToEntity(entity)

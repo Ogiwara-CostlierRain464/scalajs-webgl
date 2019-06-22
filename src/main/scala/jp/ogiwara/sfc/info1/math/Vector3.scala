@@ -183,7 +183,7 @@ case class Vector3(x: Number, y: Number,z: Number){
   /**
     * Vectorを四元数と見なして計算するときに使う
     */
-  def asQuaternion: Quaternion = Quaternion(0, x, y, z)
+  def asQuaternion: Quaternion = Quaternion(1, x, y, z)
 
   /**
     * X-Z平面

@@ -26,15 +26,6 @@ case class Quaternion(w: Number, x: Number, y: Number, z: Number){
   def norm: Number =
     sqrt(pow(w,2) + pow(x,2) + pow(y,2) + pow(z, 2))
 
-  def +(rhs: Quaternion): Quaternion ={
-    Quaternion(
-      w + rhs.w,
-      x + rhs.x,
-      y + rhs.y,
-      z + rhs.z,
-    )
-  }
-
   def * (rhs: Quaternion): Quaternion ={
     /**
       *
