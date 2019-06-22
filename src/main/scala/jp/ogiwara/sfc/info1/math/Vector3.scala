@@ -55,9 +55,9 @@ case class Vector3(x: Number, y: Number,z: Number){
     * ノルム
     *
     */
-  def norm: Number =
-    // sqrt(x^2 + y^2 + z^2)
+  def norm: Number = {
     sqrt(pow(x,2) + pow(y,2) + pow(z,2))
+  }
 
 
   /**
@@ -66,7 +66,7 @@ case class Vector3(x: Number, y: Number,z: Number){
   def normalized: Vector3 = {
     val norm = this.norm
 
-    if(norm == 0)
+    if(norm.isNaN || norm == 0)
       Vector3(0,0,0)
     else
       this * (1 / this.norm)
