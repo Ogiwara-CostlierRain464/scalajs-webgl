@@ -18,6 +18,8 @@ case class RigidBody(collidable: Collidable, state: State, attribute: Attribute)
 
   def step: RigidBody = {
 
+
+
     /*
     // 一定加速度
     val newSpeed = speed + accelerations.vector

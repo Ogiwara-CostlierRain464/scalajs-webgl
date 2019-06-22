@@ -13,7 +13,7 @@ case class State(
                   linearVelocity: Vector3,
                   // 回転速度
                   angularVelocity: Vector3,
-                  motionType: MotionType
+                  motionType: MotionType = Active
                 )
 
 sealed trait MotionType

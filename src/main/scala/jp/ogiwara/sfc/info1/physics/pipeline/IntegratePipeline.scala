@@ -10,7 +10,7 @@ object IntegratePipeline {
   /**
     * 剛体に外力を与える
     */
-  def applyExternalForce(
+  def apply(
                           rigidBody: RigidBody,
                           externalForce: Vector3,
                           externalTorque: Vector3,
@@ -41,7 +41,10 @@ object IntegratePipeline {
       angularVelocity = worldInertiaInverse × newAngularMomentum
     )
 
-    // TODO: 最大速度への対応
-    rigidBody
+    println(newState)
+
+    rigidBody.copy(
+      state = newState
+    )
   }
 }

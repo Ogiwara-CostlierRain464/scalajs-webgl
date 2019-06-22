@@ -4,6 +4,7 @@ import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.mutable
 import jp.ogiwara.sfc.info1.physics._
 import jp.ogiwara.sfc.info1.math._
+import jp.ogiwara.sfc.info1.physics.elements.{Attribute, Collidable, State}
 import jp.ogiwara.sfc.info1.render.Position
 import jp.ogiwara.sfc.info1.world.sample.{Cube, SimulatorService}
 /**
@@ -29,10 +30,14 @@ class World(val systems: Seq[System], var state: WorldState){
 object NormalWorld extends
   World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq()))
 
-object StopWorld extends
-  World(systems = Seq(), state = WorldState(entities = Seq(
-    new Cube(Position.origin,size = 1, rigidBody = RigidBody(Position.origin, mass = 1f.kg))
-  )))
+object StopWorld extends World(
+  systems = Seq(),
+  state = WorldState(
+    entities = Seq(
+    new Cube(Position.origin,size = 1)
+    )
+  )
+)
 
 
 object PrimitiveWorld extends
@@ -42,8 +47,7 @@ object PrimitiveWorld extends
       entities = Seq(
         new Cube(
           Position.origin,
-          size = 2000,
-          rigidBody = SimulatorService.cannon(0.rad, 0.rad, 0.rad,500f.mPerS)
+          size = 2
         )
       )
     )

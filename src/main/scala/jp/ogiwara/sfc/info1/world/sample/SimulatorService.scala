@@ -23,6 +23,7 @@ object SimulatorService {
     val vz = vm * cos(θz.value)
 
 
+    /*
 
     RigidBody(
       position = Position(0f.m, 0f.m, 0f.m),
@@ -30,5 +31,7 @@ object SimulatorService {
       speed = Speeds(vx, vy, vz),
       accelerations = Accelerations(ax, ay, az)
     )
+    */
+    ???
   }
 }

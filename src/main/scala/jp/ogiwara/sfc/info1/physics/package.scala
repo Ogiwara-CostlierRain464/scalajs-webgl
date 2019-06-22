@@ -1,6 +1,6 @@
 package jp.ogiwara.sfc.info1
 
-import jp.ogiwara.sfc.info1.math.Number
+import jp.ogiwara.sfc.info1.math.{Number, Vector3}
 import jp.ogiwara.sfc.info1.physics.units._
 
 package object physics {
@@ -19,4 +19,5 @@ package object physics {
   }
 
   final val G = 9.8f.mPerS2
+  final val Gravity = Vector3(0, -9.8f, 0)
 }

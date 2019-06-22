@@ -30,12 +30,12 @@ object App {
     screen.setup()
 
     var camera = Camera(
-      position = Position((-100f).m,25f.m,200f.km),
+      position = Position(5f.m,5f.m,5f.m),
       lookAt = Position.origin,
       fovy = 100.rad,
       aspect = canvas.width / canvas.height,
       near = 1f.m,
-      far = 100000f.km,
+      far = 1000f.km,
       rotateX = Radians(0)
     )
 
