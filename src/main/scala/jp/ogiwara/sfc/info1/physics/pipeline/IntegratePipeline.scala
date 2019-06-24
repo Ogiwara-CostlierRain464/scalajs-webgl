@@ -11,7 +11,7 @@ import jp.ogiwara.sfc.info1.physics.elements.Static
   * 位置を更新する
   */
 object IntegratePipeline {
-  def apply(bodies: Seq[RigidBody], timeStep: Number): Seq[RigidBody] = bodies.map { body =>
+  def apply(body: RigidBody, timeStep: Number): RigidBody = {
     val state = body.state
 
     val dAng = Quaternion(0, state.angularVelocity.x, state.angularVelocity.y, state.angularVelocity.z) * state.orientation * 0.5

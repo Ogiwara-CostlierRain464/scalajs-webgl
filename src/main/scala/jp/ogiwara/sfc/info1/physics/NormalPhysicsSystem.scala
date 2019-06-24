@@ -12,7 +12,7 @@ import scala.collection.mutable
 @mutable
 class NormalPhysicsSystem extends System{
 
-  var frame = 0
+  final val timeStep = 0.016f
 
   override def update(state: WorldState): WorldState = {
 
@@ -21,10 +21,8 @@ class NormalPhysicsSystem extends System{
       require(entity.metadatas.contains(RigidBody.key))
       val rigidBody = entity.metadatas(RigidBody.key).asInstanceOf[RigidBody]
 
-      // TODO: Pipeline
-
-      val update = ForcePipeline(rigidBody, Vector3.origin, Vector3(0,1,0), 0.016f)
-        .|>(FakePipeline.apply)
+      val update0 = ForcePipeline(rigidBody, Vector3.origin, Vector3(2,0,0), timeStep)
+      val update = IntegratePipeline(update0, 0.016f)
 
       update.applyToEntity(entity)
 
