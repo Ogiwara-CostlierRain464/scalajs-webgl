@@ -26,6 +26,25 @@ case class Quaternion(w: Number, x: Number, y: Number, z: Number){
   def norm: Number =
     sqrt(pow(w,2) + pow(x,2) + pow(y,2) + pow(z, 2))
 
+  def normalized: Quaternion = {
+    val norm = this.norm
+
+    if(norm.isNaN || norm == 0)
+      Quaternion(0,0,0,0)
+    else
+      this * (1 / norm)
+  }
+
+  def +(rhs: Quaternion): Quaternion = Quaternion(
+    w + rhs.w,
+    x + rhs.x,
+    y + rhs.y,
+    z + rhs.z
+  )
+
+
+  def * (rhs: Number): Quaternion = Quaternion(w*rhs, x*rhs, y*rhs, z*rhs)
+
   def * (rhs: Quaternion): Quaternion ={
     /**
       *

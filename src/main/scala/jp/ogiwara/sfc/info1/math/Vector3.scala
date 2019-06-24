@@ -69,7 +69,7 @@ case class Vector3(x: Number, y: Number,z: Number){
     if(norm.isNaN || norm == 0)
       Vector3(0,0,0)
     else
-      this * (1 / this.norm)
+      this * (1 / norm)
   }
 
   /**

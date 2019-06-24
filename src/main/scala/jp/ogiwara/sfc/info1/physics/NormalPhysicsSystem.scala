@@ -5,7 +5,7 @@ import jp.ogiwara.sfc.info1._
 import jp.ogiwara.sfc.info1.mutable
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
-import jp.ogiwara.sfc.info1.physics.pipeline.{BroadPhasePipeline, FakePipeline, IntegratePipeline}
+import jp.ogiwara.sfc.info1.physics.pipeline.{BroadPhasePipeline, FakePipeline, ForcePipeline, IntegratePipeline}
 
 import scala.collection.mutable
 
@@ -23,7 +23,7 @@ class NormalPhysicsSystem extends System{
 
       // TODO: Pipeline
 
-      val update = IntegratePipeline(rigidBody, Gravity * rigidBody.attribute.mass.kg, Vector3(0,1,0), 0.016f)
+      val update = ForcePipeline(rigidBody, Vector3.origin, Vector3(0,1,0), 0.016f)
         .|>(FakePipeline.apply)
 
       update.applyToEntity(entity)

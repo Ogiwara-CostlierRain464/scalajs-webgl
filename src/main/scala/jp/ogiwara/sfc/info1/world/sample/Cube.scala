@@ -46,16 +46,19 @@ class Cube(aPosition: Position, size: Number = 1) extends Entity(
 
   override def render(): Mesh = {
 
+    // さて、回転そのものは正しいそう
+    // 多分回転の中心がおかしい…
+
     Mesh(
       vertexes = Seq(
-        position.vector + Vector3(0,size,0).rotate(rotation),
-        position.vector + Vector3(size,size,0).rotate(rotation),
-        position.vector + Vector3(0,size,size).rotate(rotation),
-        position.vector + Vector3(size,size,size).rotate(rotation),
-        position.vector + Vector3(0,0,0).rotate(rotation),
-        position.vector + Vector3(size,0,0).rotate(rotation),
-        position.vector + Vector3(0,0,size).rotate(rotation),
-        position.vector + Vector3(size,0,size).rotate(rotation),
+        (position.vector + Vector3(0,size,0)).rotate(rotation),
+        (position.vector + Vector3(size,size,0)).rotate(rotation),
+        (position.vector + Vector3(0,size,size)).rotate(rotation),
+        (position.vector + Vector3(size,size,size)).rotate(rotation),
+        (position.vector + Vector3(0,0,0)).rotate(rotation),
+        (position.vector + Vector3(size,0,0)).rotate(rotation),
+        (position.vector + Vector3(0,0,size)).rotate(rotation),
+        (position.vector + Vector3(size,0,size)).rotate(rotation),
       ),
       colors = Seq(
         Color.blue,
