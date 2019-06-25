@@ -1,4 +1,4 @@
-package jp.ogiwara.sfc.info1.physics
+package jp.ogiwara.sfc.info1.system.physics
 
 import utest.{TestSuite, Tests, TestableSymbol}
 

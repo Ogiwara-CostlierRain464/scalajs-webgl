@@ -2,9 +2,9 @@ package jp.ogiwara.sfc.info1.world
 
 import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.mutable
-import jp.ogiwara.sfc.info1.physics._
+import jp.ogiwara.sfc.info1.system.physics._
 import jp.ogiwara.sfc.info1.math._
-import jp.ogiwara.sfc.info1.physics.elements.{Attribute, Collidable, State}
+import jp.ogiwara.sfc.info1.system.physics.elements.{Attribute, Collidable, State}
 import jp.ogiwara.sfc.info1.render.Position
 import jp.ogiwara.sfc.info1.world.sample.{Cube, SimulatorService}
 /**

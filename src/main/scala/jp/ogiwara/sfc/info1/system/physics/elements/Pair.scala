@@ -1,4 +1,4 @@
-package jp.ogiwara.sfc.info1.physics.elements
+package jp.ogiwara.sfc.info1.system.physics.elements
 
 case class Pair(
                  var pairType: PairType,

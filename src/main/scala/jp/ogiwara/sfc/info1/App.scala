@@ -2,7 +2,7 @@ package jp.ogiwara.sfc.info1
 
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render._
-import jp.ogiwara.sfc.info1.physics._
+import jp.ogiwara.sfc.info1.system.physics._
 import jp.ogiwara.sfc.info1.render.service.ShaderService
 import jp.ogiwara.sfc.info1.world.{NormalWorld, PrimitiveWorld, StopWorld}
 import org.scalajs._

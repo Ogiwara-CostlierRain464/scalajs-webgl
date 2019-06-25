@@ -1,11 +1,11 @@
-package jp.ogiwara.sfc.info1.physics
+package jp.ogiwara.sfc.info1.system.physics
 
 import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1._
 import jp.ogiwara.sfc.info1.mutable
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
-import jp.ogiwara.sfc.info1.physics.pipeline.{BroadPhasePipeline, FakePipeline, ForcePipeline, IntegratePipeline}
+import jp.ogiwara.sfc.info1.system.physics.pipeline.{BroadPhasePipeline, FakePipeline, ForcePipeline, IntegratePipeline}
 
 import scala.collection.mutable
 

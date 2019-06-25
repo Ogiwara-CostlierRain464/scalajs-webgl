@@ -1,11 +1,11 @@
-package jp.ogiwara.sfc.info1.physics.pipeline
+package jp.ogiwara.sfc.info1.system.physics.pipeline
 
 import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.math.Number
 import jp.ogiwara.sfc.info1.math._
 import Math._
-import jp.ogiwara.sfc.info1.physics.RigidBody
-import jp.ogiwara.sfc.info1.physics.elements.Static
+import jp.ogiwara.sfc.info1.system.physics.RigidBody
+import jp.ogiwara.sfc.info1.system.physics.elements.Static
 
 /**
   * 位置を更新する

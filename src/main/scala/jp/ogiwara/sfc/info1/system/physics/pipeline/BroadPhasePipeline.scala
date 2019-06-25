@@ -1,9 +1,9 @@
-package jp.ogiwara.sfc.info1.physics.pipeline
+package jp.ogiwara.sfc.info1.system.physics.pipeline
 
 import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.mutable
-import jp.ogiwara.sfc.info1.physics.RigidBody
-import jp.ogiwara.sfc.info1.physics.elements._
+import jp.ogiwara.sfc.info1.system.physics.RigidBody
+import jp.ogiwara.sfc.info1.system.physics.elements._
 
 object BroadPhasePipeline {
   final val expand = 0.01f

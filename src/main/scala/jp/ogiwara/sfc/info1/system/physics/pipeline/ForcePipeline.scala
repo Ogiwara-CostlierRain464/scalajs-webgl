@@ -1,8 +1,8 @@
-package jp.ogiwara.sfc.info1.physics.pipeline
+package jp.ogiwara.sfc.info1.system.physics.pipeline
 
 import jp.ogiwara.sfc.info1.math.{Number, Vector3}
-import jp.ogiwara.sfc.info1.physics.RigidBody
-import jp.ogiwara.sfc.info1.physics.elements.Static
+import jp.ogiwara.sfc.info1.system.physics.RigidBody
+import jp.ogiwara.sfc.info1.system.physics.elements.Static
 
 /**
   * 外力を加える

@@ -1,7 +1,7 @@
-package jp.ogiwara.sfc.info1.physics.elements
+package jp.ogiwara.sfc.info1.system.physics.elements
 
 import jp.ogiwara.sfc.info1.math.{Quaternion, Vector3}
-import jp.ogiwara.sfc.info1.physics.Speeds
+import jp.ogiwara.sfc.info1.system.physics.Speeds
 import jp.ogiwara.sfc.info1.render.Position
 
 case class State(

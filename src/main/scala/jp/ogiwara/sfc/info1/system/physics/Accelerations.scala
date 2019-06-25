@@ -1,7 +1,7 @@
-package jp.ogiwara.sfc.info1.physics
+package jp.ogiwara.sfc.info1.system.physics
 
 import jp.ogiwara.sfc.info1.math.Vector3
-import jp.ogiwara.sfc.info1.physics.units.Acceleration
+import jp.ogiwara.sfc.info1.system.physics.units.Acceleration
 
 case class Accelerations(x: Acceleration, y: Acceleration, z: Acceleration){
   def this(vector3: Vector3) = this(vector3.x.mPerS2,vector3.y.mPerS2,vector3.z.mPerS2)

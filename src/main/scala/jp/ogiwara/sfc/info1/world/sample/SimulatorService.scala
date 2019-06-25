@@ -1,8 +1,8 @@
 package jp.ogiwara.sfc.info1.world.sample
 
 import jp.ogiwara.sfc.info1.math._
-import jp.ogiwara.sfc.info1.physics._
-import jp.ogiwara.sfc.info1.physics.units.Speed
+import jp.ogiwara.sfc.info1.system.physics._
+import jp.ogiwara.sfc.info1.system.physics.units.Speed
 import jp.ogiwara.sfc.info1.render.Position
 import Math._
 

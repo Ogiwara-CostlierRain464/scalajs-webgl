@@ -7,12 +7,10 @@ package object math{
   type Number = Float
 
   implicit def double2Float(double: Double): Float = double.toFloat
-  implicit def number2Meta(number: Number): NumberMeta = new NumberMeta(number)
-  implicit def int2Meta(int: Int): IntMeta = new IntMeta(int)
   implicit def int2Number(int: Int): Number = int.toFloat
 
 
-  class NumberMeta(val body: Number){
+  implicit class NumberMeta(val body: Number){
     def ^(rhs: Int): Number ={
       pow(body,rhs)
     }
@@ -20,7 +18,7 @@ package object math{
     def rad: Radians = Radians(body.toRadians)
   }
 
-  class IntMeta(val body: Int){
+  implicit class IntMeta(val body: Int){
     def withIn(range: Range): Boolean =
       range.start <= body && body <= range.end
 

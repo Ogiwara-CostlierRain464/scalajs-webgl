@@ -1,8 +1,8 @@
-package jp.ogiwara.sfc.info1.physics.elements
+package jp.ogiwara.sfc.info1.system.physics.elements
 
 import jp.ogiwara.sfc.info1.math.Matrix3
 import jp.ogiwara.sfc.info1.math.Number
-import jp.ogiwara.sfc.info1.physics.units.Mass
+import jp.ogiwara.sfc.info1.system.physics.units.Mass
 
 case class Attribute(
                       // 慣性テンソル

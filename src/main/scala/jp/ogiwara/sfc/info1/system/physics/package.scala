@@ -1,7 +1,7 @@
 package jp.ogiwara.sfc.info1
 
 import jp.ogiwara.sfc.info1.math.{Number, Vector3}
-import jp.ogiwara.sfc.info1.physics.units._
+import jp.ogiwara.sfc.info1.system.physics.units._
 
 package object physics {
 

@@ -2,10 +2,10 @@ package jp.ogiwara.sfc.info1.render
 
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render.mvp.{ProjectionMatrix, ViewMatrix}
-import jp.ogiwara.sfc.info1.physics._
+import jp.ogiwara.sfc.info1.system.physics._
 import Math._
 
-import jp.ogiwara.sfc.info1.physics.units.Length
+import jp.ogiwara.sfc.info1.system.physics.units.Length
 
 case class Camera(
                    position: Position,

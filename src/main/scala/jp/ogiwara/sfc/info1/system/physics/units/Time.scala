@@ -1,4 +1,4 @@
-package jp.ogiwara.sfc.info1.physics.units
+package jp.ogiwara.sfc.info1.system.physics.units
 
 import jp.ogiwara.sfc.info1.math.Number
 
