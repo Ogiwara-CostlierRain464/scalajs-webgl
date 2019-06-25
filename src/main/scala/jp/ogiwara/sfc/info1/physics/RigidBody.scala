@@ -16,23 +16,6 @@ import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta}
   */
 case class RigidBody(collidable: Collidable, state: State, attribute: Attribute) extends EntityMeta{
 
-  def step: RigidBody = {
-
-
-
-    /*
-    // 一定加速度
-    val newSpeed = speed + accelerations.vector
-    val newPosition = position + newSpeed.vector
-
-    copy(
-      speed = newSpeed,
-      position = newPosition
-    )
-    */
-    this
-  }
-
   def applyToEntity(entity: Entity): Entity ={
     entity.position = state.position
     entity.rotation = state.orientation

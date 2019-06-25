@@ -5,7 +5,7 @@ import jp.ogiwara.sfc.info1.physics.units.Length
 import jp.ogiwara.sfc.info1.physics._
 
 
-case class Position(x: Length,y: Length, z: Length) extends {
+case class Position(x: Length,y: Length, z: Length){
 
   def vector: Vector3 = Vector3(x.meter, y.meter, z.meter)
 
