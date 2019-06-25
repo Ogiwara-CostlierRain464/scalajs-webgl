@@ -7,11 +7,8 @@ import jp.ogiwara.sfc.info1.world.units.{Length, Time}
 package object physics {
 
   implicit class NumberPhysicsMeta(val body: Number){
-    def m: Length = Length(body)
-    def km: Length = Length(body * 1000)
 
     def kg: Mass = Mass(body)
-    def s: Time = Time(body)
 
     def mPerS: Speed = Speed(body)
     def mPerS2: Acceleration = Acceleration(body)
