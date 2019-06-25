@@ -6,7 +6,7 @@ import org.scalajs.dom.raw.{WebGLProgram, WebGLRenderingContext, WebGLUniformLoc
 import WebGLRenderingContext._
 import jp.ogiwara.sfc.info1.render.mvp.ModelMatrix
 import jp.ogiwara.sfc.info1.render.service.{BufferObjectService, ProgramService}
-import jp.ogiwara.sfc.info1.world.WorldSnapshot
+import jp.ogiwara.sfc.info1.world.{Mesh, Triangle, WorldSnapshot}
 
 import scala.collection.mutable
 import scala.scalajs.js

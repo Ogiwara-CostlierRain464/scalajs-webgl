@@ -2,8 +2,8 @@ package jp.ogiwara.sfc.info1.world.sample
 
 import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.system.physics._
-import jp.ogiwara.sfc.info1.render.{Color, Mesh, Position}
-import jp.ogiwara.sfc.info1.world.{Entity, EntityID}
+import jp.ogiwara.sfc.info1.render.{Color, Position}
+import jp.ogiwara.sfc.info1.world.{Entity, EntityID, Mesh}
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics.elements.{Attribute, Collidable, Shape, State}
 
