@@ -4,7 +4,7 @@ import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.render._
 import jp.ogiwara.sfc.info1.render.service.ShaderService
 import jp.ogiwara.sfc.info1.system.physics._
-import jp.ogiwara.sfc.info1.world.PrimitiveWorld
+import jp.ogiwara.sfc.info1.world.{Position, PrimitiveWorld}
 import org.scalajs.dom._
 import org.scalajs.dom.ext.KeyValue
 import org.scalajs.dom.html.Canvas

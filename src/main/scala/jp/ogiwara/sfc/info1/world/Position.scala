@@ -1,8 +1,8 @@
-package jp.ogiwara.sfc.info1.render
+package jp.ogiwara.sfc.info1.world
 
 import jp.ogiwara.sfc.info1.math.Vector3
-import jp.ogiwara.sfc.info1.system.physics.units.Length
 import jp.ogiwara.sfc.info1.system.physics._
+import jp.ogiwara.sfc.info1.system.physics.units.Length
 
 
 case class Position(x: Length,y: Length, z: Length){

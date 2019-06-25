@@ -6,6 +6,7 @@ import jp.ogiwara.sfc.info1.system.physics._
 import Math._
 
 import jp.ogiwara.sfc.info1.system.physics.units.Length
+import jp.ogiwara.sfc.info1.world.Position
 
 case class Camera(
                    position: Position,

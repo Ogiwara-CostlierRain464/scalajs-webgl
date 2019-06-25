@@ -3,8 +3,7 @@ package jp.ogiwara.sfc.info1.system.physics
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics.elements.{Attribute, Collidable, State}
 import jp.ogiwara.sfc.info1.system.physics.units.Mass
-import jp.ogiwara.sfc.info1.render.Position
-import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta}
+import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta, Position}
 
 /**
   * 剛体を表す
