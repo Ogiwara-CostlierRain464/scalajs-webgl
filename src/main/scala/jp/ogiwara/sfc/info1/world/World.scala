@@ -1,11 +1,6 @@
 package jp.ogiwara.sfc.info1.world
 
-import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.mutable
-import jp.ogiwara.sfc.info1.system.physics._
-import jp.ogiwara.sfc.info1.math._
-import jp.ogiwara.sfc.info1.system.physics.elements.{Attribute, Collidable, State}
-import jp.ogiwara.sfc.info1.world.sample.{Cube, SimulatorService}
 /**
   * World(世界)とは、宇宙である。
   */
@@ -23,31 +18,4 @@ class World(val systems: Seq[System], var state: WorldState){
 
     state.makeSnapShot()
   }
-
 }
-
-object NormalWorld extends
-  World(systems = Seq(new NormalPhysicsSystem()), state = WorldState(entities = Seq()))
-
-object StopWorld extends World(
-  systems = Seq(),
-  state = WorldState(
-    entities = Seq(
-    new Cube(Position.origin,size = 1)
-    )
-  )
-)
-
-
-object PrimitiveWorld extends
-  World(
-    systems = Seq(new NormalPhysicsSystem()),
-    state = WorldState(
-      entities = Seq(
-        new Cube(
-          Position.origin,
-          size = 2
-        )
-      )
-    )
-  )
