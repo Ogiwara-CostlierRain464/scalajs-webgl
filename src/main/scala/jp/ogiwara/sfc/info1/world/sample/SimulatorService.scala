@@ -1,15 +1,17 @@
 package jp.ogiwara.sfc.info1.world.sample
 
 import jp.ogiwara.sfc.info1.math._
-import jp.ogiwara.sfc.info1.system.physics._
-import jp.ogiwara.sfc.info1.system.physics.units.Speed
-import jp.ogiwara.sfc.info1.render.Position
 import Math._
+import jp.ogiwara.sfc.info1.system.physics.NumberPhysicsMeta
+import jp.ogiwara.sfc.info1.system.physics.RigidBody
+import jp.ogiwara.sfc.info1.system.physics.units.Speed
+import jp.ogiwara.sfc.info1.system.physics.G
 
 object SimulatorService {
   def cannon(θx: Radians,
              θy: Radians,
-             θz: Radians, vm: Speed): RigidBody ={
+             θz: Radians,
+             vm: Speed): RigidBody ={
 
     val ax = 0f.mPerS2
     // 初期

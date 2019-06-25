@@ -5,9 +5,7 @@ import jp.ogiwara.sfc.info1.system.physics.units._
 
 package object physics {
 
-  implicit def number2phyMeat(number: Number): NumberPhysicsMeta = new NumberPhysicsMeta(number)
-
-  class NumberPhysicsMeta(val body: Number){
+  implicit class NumberPhysicsMeta(val body: Number){
     def m: Length = Length(body)
     def km: Length = Length(body * 1000)
 
