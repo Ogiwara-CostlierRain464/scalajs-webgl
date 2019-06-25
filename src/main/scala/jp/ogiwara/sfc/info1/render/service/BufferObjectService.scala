@@ -1,10 +1,9 @@
 package jp.ogiwara.sfc.info1.render.service
 
-import jp.ogiwara.sfc.info1.render.Color
 import jp.ogiwara.sfc.info1.math._
 import org.scalajs.dom.raw.{WebGLBuffer, WebGLRenderingContext}
 import WebGLRenderingContext._
-import jp.ogiwara.sfc.info1.world.Vertex
+import jp.ogiwara.sfc.info1.world.{Color, Vertex}
 
 
 /**
