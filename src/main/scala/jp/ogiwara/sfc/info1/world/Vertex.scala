@@ -1,4 +1,4 @@
-package jp.ogiwara.sfc.info1.render
+package jp.ogiwara.sfc.info1.world
 
 import jp.ogiwara.sfc.info1.math.Vector3
 
