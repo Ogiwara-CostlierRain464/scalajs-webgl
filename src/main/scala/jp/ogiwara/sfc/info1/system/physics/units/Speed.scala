@@ -1,6 +1,7 @@
 package jp.ogiwara.sfc.info1.system.physics.units
 
 import jp.ogiwara.sfc.info1.math._
+import jp.ogiwara.sfc.info1.world.units.Time
 
 case class Speed(mPerS: Number){
   def /(rhs: Time): Acceleration = Acceleration(mPerS / rhs.second)
