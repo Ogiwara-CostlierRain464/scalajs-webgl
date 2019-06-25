@@ -1,7 +1,7 @@
-package jp.ogiwara.sfc.info1.obj.scanner
+package jp.ogiwara.sfc.info1.render.obj.scanner
 
 import jp.ogiwara.sfc.info1.math.Vector3
-import jp.ogiwara.sfc.info1.obj.Obj
+import jp.ogiwara.sfc.info1.render.obj.Obj
 
 sealed class VertexObjScanner(val line: String) extends ObjScanner{
   override def applyTo(obj: Obj): Obj = {

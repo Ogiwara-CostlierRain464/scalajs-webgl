@@ -1,6 +1,6 @@
 package jp.ogiwara.sfc.info1
 
-import jp.ogiwara.sfc.info1.obj.Obj
+import jp.ogiwara.sfc.info1.render.obj.Obj
 import utest._
 
 object ObjTest extends TestSuite{

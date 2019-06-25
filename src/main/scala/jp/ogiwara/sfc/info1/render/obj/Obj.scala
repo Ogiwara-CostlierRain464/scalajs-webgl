@@ -1,7 +1,7 @@
-package jp.ogiwara.sfc.info1.obj
+package jp.ogiwara.sfc.info1.render.obj
 
 import jp.ogiwara.sfc.info1.math.Vector3
-import jp.ogiwara.sfc.info1.obj.scanner._
+import jp.ogiwara.sfc.info1.render.obj.scanner._
 
 case class Obj(
                 vertexes: Seq[Vector3],

@@ -1,6 +1,6 @@
-package jp.ogiwara.sfc.info1.obj.scanner
+package jp.ogiwara.sfc.info1.render.obj.scanner
 
-import jp.ogiwara.sfc.info1.obj.{Face, FaceElement, Obj}
+import jp.ogiwara.sfc.info1.render.obj.{Face, FaceElement, Obj}
 
 
 sealed class FaceObjScanner(val line: String) extends ObjScanner {

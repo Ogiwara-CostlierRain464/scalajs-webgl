@@ -1,5 +1,5 @@
-package jp.ogiwara.sfc.info1.obj.scanner
-import jp.ogiwara.sfc.info1.obj.Obj
+package jp.ogiwara.sfc.info1.render.obj.scanner
+import jp.ogiwara.sfc.info1.render.obj.Obj
 
 
 sealed class VertexTextureObjScanner(val line: String) extends ObjScanner{

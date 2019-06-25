@@ -1,4 +1,4 @@
-package jp.ogiwara.sfc.info1.obj
+package jp.ogiwara.sfc.info1.render.obj
 
 case class Face(elements: Seq[FaceElement]){
 
