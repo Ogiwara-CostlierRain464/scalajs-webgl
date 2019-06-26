@@ -22,7 +22,7 @@ class NormalPhysicsSystem extends System{
       require(entity.metadatas.contains(RigidBody.key))
       val rigidBody = entity.metadatas(RigidBody.key).asInstanceOf[RigidBody]
 
-      val update0 = ForcePipeline(rigidBody, Forces.origin, Forces(2f.N,0f.N,0f.N), timeStep)
+      val update0 = ForcePipeline(rigidBody, Gravity * rigidBody.attribute.mass, Forces(0f.N,0f.N,0f.N), timeStep)
       val update = IntegratePipeline(update0, 0.016f)
 
       update.applyToEntity(entity)

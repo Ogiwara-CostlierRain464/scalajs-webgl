@@ -18,5 +18,5 @@ package object physics {
   }
 
   final val G = 9.8f.mPerS2
-  final val Gravity = Vector3(0, -9.8f, 0)
+  final val Gravity = Accelerations(0f.mPerS2, -9.8f.mPerS2, 0f.mPerS2)
 }

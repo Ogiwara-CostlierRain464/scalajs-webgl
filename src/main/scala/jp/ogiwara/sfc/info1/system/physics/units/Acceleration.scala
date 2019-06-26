@@ -9,6 +9,8 @@ case class Acceleration(mPerS2: Number){
   def *(rhs: Number): Acceleration = Acceleration(mPerS2 * rhs)
   // a * s = v
   def *(rhs: Time): Speed = Speed(mPerS2 * rhs.second)
+  // f = m * a
+  def *(rhs: Mass): Force = Force(mPerS2 * rhs.kg)
 
   override def toString: String = s"${mPerS2}m/s^2"
 
