@@ -9,6 +9,7 @@ case class Attribute(
                       inertia: Matrix3,
                       mass: Mass,
                       // 反発係数
+                      // ただの係数なので、単位は存在しない。
                       restitution: Number,
                       // 摩擦係数
                       friction: Number

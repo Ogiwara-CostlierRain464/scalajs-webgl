@@ -1,6 +1,6 @@
 package jp.ogiwara.sfc.info1.system.physics.elements
 
-case class Pair(
+case class CollisionPair(
                  var pairType: PairType,
                  // 衝突情報
                  var contact: Contact,

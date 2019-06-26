@@ -13,7 +13,9 @@ import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta}
   * - 状態(位置、姿勢、速度)
   * - 属性(重さ、摩擦、反発)
   */
-case class RigidBody(collidable: Collidable, state: State, attribute: Attribute) extends EntityMeta{
+case class RigidBody(collidable: Collidable,
+                     state: State,
+                     attribute: Attribute) extends EntityMeta{
 
   /**
     * mutableなEntityに、この剛体の情報を反映させる
