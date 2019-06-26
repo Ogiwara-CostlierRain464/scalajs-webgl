@@ -8,8 +8,8 @@ import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics._
 import jp.ogiwara.sfc.info1.system.physics.units.{LocalPosition, Speeds}
 import jp.ogiwara.sfc.info1.world.units.{Length, Position, Size}
-
 import scala.collection.mutable
+import Math._
 
 /**
   * サンプルとして扱えるオブジェクトをまとめる
@@ -39,9 +39,9 @@ object Sample {
       ),
       attribute = Attribute(
         inertia = Matrix3(
-          (1f/12)*(2*(size.meter^2)),0,0,
-          0,(1f/12)*(2*(size.meter^2)),0,
-          0,0,(1f/12)*(2*(size.meter^2)),
+          (1f/12)*(2 * pow(size.meter,2)),0,0,
+          0,(1f/12)*(2 * pow(size.meter,2)),0,
+          0,0,(1f/12)*(2 * pow(size.meter,2)),
         ),
         mass = 1f.kg,
         restitution = 0,

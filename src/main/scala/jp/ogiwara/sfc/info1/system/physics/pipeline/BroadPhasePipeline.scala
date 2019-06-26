@@ -46,6 +46,7 @@ object BroadPhasePipeline {
     def halfB: Vector3
   } ={
 
+    /*
     val stateA = bodyA.state
     val collidableA = bodyA.collidable
     val orientationA = stateA.orientation.asMatrix.asMatrix3
@@ -66,6 +67,8 @@ object BroadPhasePipeline {
       def centerB: Vector3 = _centerB
       def halfB: Vector3 = _halfB
     }
+    */
+    ???
   }
 
 }

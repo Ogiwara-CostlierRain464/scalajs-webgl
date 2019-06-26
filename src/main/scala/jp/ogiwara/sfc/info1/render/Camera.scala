@@ -1,6 +1,7 @@
 package jp.ogiwara.sfc.info1.render
 
 import jp.ogiwara.sfc.info1.math._
+import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.render.mvp.{ProjectionMatrix, ViewMatrix}
 import jp.ogiwara.sfc.info1.system.physics._
 import Math._
@@ -19,19 +20,19 @@ case class Camera(
                    rotateZ: Radians = Radians(0),
                  ){
 
-  final val scale: Number = 1
+  final val scale: Length = 1f.m
 
   def up: Camera = copy(
-    position = position + Vector3(0, scale,0),
-    lookAt = lookAt + Vector3(0,scale,0),
+    position = position + Position(0f.m, scale,0f.m),
+    lookAt = lookAt + Position(0f.m,scale,0f.m),
   )
   def down: Camera = copy(
-    position = position - Vector3(0,scale,0),
-    lookAt = lookAt - Vector3(0,scale,0),
+    position = position - Position(0f.m,scale,0f.m),
+    lookAt = lookAt - Position(0f.m,scale,0f.m),
   )
   def front: Camera = {
-    val lookAtVec = (position - lookAt).vector.normalized * scale
-    val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
+    val lookAtVec = (position - lookAt).vector.normalized * scale.meter
+    val move = Position(lookAtVec.x.m, 0f.m, lookAtVec.z.m)
 
     copy(
       position = position - move,
@@ -40,8 +41,8 @@ case class Camera(
   }
 
   def back: Camera = {
-    val lookAtVec = (position - lookAt).vector.normalized * scale
-    val move = Vector3(lookAtVec.x, 0, lookAtVec.z)
+    val lookAtVec = (position - lookAt).vector.normalized * scale.meter
+    val move = Position(lookAtVec.x.m, 0f.m, lookAtVec.z.m)
 
     copy(
       position = position + move,
@@ -50,56 +51,44 @@ case class Camera(
   }
 
   def left: Camera = {
-    val lookAtVec = (position - lookAt).vector.normalized.xzPlane * scale
+    val lookAtVec = (position - lookAt).vector.normalized.xzPlane * scale.meter
     val move = lookAtVec.rotate(90.rad)
 
     copy(
-      position = position - Vector3(move.x,0,move.y),
-      lookAt = lookAt - Vector3(move.x,0,move.y),
+      position = position - Position(move.x.m,0f.m,move.y.m),
+      lookAt = lookAt - Position(move.x.m,0f.m,move.y),
     )
   }
 
 
   def right: Camera = {
-    val lookAtVec = (position - lookAt).vector.normalized.xzPlane * scale
+    val lookAtVec = (position - lookAt).vector.normalized.xzPlane * scale.meter
     val move = lookAtVec.rotate(90.rad)
 
     copy(
-      position = position + Vector3(move.x,0,move.y),
-      lookAt = lookAt + Vector3(move.x,0,move.y),
+      position = position + Position(move.x.m,0f.m,move.y.m),
+      lookAt = lookAt + Position(move.x,0f,move.y),
     )
   }
 
   def lookUp: Camera = copy(
-    lookAt = lookAt + Vector3(0,scale * 10,0)
+    lookAt = lookAt + Position(0f,scale * 10,0f)
   )
 
   def lookDown: Camera = copy(
-    lookAt = lookAt - Vector3(0,scale * 10,0)
+    lookAt = lookAt - Position(0f,scale * 10,0f)
   )
 
   def lookLeft: Camera = copy(
-    lookAt = lookAt - Vector3(scale * 10,0,0)
+    lookAt = lookAt - Position(scale * 10,0f,0f)
   )
 
   def lookRight: Camera = copy(
-    lookAt = lookAt + Vector3(scale * 10,0,0)
-  )
-
-  def turnPitch: Camera = copy(
-    rotateX = rotateX + scale.rad
-  )
-
-  def turnYow: Camera = copy(
-    rotateY = rotateY + scale.rad
-  )
-
-  def turnRoll: Camera = copy(
-    rotateZ = rotateZ + scale.rad
+    lookAt = lookAt + Position(scale * 10,0f,0f)
   )
 
   def makeVMatrix: ViewMatrix ={
-    val matrix = makeLookAt(lookAt.vector)
+    val matrix = makeLookAt(lookAt)
 
     val applyX = matrix × makeRotateX(rotateX)
     val applyY = applyX × makeRotateY(rotateY)
@@ -117,7 +106,7 @@ case class Camera(
   /**
     * [this]が[target]の方向を向くための行列を作る
     */
-  def makeLookAt(target: Vector3, up: Vector3 = Vector3.up): Matrix4 ={
+  def makeLookAt(target: Position, up: Vector3 = Vector3.up): Matrix4 ={
     /**
       * カメラは原点からZの-方向を見るように固定されているので、
       * 物体がカメラの前に持ってくるよにして、擬似的にカメラを「移動」する。

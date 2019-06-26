@@ -73,7 +73,7 @@ object BufferObjectService {
     val arr = new Array[Number]
     vertexes.foreach { v =>
 
-      arr.push(v.position.x, v.position.y, v.position.z)
+      arr.push(v.position.x.meter, v.position.y.meter, v.position.z.meter)
     }
 
     arr
