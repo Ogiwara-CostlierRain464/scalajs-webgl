@@ -6,7 +6,8 @@ import jp.ogiwara.sfc.info1.system.physics.elements.{Attribute, Collidable, Shap
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics._
-import jp.ogiwara.sfc.info1.world.units.Position
+import jp.ogiwara.sfc.info1.system.physics.units.{LocalPosition, Speeds}
+import jp.ogiwara.sfc.info1.world.units.{Length, Position, Size}
 
 import scala.collection.mutable
 
@@ -14,7 +15,7 @@ import scala.collection.mutable
   * サンプルとして扱えるオブジェクトをまとめる
   */
 object Sample {
-  class Cube(aPosition: Position, size: Number = 1) extends Entity(
+  class Cube(aPosition: Position, size: Length = 1f.m) extends Entity(
     EntityID(0),
     aPosition,
     Quaternion.identity,
@@ -23,24 +24,24 @@ object Sample {
         shapes = Seq(
           Shape(
             mesh = Cube.mesh(size),
-            offsetPosition = Vector3.origin,
+            offsetPosition = LocalPosition.origin,
             offsetRotation = Quaternion.identity
           )
         ),
         AABBCenter = aPosition,
-        AABBHalf = Vector3(size, size, size) / 2
+        AABBHalf = Size(0f.m,0f.m,0f.m)
       ),
       state = State(
         position = aPosition,
         orientation = Quaternion.byRotate(0.rad, Vector3.up),
-        linearVelocity = Vector3.origin,
-        angularVelocity = Vector3.origin
+        linearVelocity = Speeds.origin,
+        angularVelocity = Speeds.origin
       ),
       attribute = Attribute(
         inertia = Matrix3(
-          (1f/12)*(2*(size^2)),0,0,
-          0,(1f/12)*(2*(size^2)),0,
-          0,0,(1f/12)*(2*(size^2)),
+          (1f/12)*(2*(size.meter^2)),0,0,
+          0,(1f/12)*(2*(size.meter^2)),0,
+          0,0,(1f/12)*(2*(size.meter^2)),
         ),
         mass = 1f.kg,
         restitution = 0,
@@ -56,14 +57,14 @@ object Sample {
 
       Mesh(
         vertexes = Seq(
-          (position.vector + Vector3(0,size,0)).rotate(rotation),
-          (position.vector + Vector3(size,size,0)).rotate(rotation),
-          (position.vector + Vector3(0,size,size)).rotate(rotation),
-          (position.vector + Vector3(size,size,size)).rotate(rotation),
-          (position.vector + Vector3(0,0,0)).rotate(rotation),
-          (position.vector + Vector3(size,0,0)).rotate(rotation),
-          (position.vector + Vector3(0,0,size)).rotate(rotation),
-          (position.vector + Vector3(size,0,size)).rotate(rotation),
+          Vertex((position + Position(0f.m,size,0f.m)).rotate(rotation)),
+          Vertex((position + Position(size,size,0f.m)).rotate(rotation)),
+          Vertex((position + Position(0f.m,size,size)).rotate(rotation)),
+          Vertex((position + Position(size,size,size)).rotate(rotation)),
+          Vertex((position + Position(0f.m,0f.m,0f.m)).rotate(rotation)),
+          Vertex((position + Position(size,0f.m,0f.m)).rotate(rotation)),
+          Vertex((position + Position(0f.m,0f.m,size)).rotate(rotation)),
+          Vertex((position + Position(size,0f.m,size)).rotate(rotation)),
         ),
         colors = Seq(
           Color.blue,
@@ -94,16 +95,16 @@ object Sample {
   }
 
   object Cube{
-    def mesh(size: Number): Mesh = Mesh(
+    def mesh(size: Length): Mesh = Mesh(
       vertexes = Seq(
-        Vector3(0,size,0),
-        Vector3(size,size,0),
-        Vector3(0,size,size),
-        Vector3(size,size,size),
-        Vector3(0,0,0),
-        Vector3(size,0,0),
-        Vector3(0,0,size),
-        Vector3(size,0,size),
+        Vertex((0f.m,size,0f.m)),
+        Vertex((size,size,0f.m)),
+        Vertex((0f.m,size,size)),
+        Vertex((size,size,size)),
+        Vertex((0f.m,0f.m,0f.m)),
+        Vertex((size,0f.m,0f.m)),
+        Vertex((0f.m,0f.m,size)),
+        Vertex((size,0f.m,size)),
       ),
       colors = Seq(
         Color.blue,
@@ -140,7 +141,7 @@ object Sample {
     systems = Seq(),
     state = WorldState(
       entities = Seq(
-        new Cube(Position.origin,size = 1)
+        new Cube(Position.origin,size = 1f.m)
       )
     )
   )
@@ -153,7 +154,7 @@ object Sample {
         entities = Seq(
           new Cube(
             Position.origin,
-            size = 2
+            size = 2f.m
           )
         )
       )

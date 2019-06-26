@@ -13,6 +13,13 @@ case class Position(x: Length,y: Length, z: Length){
   def +(rhs: Position): Position = Position(x + rhs.x, y + rhs.y, z + rhs.z)
   def -(rhs: Position): Position = Position(x - rhs.x, y - rhs.y, z - rhs.z)
   def *(rhs: Number): Position = Position(x * rhs, y * rhs, z * rhs)
+
+  def rotate(by: Quaternion): Position ={
+    val vector = Vector3(x.meter, y.meter, z.meter)
+    val result = vector.rotate(by)
+
+    Position(result.x.m, result.y.m, result.z.m)
+  }
 }
 
 object Position{

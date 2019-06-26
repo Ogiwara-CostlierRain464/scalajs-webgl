@@ -1,6 +1,7 @@
 package jp.ogiwara.sfc.info1.system.physics.units
 
 import jp.ogiwara.sfc.info1.math.Vector3
+import jp.ogiwara.sfc.info1.system.physics._
 
 case class Speeds(x: Speed, y: Speed, z: Speed){
   def vector: Vector3 = Vector3(x.mPerS, y.mPerS, z.mPerS)
@@ -8,4 +9,8 @@ case class Speeds(x: Speed, y: Speed, z: Speed){
   def +(rhs: Speeds): Speeds = Speeds(x + rhs.x, y + rhs.y, z + rhs.z)
 
   def -(rhs: Speeds): Speeds = Speeds(x - rhs.x, y - rhs.y, z - rhs.z)
+}
+
+object Speeds{
+  def origin: Speeds = Speeds(0f.mPerS, 0f.mPerS, 0f.mPerS)
 }
