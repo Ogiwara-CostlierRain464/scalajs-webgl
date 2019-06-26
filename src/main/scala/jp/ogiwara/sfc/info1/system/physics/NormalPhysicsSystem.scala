@@ -5,7 +5,7 @@ import jp.ogiwara.sfc.info1._
 import jp.ogiwara.sfc.info1.mutable
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
-import jp.ogiwara.sfc.info1.system.physics.pipeline.{BroadPhasePipeline, FakePipeline, ForcePipeline, IntegratePipeline}
+import jp.ogiwara.sfc.info1.system.physics.pipeline.{BroadPhasePipeline, ForcePipeline, IntegratePipeline}
 
 import scala.collection.mutable
 
