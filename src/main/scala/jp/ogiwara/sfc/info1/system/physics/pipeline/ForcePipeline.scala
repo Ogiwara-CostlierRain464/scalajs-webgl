@@ -2,7 +2,9 @@ package jp.ogiwara.sfc.info1.system.physics.pipeline
 
 import jp.ogiwara.sfc.info1.math.{Number, Vector3}
 import jp.ogiwara.sfc.info1.system.physics.RigidBody
+import jp.ogiwara.sfc.info1.system.physics._
 import jp.ogiwara.sfc.info1.system.physics.elements.Static
+import jp.ogiwara.sfc.info1.system.physics.units.{Forces, Momentums, Speeds}
 
 /**
   * 外力を加える
@@ -13,8 +15,8 @@ object ForcePipeline {
     */
   def apply(
              rigidBody: RigidBody,
-             externalForce: Vector3,
-             externalTorque: Vector3,
+             externalForce: Forces,
+             externalTorque: Forces,
              timeStep: Number
            ): RigidBody ={
     val state = rigidBody.state
@@ -32,20 +34,23 @@ object ForcePipeline {
     val worldInertiaInverse = orientation × attribute.inertia.inverse × orientation.transpose
 
     // 角運動量 = I' * v
-    val angularMomentum = worldInertia × state.angularVelocity
+    val angularMomentumVec: Vector3 = worldInertia × state.angularVelocity.vector
+    val angularMomentum = Momentums(angularMomentumVec.x.Ns,angularMomentumVec.y.Ns, angularMomentumVec.z.Ns )
 
     // 並進速度の更新
     var newState = state.copy(
-      linearVelocity = state.linearVelocity + (externalForce / attribute.mass.kg * timeStep)
+      linearVelocity = state.linearVelocity + (externalForce / attribute.mass * timeStep)
     )
 
     // 角運動量
-    val newAngularMomentum: Vector3 = angularMomentum + externalTorque * timeStep
+    val newAngularMomentum: Momentums = angularMomentum + externalTorque * timeStep
+
+    val newAngularVelocityVec = worldInertiaInverse × newAngularMomentum.vector
 
     // 角速度の更新
     newState = newState.copy(
       // v = I^-1 * P -> (P/I) = v
-      angularVelocity = worldInertiaInverse × newAngularMomentum
+      angularVelocity = Speeds(newAngularVelocityVec.x.mPerS, newAngularVelocityVec.y.mPerS, newAngularVelocityVec.z.mPerS)
     )
 
     rigidBody.copy(

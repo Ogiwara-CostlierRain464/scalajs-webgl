@@ -1,6 +1,7 @@
 package jp.ogiwara.sfc.info1.system.physics.units
 
 import jp.ogiwara.sfc.info1.math.Vector3
+import jp.ogiwara.sfc.info1.world.units.Time
 
 case class Accelerations(x: Acceleration, y: Acceleration, z: Acceleration){
 
@@ -11,5 +12,8 @@ case class Accelerations(x: Acceleration, y: Acceleration, z: Acceleration){
 
   def -(rhs: Accelerations): Accelerations =
     Accelerations(x - rhs.x, y - rhs.y, z - rhs.z)
+
+  def *(rhs: Time): Speeds =
+    Speeds(x * rhs, y * rhs, z * rhs)
 }
 

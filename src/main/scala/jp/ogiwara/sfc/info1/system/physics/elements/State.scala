@@ -11,6 +11,7 @@ case class State(
                   // 姿勢
                   orientation: Rotation,
                   // 並進速度
+
                   linearVelocity: Speeds,
                   // 回転速度
                   angularVelocity: Speeds,

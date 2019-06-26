@@ -12,6 +12,9 @@ package object physics {
 
     def mPerS: Speed = Speed(body)
     def mPerS2: Acceleration = Acceleration(body)
+
+    def N: Force = Force(body)
+    def Ns: Momentum = Momentum(body)
   }
 
   final val G = 9.8f.mPerS2

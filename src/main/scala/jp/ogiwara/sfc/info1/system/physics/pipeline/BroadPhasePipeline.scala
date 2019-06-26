@@ -8,7 +8,7 @@ import jp.ogiwara.sfc.info1.system.physics.elements._
 object BroadPhasePipeline {
   final val expand = 0.01f
 
-  def findPair(objects: Seq[RigidBody], oldPairs: Seq[Pair]): Seq[Pair] ={
+  def findPair(objects: Seq[RigidBody], oldPairs: Seq[CollisionPair]): Seq[CollisionPair] ={
 
     var a = 0
     while(a < objects.length){
