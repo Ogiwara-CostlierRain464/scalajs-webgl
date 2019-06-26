@@ -8,9 +8,7 @@ case class Speed(mPerS: Number){
 
   override def toString: String = s"${mPerS}m/s"
 
-  def *(number: Number): Speed =
-    Speed(mPerS * number)
-
-  def -(rhs: Speed): Speed =
-    Speed(mPerS - rhs.mPerS)
+  def *(number: Number): Speed = Speed(mPerS * number)
+  def -(rhs: Speed): Speed = Speed(mPerS - rhs.mPerS)
+  def +(rhs: Speed): Speed = Speed(mPerS + rhs.mPerS)
 }

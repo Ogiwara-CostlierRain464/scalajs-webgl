@@ -5,8 +5,7 @@ import jp.ogiwara.sfc.info1.render.mvp.{ProjectionMatrix, ViewMatrix}
 import jp.ogiwara.sfc.info1.system.physics._
 import Math._
 
-import jp.ogiwara.sfc.info1.world.Position
-import jp.ogiwara.sfc.info1.world.units.Length
+import jp.ogiwara.sfc.info1.world.units.{Length, Position}
 
 case class Camera(
                    position: Position,

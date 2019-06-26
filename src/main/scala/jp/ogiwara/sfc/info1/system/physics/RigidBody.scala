@@ -3,7 +3,7 @@ package jp.ogiwara.sfc.info1.system.physics
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics.elements.{Attribute, Collidable, State}
 import jp.ogiwara.sfc.info1.system.physics.units.Mass
-import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta, Position}
+import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta}
 
 /**
   * 剛体を表す
@@ -15,6 +15,9 @@ import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta, Position}
   */
 case class RigidBody(collidable: Collidable, state: State, attribute: Attribute) extends EntityMeta{
 
+  /**
+    * mutableなEntityに、この剛体の情報を反映させる
+    */
   def applyToEntity(entity: Entity): Entity ={
     entity.position = state.position
     entity.rotation = state.orientation

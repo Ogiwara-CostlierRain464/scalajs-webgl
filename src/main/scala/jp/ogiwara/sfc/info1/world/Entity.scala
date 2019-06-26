@@ -2,6 +2,7 @@ package jp.ogiwara.sfc.info1.world
 
 import jp.ogiwara.sfc.info1.math.Quaternion
 import jp.ogiwara.sfc.info1.mutable
+import jp.ogiwara.sfc.info1.world.units.Position
 
 import scala.collection.mutable
 

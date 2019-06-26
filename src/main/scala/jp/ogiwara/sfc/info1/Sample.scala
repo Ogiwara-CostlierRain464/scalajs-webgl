@@ -6,7 +6,7 @@ import jp.ogiwara.sfc.info1.system.physics.elements.{Attribute, Collidable, Shap
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics._
-
+import jp.ogiwara.sfc.info1.world.units.Position
 
 import scala.collection.mutable
 

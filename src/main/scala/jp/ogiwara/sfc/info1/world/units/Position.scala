@@ -1,7 +1,6 @@
-package jp.ogiwara.sfc.info1.world
+package jp.ogiwara.sfc.info1.world.units
 
 import jp.ogiwara.sfc.info1.math.{Vector3, _}
-import jp.ogiwara.sfc.info1.world.units.Length
 
 /**
   * ワールド座標における位置を表す
