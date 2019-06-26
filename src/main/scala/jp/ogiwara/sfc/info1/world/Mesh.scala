@@ -2,6 +2,7 @@ package jp.ogiwara.sfc.info1.world
 
 import jp.ogiwara.sfc.info1.math.Vector3
 import jp.ogiwara.sfc.info1.render._
+import jp.ogiwara.sfc.info1.world._
 
 /**
   * ポリゴンが集まってできる、一つの立体のこと
@@ -9,7 +10,10 @@ import jp.ogiwara.sfc.info1.render._
   * IBOも含めて考えると、ここで頂点、色、テクスチャ、インデックス
   * を指定することになる
   */
-case class Mesh(vertexes: Seq[Vertex], colors: Seq[Color], indexes: Seq[Int], aType: MeshRenderType = Triangle){
+case class Mesh(vertexes: Seq[Vertex],
+                colors: Seq[Color],
+                indexes: Seq[Int],
+                aType: MeshRenderType = Triangle){
   require(vertexes.length == colors.length)
   require(vertexes.length == indexes.max + 1)
 }
@@ -28,10 +32,10 @@ object Mesh{
       */
     val square = Mesh(
       vertexes = Seq(
-        Vector3(0,2,0),
-        Vector3(1,2,0),
-        Vector3(1,1,0),
-        Vector3(0,1,0),
+        Vertex((0f.m,2f.m,0f.m)),
+        Vertex((1f.m,2f.m,0f.m)),
+        Vertex((1f.m,1f.m,0f.m)),
+        Vertex((0f.m,1f.m,0f.m)),
       ),
       colors = Seq(
         Color.black,
@@ -50,14 +54,14 @@ object Mesh{
       */
     val cube = Mesh(
       vertexes = Seq(
-        Vector3(0,1,0),
-        Vector3(1,1,0),
-        Vector3(0,1,1),
-        Vector3(1,1,1),
-        Vector3(0,0,0),
-        Vector3(1,0,0),
-        Vector3(0,0,1),
-        Vector3(1,0,1),
+        Vertex((0f.m,1f.m,0f.m)),
+        Vertex((1f.m,1f.m,0f.m)),
+        Vertex((0f.m,1f.m,1f.m)),
+        Vertex((1f.m,1f.m,1f.m)),
+        Vertex((0f.m,0f.m,0f.m)),
+        Vertex((1f.m,0f.m,0f.m)),
+        Vertex((0f.m,0f.m,1f.m)),
+        Vertex((1f.m,0f.m,1f.m)),
       ),
       colors = Seq(
         Color.blue,
@@ -85,14 +89,17 @@ object Mesh{
       )
     )
 
+    /**
+      * X,Y,Z軸
+      */
     val axises = Mesh(
       vertexes = Seq(
-        Vector3(-100000, 0,0),
-        Vector3(100000, 0,0),
-        Vector3(0,-100000,0),
-        Vector3(0,100000,0),
-        Vector3(0,0,-100000),
-        Vector3(0,0,100000),
+        Vertex(((-100000f).m, 0f.m,0f.m)),
+        Vertex((100000f.m, 0f.m,0f.m)),
+        Vertex((0f.m,(-100000f).m,0f.m)),
+        Vertex((0f.m,100000f.m,0f.m)),
+        Vertex((0f.m,0f.m,(-100000f).m)),
+        Vertex((0f.m,0f.m,100000f.m)),
       ),
       colors = Seq(
         Color.red,Color.red,

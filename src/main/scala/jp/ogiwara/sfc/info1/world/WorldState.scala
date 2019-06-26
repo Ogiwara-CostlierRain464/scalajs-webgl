@@ -13,3 +13,4 @@ case class WorldState(entities: Seq[Entity]){
     WorldSnapshot(meshes :+ Mesh.sample.axises)
   }
 }
+

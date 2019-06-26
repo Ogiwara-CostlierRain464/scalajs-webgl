@@ -5,6 +5,9 @@ import jp.ogiwara.sfc.info1.world.units.{Length, Time}
 
 package object world {
 
+  implicit def number2Length(num: Number): Length = num.m
+  implicit def number2Time(num: Number): Time = num.s
+
   implicit class NumberWorldMeta(val body: Number){
     def m: Length = Length(body)
     def km: Length = Length(body * 1000)

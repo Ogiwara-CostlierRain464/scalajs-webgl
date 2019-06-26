@@ -1,7 +1,6 @@
-package jp.ogiwara.sfc.info1.system.physics
+package jp.ogiwara.sfc.info1.system.physics.units
 
 import jp.ogiwara.sfc.info1.math.Vector3
-import jp.ogiwara.sfc.info1.system.physics.units.Speed
 
 case class Speeds(x: Speed, y: Speed, z: Speed){
   def this(vector3: Vector3) = this(vector3.x.mPerS,vector3.y.mPerS,vector3.z.mPerS)
