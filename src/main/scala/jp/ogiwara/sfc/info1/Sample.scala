@@ -2,12 +2,13 @@ package jp.ogiwara.sfc.info1
 
 import jp.ogiwara.sfc.info1.math.{Matrix3, Number, Quaternion, Vector3}
 import jp.ogiwara.sfc.info1.system.physics.RigidBody
-import jp.ogiwara.sfc.info1.system.physics.elements.{Attribute, Collidable, Shape, State}
+import jp.ogiwara.sfc.info1.system.physics.elements._
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics._
 import jp.ogiwara.sfc.info1.system.physics.units.{LocalPosition, Speeds}
 import jp.ogiwara.sfc.info1.world.units.{Length, Position, Size}
+
 import scala.collection.mutable
 import Math._
 
@@ -20,6 +21,7 @@ object Sample {
     aPosition,
     Quaternion.identity,
     mutable.Map(RigidBody.key -> RigidBody(
+      id = RigidBodyId(0),
       collidable = Collidable(
         shapes = Seq(
           Shape(
@@ -28,8 +30,10 @@ object Sample {
             offsetRotation = Quaternion.identity
           )
         ),
-        AABBCenter = aPosition,
-        AABBHalf = Size(0f.m,0f.m,0f.m)
+        AABB = AxisAlignedBoundingBox(
+          center = LocalPosition(0f.m, 0f.m, 0f.m),
+          half = Size(size / 2, size / 2, size / 2)
+        )
       ),
       state = State(
         position = aPosition,

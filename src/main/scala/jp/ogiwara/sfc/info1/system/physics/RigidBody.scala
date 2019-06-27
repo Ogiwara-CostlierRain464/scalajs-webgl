@@ -13,7 +13,9 @@ import jp.ogiwara.sfc.info1.world.{Entity, EntityMeta}
   * - 状態(位置、姿勢、速度)
   * - 属性(重さ、摩擦、反発)
   */
-case class RigidBody(collidable: Collidable,
+case class RigidBody(
+                     id: RigidBodyId,
+                     collidable: Collidable,
                      state: State,
                      attribute: Attribute) extends EntityMeta{
 
@@ -31,3 +33,5 @@ case class RigidBody(collidable: Collidable,
 object RigidBody{
   final val key = "phy"
 }
+
+case class RigidBodyId(value: Int)

@@ -1,15 +1,33 @@
 package jp.ogiwara.sfc.info1.system.physics.elements
 
+import jp.ogiwara.sfc.info1.system.physics.{RigidBody, RigidBodyId}
+import Math._
+
+import jp.ogiwara.sfc.info1.lateInit
+
 case class CollisionPair(
-                 var pairType: PairType,
+                 @lateInit var pairType: PairType,
                  // 衝突情報
-                 var contact: Contact,
+                 @lateInit var contact: Contact,
                  // 剛体AのIndex
-                 rigidBodyIndexA: Int,
+                 rigidBodyIndexA: RigidBodyId,
                  // 剛体BのIndex
-                 rigidBodyIndexB: Int,
+                 rigidBodyIndexB: RigidBodyId,
                ){
-  def key: Int = (rigidBodyIndexA * (2 ^ 32)) + rigidBodyIndexB
+}
+
+object CollisionPair{
+  def from(bodyA: RigidBodyId, bodyB: RigidBodyId): CollisionPair ={
+    val a = min(bodyA.value, bodyB.value)
+    val b = max(bodyA.value, bodyB.value)
+
+    CollisionPair(
+      pairType = null,
+      contact = null,
+      rigidBodyIndexA = RigidBodyId(a),
+      rigidBodyIndexB = RigidBodyId(b)
+    )
+  }
 }
 
 sealed trait PairType

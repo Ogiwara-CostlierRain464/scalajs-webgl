@@ -17,6 +17,10 @@ object BroadPhasePipeline {
         val bodyA = objects(a)
         val bodyB = objects(b)
 
+        if(intersectAABB(bodyA, bodyB)){
+
+        }
+
         b += 1
       }
       a += 1
@@ -25,6 +29,7 @@ object BroadPhasePipeline {
     oldPairs
   }
 
+  // TODO: move this method to AABB class
   def intersectAABB(bodyA: RigidBody, bodyB: RigidBody): Boolean ={
     val result = calculateAABB(bodyA, bodyB)
     val centerA = result.centerA
@@ -46,7 +51,7 @@ object BroadPhasePipeline {
     def halfB: Vector3
   } ={
 
-    /*
+
     val stateA = bodyA.state
     val collidableA = bodyA.collidable
     val orientationA = stateA.orientation.asMatrix.asMatrix3
@@ -55,11 +60,11 @@ object BroadPhasePipeline {
     val collidableB = bodyB.collidable
     val orientationB = stateB.orientation.asMatrix.asMatrix3
 
-    val _centerA = stateA.position.vector + (orientationA × collidableA.AABBCenter.vector)
-    val _halfA = orientationA.abs × (collidableA.AABBHalf + Vector3(expand, expand, expand)) //AABBサイズを若干拡張
+    val _centerA = stateA.position.vector + (orientationA × collidableA.AABB.center.vector)
+    val _halfA = orientationA.abs × (collidableA.AABB.half.vector + Vector3(expand, expand, expand)) //AABBサイズを若干拡張
 
-    val _centerB = stateB.position.vector + (orientationB × collidableB.AABBCenter.vector)
-    val _halfB = orientationB.abs × (collidableB.AABBHalf + Vector3(expand, expand, expand)) //AABBサイズを若干拡張
+    val _centerB = stateB.position.vector + (orientationB × collidableB.AABB.center.vector)
+    val _halfB = orientationB.abs × (collidableB.AABB.half.vector + Vector3(expand, expand, expand)) //AABBサイズを若干拡張
 
     new {
       def centerA: Vector3 = _centerA
@@ -67,8 +72,6 @@ object BroadPhasePipeline {
       def centerB: Vector3 = _centerB
       def halfB: Vector3 = _halfB
     }
-    */
-    ???
   }
 
 }

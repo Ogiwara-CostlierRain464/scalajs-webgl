@@ -8,6 +8,7 @@ case class Length(meter: Number){
   def +(rhs: Length): Length = Length(meter + rhs.meter)
   def -(rhs: Length): Length = Length(meter - rhs.meter)
   def /(rhs: Time): Speed = Speed(meter / rhs.second)
+  def /(rhs: Number): Length = Length(meter / rhs)
   def *(rhs: Number): Length = Length(meter * rhs)
   def ^(exp: Number): Length = Length(exp ^ 2)
 
