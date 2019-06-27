@@ -5,10 +5,14 @@ import jp.ogiwara.sfc.info1.mutable
 import jp.ogiwara.sfc.info1.system.physics.RigidBody
 import jp.ogiwara.sfc.info1.system.physics.elements._
 
+import scala.collection.mutable
+
 object BroadPhasePipeline {
   final val expand = 0.01f
 
   def findPair(objects: Seq[RigidBody], oldPairs: Seq[CollisionPair]): Seq[CollisionPair] ={
+
+    val pairs: mutable.Seq[CollisionPair] = mutable.Seq()
 
     var a = 0
     while(a < objects.length){
@@ -18,7 +22,7 @@ object BroadPhasePipeline {
         val bodyB = objects(b)
 
         if(intersectAABB(bodyA, bodyB)){
-
+          pairs :+ CollisionPair.from(bodyA.id, bodyB.id)
         }
 
         b += 1
@@ -26,7 +30,25 @@ object BroadPhasePipeline {
       a += 1
     }
 
-    oldPairs
+    val result: mutable.Seq[CollisionPair] = mutable.Seq()
+
+    pairs.foreach { incompletePair =>
+      oldPairs.foreach { oldPair =>
+        if(incompletePair == oldPair){
+          result :+ incompletePair.copy(
+            pairType = Keep,
+            contact = oldPair.contact
+          )
+        }else{
+          result :+ incompletePair.copy(
+            pairType = New,
+            contact = Contact()
+          )
+        }
+      }
+    }
+
+    Seq[CollisionPair](result:_*)
   }
 
   // TODO: move this method to AABB class

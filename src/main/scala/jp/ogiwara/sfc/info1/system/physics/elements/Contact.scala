@@ -9,5 +9,6 @@ case class Contact(
                     // 摩擦
                     friction: Number = 0,
                     // 衝突点の配列
-                    contactPoints: Seq[ContactPoint]
+                    contactPoints: (ContactPoint, ContactPoint, ContactPoint, ContactPoint)
+                    = (ContactPoint(), ContactPoint(), ContactPoint(), ContactPoint())
                   )

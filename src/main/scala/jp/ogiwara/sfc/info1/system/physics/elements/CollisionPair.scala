@@ -14,6 +14,13 @@ case class CollisionPair(
                  // 剛体BのIndex
                  rigidBodyIndexB: RigidBodyId,
                ){
+  override def equals(obj: Any): Boolean = {
+    if(!obj.isInstanceOf[CollisionPair]) false
+    else {
+      val other = obj.asInstanceOf[CollisionPair]
+      rigidBodyIndexA == other.rigidBodyIndexA && rigidBodyIndexB == other.rigidBodyIndexB
+    }
+  }
 }
 
 object CollisionPair{
