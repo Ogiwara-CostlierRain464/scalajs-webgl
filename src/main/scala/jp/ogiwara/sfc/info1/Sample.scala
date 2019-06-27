@@ -159,7 +159,12 @@ object Sample {
           new Cube(
             Position.origin,
             size = 2f.m
-          )
+          ),
+          new Cube(
+            Position(3f.m, 0f.m, 0f.m),
+            size = 2f.m
+          ),
+
         )
       )
     )
