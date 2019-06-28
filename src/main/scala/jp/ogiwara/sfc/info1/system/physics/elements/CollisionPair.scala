@@ -5,7 +5,7 @@ import Math._
 
 import jp.ogiwara.sfc.info1.lateInit
 
-case class CollisionPair(
+case class  CollisionPair(
                  @lateInit var pairType: PairType,
                  // 衝突情報
                  @lateInit var contact: Contact,
@@ -14,6 +14,11 @@ case class CollisionPair(
                  // 剛体BのIndex
                  rigidBodyIndexB: RigidBodyId,
                ){
+
+  override def toString: String = {
+    if(pairType == New) s"$rigidBodyIndexA💥$rigidBodyIndexB" else s"$rigidBodyIndexA🌪$rigidBodyIndexB"
+  }
+
   override def equals(obj: Any): Boolean = {
     if(!obj.isInstanceOf[CollisionPair]) false
     else {

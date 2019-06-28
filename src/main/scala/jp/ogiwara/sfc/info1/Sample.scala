@@ -16,12 +16,12 @@ import Math._
   * サンプルとして扱えるオブジェクトをまとめる
   */
 object Sample {
-  class Cube(aPosition: Position, size: Length = 1f.m) extends Entity(
-    EntityID(0),
+  class Cube(aPosition: Position, id: Int,size: Length = 1f.m, static: Boolean = false) extends Entity(
+    EntityID(id),
     aPosition,
     Quaternion.identity,
     mutable.Map(RigidBody.key -> RigidBody(
-      id = RigidBodyId(0),
+      id = RigidBodyId(id),
       collidable = Collidable(
         shapes = Seq(
           Shape(
@@ -39,7 +39,8 @@ object Sample {
         position = aPosition,
         orientation = Quaternion.byRotate(0.rad, Vector3.up),
         linearVelocity = Speeds.origin,
-        angularVelocity = Speeds.origin
+        angularVelocity = Speeds.origin,
+        motionType = if(static) Static else Active
       ),
       attribute = Attribute(
         inertia = Matrix3(
@@ -145,7 +146,7 @@ object Sample {
     systems = Seq(),
     state = WorldState(
       entities = Seq(
-        new Cube(Position.origin,size = 1f.m)
+        new Cube(Position.origin,0,size = 1f.m)
       )
     )
   )
@@ -157,14 +158,15 @@ object Sample {
       state = WorldState(
         entities = Seq(
           new Cube(
-            Position.origin,
-            size = 2f.m
+            aPosition = Position.origin,
+            id = 0,
+            size = 2f.m,
+            static = true
           ),
           new Cube(
-            Position(3f.m, 0f.m, 0f.m),
+            Position(0f.m, 5f.m, 0f.m),1,
             size = 2f.m
           ),
-
         )
       )
     )

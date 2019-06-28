@@ -34,4 +34,6 @@ object RigidBody{
   final val key = "phy"
 }
 
-case class RigidBodyId(value: Int)
+case class RigidBodyId(value: Int){
+  override def toString: String = s"$value"
+}

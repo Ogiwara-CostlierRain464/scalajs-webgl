@@ -5,6 +5,7 @@ import jp.ogiwara.sfc.info1._
 import jp.ogiwara.sfc.info1.mutable
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
+import jp.ogiwara.sfc.info1.system.physics.elements.CollisionPair
 import jp.ogiwara.sfc.info1.system.physics.pipeline.{BroadPhasePipeline, ForcePipeline, IntegratePipeline}
 import jp.ogiwara.sfc.info1.system.physics.units.Forces
 
@@ -13,17 +14,31 @@ import scala.collection.mutable
 @mutable
 class NormalPhysicsSystem extends System{
 
+  var collisionPairs: Seq[CollisionPair] = Seq()
   final val timeStep = 0.016f
 
   override def update(state: WorldState): WorldState = {
 
-
-    val newEntities = state.entities.map { entity =>
-      require(entity.metadatas.contains(RigidBody.key))
+    val pipe0 = state.entities.map { entity =>
       val rigidBody = entity.metadatas(RigidBody.key).asInstanceOf[RigidBody]
 
-      val update0 = ForcePipeline(rigidBody, Gravity * rigidBody.attribute.mass , Forces(0f.N,0f.N,0f.N), timeStep)
-      val update = IntegratePipeline(update0, 0.016f)
+      val update = ForcePipeline(rigidBody, Gravity * rigidBody.attribute.mass , Forces(0f.N,0f.N,0f.N), timeStep)
+
+      entity.metadatas(RigidBody.key) = update
+      entity
+    }
+
+    val bodies = pipe0.map(_.metadatas(RigidBody.key).asInstanceOf[RigidBody])
+    collisionPairs = BroadPhasePipeline.findPair(bodies, collisionPairs)
+
+    if(collisionPairs.nonEmpty){
+      println(collisionPairs)
+    }
+
+    val pipe1 = pipe0.map { entity =>
+      val rigidBody = entity.metadatas(RigidBody.key).asInstanceOf[RigidBody]
+
+      val update = IntegratePipeline(rigidBody, 0.016f)
 
       update.applyToEntity(entity)
 
@@ -31,8 +46,11 @@ class NormalPhysicsSystem extends System{
       entity
     }
 
+    //TODO: より直感的にPipelineを適用できるようにしよう
+
+
     val newState = state.copy(
-      entities = newEntities
+      entities = pipe1
     )
 
     newState

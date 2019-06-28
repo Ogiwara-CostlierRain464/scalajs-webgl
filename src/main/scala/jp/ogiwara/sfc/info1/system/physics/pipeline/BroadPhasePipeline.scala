@@ -12,7 +12,7 @@ object BroadPhasePipeline {
 
   def findPair(objects: Seq[RigidBody], oldPairs: Seq[CollisionPair]): Seq[CollisionPair] ={
 
-    val pairs: mutable.Seq[CollisionPair] = mutable.Seq()
+    val pairs: mutable.ArrayBuffer[CollisionPair] = mutable.ArrayBuffer()
 
     var a = 0
     while(a < objects.length){
@@ -22,7 +22,8 @@ object BroadPhasePipeline {
         val bodyB = objects(b)
 
         if(intersectAABB(bodyA, bodyB)){
-          pairs :+ CollisionPair.from(bodyA.id, bodyB.id)
+
+          pairs += CollisionPair.from(bodyA.id, bodyB.id)
         }
 
         b += 1
@@ -30,21 +31,19 @@ object BroadPhasePipeline {
       a += 1
     }
 
-    val result: mutable.Seq[CollisionPair] = mutable.Seq()
+    val result: mutable.ArrayBuffer[CollisionPair] = mutable.ArrayBuffer()
 
     pairs.foreach { incompletePair =>
-      oldPairs.foreach { oldPair =>
-        if(incompletePair == oldPair){
-          result :+ incompletePair.copy(
-            pairType = Keep,
-            contact = oldPair.contact
-          )
-        }else{
-          result :+ incompletePair.copy(
-            pairType = New,
-            contact = Contact()
-          )
-        }
+      if(oldPairs.contains(incompletePair)){
+        result += incompletePair.copy(
+          pairType = Keep,
+          contact = oldPairs.filter(_ == incompletePair).head.contact
+        )
+      }else{
+        result += incompletePair.copy(
+          pairType = New,
+          contact = Contact()
+        )
       }
     }
 
