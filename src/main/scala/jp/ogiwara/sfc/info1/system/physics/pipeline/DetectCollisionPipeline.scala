@@ -16,8 +16,13 @@ object DetectCollisionPipeline {
         aShape <- a.collidable.shapes;
         bShape <- b.collidable.shapes
       ){
+        val offsetTransformA = Transform.from(aShape.offsetRotation, aShape.offsetPosition)
+        val worldTransformA = transformA × offsetTransformA
 
-        //Three types of `position`
+        val offsetTransformB = Transform.from(bShape.offsetRotation, bShape.offsetPosition)
+        val worldTransformB = transformB × offsetTransformB
+
+
       }
     }
   }

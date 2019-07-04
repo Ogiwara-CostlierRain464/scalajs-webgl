@@ -6,7 +6,7 @@ import jp.ogiwara.sfc.info1.system.physics.elements._
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics._
-import jp.ogiwara.sfc.info1.system.physics.units.{LocalPosition, Speeds}
+import jp.ogiwara.sfc.info1.system.physics.units.{RigidBodyLocalPosition, ShapeLocalPosition, Speeds}
 import jp.ogiwara.sfc.info1.world.units.{Length, Position, Size}
 
 import scala.collection.mutable
@@ -26,12 +26,12 @@ object Sample {
         shapes = Seq(
           Shape(
             mesh = Cube.mesh(size),
-            offsetPosition = LocalPosition.origin,
+            offsetPosition = ShapeLocalPosition.origin,
             offsetRotation = Quaternion.identity
           )
         ),
         AABB = AxisAlignedBoundingBox(
-          center = LocalPosition(0f.m, 0f.m, 0f.m),
+          center = RigidBodyLocalPosition(0f.m, 0f.m, 0f.m),
           half = Size(size / 2, size / 2, size / 2)
         )
       ),
