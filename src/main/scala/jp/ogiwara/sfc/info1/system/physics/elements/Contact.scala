@@ -15,6 +15,8 @@ case class Contact(
                     contactPoints: Array[ContactPoint] = Array(ContactPoint(), ContactPoint(), ContactPoint(), ContactPoint())
                   ){
 
+  override def toString: String = s"(${contactPoints(0)} ${contactPoints(1)} ${contactPoints(2)} ${contactPoints(3)})"
+
   /**
     * 同一衝突点を探索する
     * 同じ衝突点を見つけた場合はそのインデックスを返す

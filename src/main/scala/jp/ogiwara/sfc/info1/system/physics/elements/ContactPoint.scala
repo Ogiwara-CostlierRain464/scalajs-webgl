@@ -17,6 +17,9 @@ case class ContactPoint(
                          // 拘束
                          constraints: Array[Constraint] = Array(Constraint(), Constraint(), Constraint())
                        ){
+
+  override def toString: String = s"${pointA.toPrettyStr}💥${pointB.toPrettyStr}"
+
   def reset(): Unit ={
     constraints(0).accumImpulse = 0
     constraints(1).accumImpulse = 0

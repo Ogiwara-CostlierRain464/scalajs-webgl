@@ -16,7 +16,10 @@ case class  CollisionPair(
                ){
 
   override def toString: String = {
-    if(pairType == New) s"$rigidBodyIndexA💥$rigidBodyIndexB" else s"$rigidBodyIndexA🌪$rigidBodyIndexB"
+    val head = if(pairType == New) "n" else "k"
+
+    head + s"($rigidBodyIndexA <- $contact -> $rigidBodyIndexB)"
+
   }
 
   override def equals(obj: Any): Boolean = {
