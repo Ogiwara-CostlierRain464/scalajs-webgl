@@ -6,4 +6,8 @@ import jp.ogiwara.sfc.info1.world.units.Position
 /**
   * 一つの頂点を表す
   */
-case class Vertex(position: Position)
+case class Vertex(position: Position){
+  def -(rhs: Vertex): Vector3 ={
+    (position-rhs.position).vector
+  }
+}

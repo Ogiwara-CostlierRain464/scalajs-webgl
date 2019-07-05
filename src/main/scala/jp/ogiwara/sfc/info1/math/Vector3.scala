@@ -12,6 +12,8 @@ case class Vector3(x: Number, y: Number,z: Number){
     * x,zが水平、yが垂直方向
     */
 
+  def unary_-(): Vector3 = Vector3(-x, -y, -z)
+
   def -(other: Vector3): Vector3 = Vector3(
     x - other.x,
     y - other.y,

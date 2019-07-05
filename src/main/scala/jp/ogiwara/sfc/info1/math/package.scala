@@ -15,6 +15,9 @@ package object math{
     }
 
     def rad: Radians = Radians(body.toRadians)
+
+    def clamp(from: Number, to: Number): Number =
+      max(from, min(body, to))
   }
 
   implicit class IntMeta(val body: Int){
