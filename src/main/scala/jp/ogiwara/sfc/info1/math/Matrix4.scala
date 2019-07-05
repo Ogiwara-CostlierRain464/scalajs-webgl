@@ -47,6 +47,17 @@ case class Matrix4(value: Tuple16[
     )
   }
 
+  def *(rhs: Number): Matrix4 ={
+    val (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) = value
+
+    Matrix4(
+      a*rhs, e*rhs, i*rhs, m*rhs,
+      b*rhs, f*rhs, j*rhs, n*rhs,
+      c*rhs, g*rhs, k*rhs, o*rhs,
+      d*rhs, h*rhs, l*rhs, p*rhs
+    )
+  }
+
   def +(rhs: Matrix4): Matrix4 ={
     val (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) = value
     val (a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2,m2,n2,o2,p2) = rhs.value
@@ -131,10 +142,20 @@ case class Matrix4(value: Tuple16[
   }
 
   def inverse: Matrix4 = {
-    // 再帰的な逆行列法でもとめる
+    val det = determinant
+    if(det == 0) return this
 
+    val (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) = value
 
-    ???
+    val right = Matrix4(
+      f*k*p+j*o*h+n*g*l-n*k*h-j*g*p-f*o*l, -e*k*p-i*o*h-m*g*l+m*k*h+i*g*p+e*o*l, e*j*p+i*n*h+m*f*l-m*j*h-i*f*p-e*n*l,-e*j*o-i*n*g-m*f*k+m*j*g+i*f*o+e*n*k,
+      -b*k*p-j*o*d-n*c*l+n*k*d+j*c*p+b*o*l,a*k*p+i*o*d+m*c*l-m*k*d-i*c*p-a*o*l,-a*j*p-i*n*d-m*b*l+m*j*d+i*b*p+a*n*l,a*j*o+i*n*c+m*b*k-m*j*c-i*b*o-a*n*k,
+      b*g*p+f*o*d+n*c*h-n*g*d-f*c*p-b*o*h,-a*g*p-e*o*d-m*c*h+m*g*d+e*c*p+a*o*h,a*f*p+e*n*d+m*b*h-m*f*d-e*b*p-a*n*h,-a*f*o-e*n*c-m*b*g+m*f*c+e*b*o+a*n*g,
+      -b*g*l-f*k*d-j*c*h+j*g*d+f*c*l+b*k*h,a*g*l+e*k*d+i*c*h-i*g*d-e*c*l-a*k*h,-a*f*l-e*j*d-i*b*h+i*f*d+e*b*l+a*j*h, a*f*k+e*j*c+i*b*g-i*f*c-e*b*k-a*j*g
+    )
+
+    right * (1f / det)
+
   }
 
   def determinant: Number = {
