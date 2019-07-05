@@ -2,6 +2,7 @@ package jp.ogiwara.sfc.info1.system.physics.pipeline
 
 import jp.ogiwara.sfc.info1.system.physics.{Bodies, RigidBody}
 import jp.ogiwara.sfc.info1.system.physics.elements.{CollisionPair, Transform}
+import jp.ogiwara.sfc.info1.system.physics.collision._
 
 object DetectCollisionPipeline {
   def apply(objects: Bodies, pairs: Seq[CollisionPair]): Unit ={
@@ -22,7 +23,15 @@ object DetectCollisionPipeline {
         val offsetTransformB = Transform.from(bShape.offsetRotation, bShape.offsetPosition)
         val worldTransformB = transformB × offsetTransformB
 
-
+        convexContact(
+          aShape.mesh,
+          worldTransformA,
+          bShape.mesh,
+          worldTransformB).map { case (normal, penetrationDepth, contactPointA, contactPointB) =>
+            if(penetrationDepth < 0){
+              pair.contact
+            }
+        }
       }
     }
   }

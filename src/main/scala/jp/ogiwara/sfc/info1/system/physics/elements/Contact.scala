@@ -9,6 +9,18 @@ case class Contact(
                     // 摩擦
                     friction: Number = 0,
                     // 衝突点の配列
-                    contactPoints: (ContactPoint, ContactPoint, ContactPoint, ContactPoint)
-                    = (ContactPoint(), ContactPoint(), ContactPoint(), ContactPoint())
-                  )
+                    contactPoints: Array[ContactPoint] = new Array[ContactPoint](4)
+                  ){
+
+  def findNearestContactPoint(): Unit ={
+    var nearestIdx = -1
+
+    val minDiff = 0.01f
+
+
+  }
+
+  def addContact(): Unit ={
+
+  }
+}

@@ -45,7 +45,7 @@ package object collision {
     // 最も浅い貫通深度とそのときの分離軸
     var distanceMin = -Float.MaxValue
     var axisMin = Vector3(0,0,0)
-    var satType = Edge2Edge
+    var satType: SatType = null
     var axisFlip = false
 
     //region 分離軸判定
@@ -76,13 +76,13 @@ package object collision {
       if(distanceMin < d1){
         distanceMin = d1
         axisMin = separatingAxis
-        satType = PointB2FacetA()
+        satType = PointB2FacetA
         axisFlip = false
       }
       if(distanceMin < d2){
         distanceMin = d2
         axisMin = -separatingAxis
-        satType = PointB2FacetA()
+        satType = PointB2FacetA
         axisFlip = true
       }
     }
@@ -109,13 +109,13 @@ package object collision {
       if(distanceMin < d1){
         distanceMin = d1
         axisMin = separatingAxis
-        satType = PointA2FacetB()
+        satType = PointA2FacetB
         axisFlip = false
       }
       if(distanceMin < d2){
         distanceMin = d2
         axisMin = -separatingAxis
-        satType = PointA2FacetB()
+        satType = PointA2FacetB
         axisFlip = true
       }
     }
@@ -157,13 +157,13 @@ package object collision {
             if(distanceMin < d1){
               distanceMin = d1
               axisMin = separatingAxis
-              satType = Edge2Edge()
+              satType = Edge2Edge
               axisFlip = false
             }
             if(distanceMin < d2){
               distanceMin = d2
               axisMin = -separatingAxis
-              satType = Edge2Edge()
+              satType = Edge2Edge
               axisFlip = true
             }
           }
@@ -187,7 +187,7 @@ package object collision {
     for(facetA <- meshA.facets){
       breakable {
         val checkA = facetA.normal * (-axisMin)
-        if(satType == PointB2FacetA() && checkA < 0.99f && axisFlip){
+        if(satType == PointB2FacetA && checkA < 0.99f && axisFlip){
           // 判定軸が面Aの法線のとき、向きの違うAの面は判定しない
           break
         }
@@ -199,7 +199,7 @@ package object collision {
         for(facetB <- meshB.facets){
           breakable {
             val checkB = facetA.normal * (matrixBA × axisMin)
-            if(satType == PointA2FacetB() && checkB < 0.99f && !axisFlip){
+            if(satType == PointA2FacetB && checkB < 0.99f && !axisFlip){
               // 判定軸が面Bの法線のとき、向きの違うBの面は判定しない
               break
             }
