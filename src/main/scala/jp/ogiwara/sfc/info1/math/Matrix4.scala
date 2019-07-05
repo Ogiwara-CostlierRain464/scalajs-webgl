@@ -129,6 +129,26 @@ case class Matrix4(value: Tuple16[
       c,g,k
     )
   }
+
+  def inverse: Matrix4 = {
+    // 再帰的な逆行列法でもとめる
+
+
+    ???
+  }
+
+  def determinant: Number = {
+    val (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) = value
+
+     (a * f * k * p + a * j * o * h + a * n * g * l
+    - a * n * k * h - a * j * g * p - a * f * o * l
+    - e * b * k * p - i * b * o * h - m * b * g * l
+    + m * b * k * h + i * b * g * p + e * b * o * l
+    + e * j * c * p + i * n * c * h + m * f * c * l
+    - m * j * c * h - i * f * c * p - e * n * c * l
+    - e * j * o * d - i * n * g * d - m * f * k * d
+    + m * j * g * d + i * f * o * d + e * n * k * d)
+  }
 }
 
 object Matrix4{

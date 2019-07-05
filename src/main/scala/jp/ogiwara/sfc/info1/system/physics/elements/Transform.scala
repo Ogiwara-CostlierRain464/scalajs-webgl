@@ -11,6 +11,8 @@ import jp.ogiwara.sfc.info1.world.units.Position
 case class Transform(matrix: Matrix4){
   def ×(rhs: Transform): Transform =
     Transform(matrix × rhs.matrix)
+
+  def inverse: Transform = Transform(matrix.)
 }
 
 object Transform{
