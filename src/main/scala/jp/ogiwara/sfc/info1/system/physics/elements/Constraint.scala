@@ -16,5 +16,5 @@ case class Constraint(
                        // 拘束力の上限
                        upperLimit: Number = 0,
                        // 蓄積される拘束力
-                       accumImpulse: Number = 0
+                       var accumImpulse: Number = 0
                      )

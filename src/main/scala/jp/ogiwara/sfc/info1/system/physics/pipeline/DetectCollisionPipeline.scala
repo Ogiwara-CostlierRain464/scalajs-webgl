@@ -27,9 +27,14 @@ object DetectCollisionPipeline {
           aShape.mesh,
           worldTransformA,
           bShape.mesh,
-          worldTransformB).map { case (normal, penetrationDepth, contactPointA, contactPointB) =>
+          worldTransformB).foreach { case (normal, penetrationDepth, contactPointA, contactPointB) =>
             if(penetrationDepth < 0){
-              pair.contact
+              pair.contact.addContact(
+                penetrationDepth,
+                normal,
+                offsetTransformA.translation + (offsetTransformA.upper3x3 × contactPointA),
+                offsetTransformB.translation + (offsetTransformB.upper3x3 × contactPointB),
+              )
             }
         }
       }
