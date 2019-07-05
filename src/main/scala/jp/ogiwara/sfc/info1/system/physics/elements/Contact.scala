@@ -12,7 +12,7 @@ case class Contact(
                     // 摩擦
                     friction: Number = 0,
                     // 衝突点の配列
-                    contactPoints: Array[ContactPoint] = new Array[ContactPoint](4)
+                    contactPoints: Array[ContactPoint] = Array(ContactPoint(), ContactPoint(), ContactPoint(), ContactPoint())
                   ){
 
   /**
@@ -127,11 +127,12 @@ case class Contact(
     var id = findNearestContactPoint(contactPointA, contactPointB, normal)
 
     if(id < 0 && count < 4){
-      count += 1
       id = count
+      count += 1
       contactPoints(id).reset()
     }else if(id < 0){
       id = sort4ContactPoints(contactPointA, penetrationDepth)
+
       contactPoints(id).reset()
     }
 

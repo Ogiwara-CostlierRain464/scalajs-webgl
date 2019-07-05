@@ -15,7 +15,7 @@ case class ContactPoint(
                          // 衝突点の法線ベクトル(ワールド座標系)
                          var normal: Vector3 = Vector3.origin,
                          // 拘束
-                         constraints: Array[Constraint] = new Array[Constraint](3)
+                         constraints: Array[Constraint] = Array(Constraint(), Constraint(), Constraint())
                        ){
   def reset(): Unit ={
     constraints(0).accumImpulse = 0

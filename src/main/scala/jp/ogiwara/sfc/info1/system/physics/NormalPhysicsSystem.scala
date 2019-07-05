@@ -6,7 +6,7 @@ import jp.ogiwara.sfc.info1.mutable
 import jp.ogiwara.sfc.info1.world._
 import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics.elements.CollisionPair
-import jp.ogiwara.sfc.info1.system.physics.pipeline.{BroadPhasePipeline, ForcePipeline, IntegratePipeline}
+import jp.ogiwara.sfc.info1.system.physics.pipeline.{BroadPhasePipeline, DetectCollisionPipeline, ForcePipeline, IntegratePipeline}
 import jp.ogiwara.sfc.info1.system.physics.units.Forces
 
 import scala.collection.mutable
@@ -30,6 +30,10 @@ class NormalPhysicsSystem extends System{
 
     val bodies = pipe0.map(_.metadatas(RigidBody.key).asInstanceOf[RigidBody])
     collisionPairs = BroadPhasePipeline.findPair(bodies, collisionPairs)
+
+    val bodies2 = pipe0.map(_.metadatas(RigidBody.key).asInstanceOf[RigidBody])
+    // ここで、collisionPairに変更が加わる
+    DetectCollisionPipeline(Bodies(bodies2),collisionPairs)
 
     if(collisionPairs.nonEmpty){
       println(collisionPairs)
