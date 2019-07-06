@@ -187,12 +187,24 @@ case class Vector3(x: Number, y: Number,z: Number){
   /**
     * Vectorを四元数と見なして計算するときに使う
     */
+  @deprecated
   def asQuaternion: Quaternion = Quaternion(1, x, y, z)
 
   /**
     * X-Z平面
     */
   def xzPlane: Vector2 = Vector2(x,z)
+
+  /**
+    * 外積を行列形式で表す
+    */
+  def toCrossMatrix: Matrix3 = Matrix3(
+    0, -z, y,
+    y,  0,-x,
+   -y,  x, 0
+  )
+
+  def unary_~(): Matrix3 = toCrossMatrix
 }
 
 object Vector3{
@@ -200,6 +212,9 @@ object Vector3{
   // 原点
   @inline def origin = Vector3(0,0,0)
 
-  implicit def tuple2Vector3(tuple: (Number, Number, Number)) =
+  implicit def tuple2Vector3(tuple: (Number, Number, Number)): Vector3 =
     Vector3(tuple._1, tuple._2, tuple._3)
+
+  def apply(scalar: Number): Vector3 =
+    Vector3(scalar, scalar, scalar)
 }

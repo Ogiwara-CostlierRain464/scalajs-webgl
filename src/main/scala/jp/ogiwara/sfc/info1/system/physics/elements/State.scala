@@ -12,9 +12,9 @@ case class State(
                   orientation: Rotation,
                   // 並進速度
 
-                  linearVelocity: Speeds,
+                  var linearVelocity: Speeds,
                   // 回転速度
-                  angularVelocity: Speeds,
+                  var angularVelocity: Speeds,
                   motionType: MotionType = Active
                 )
 

@@ -10,7 +10,7 @@ case class Contact(
                     // 衝突の数
                     var count: Int = 0,
                     // 摩擦
-                    friction: Number = 0,
+                    var friction: Number = 0,
                     // 衝突点の配列
                     contactPoints: Array[ContactPoint] = Array(ContactPoint(), ContactPoint(), ContactPoint(), ContactPoint())
                   ){

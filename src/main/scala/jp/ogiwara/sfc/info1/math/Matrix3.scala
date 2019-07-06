@@ -10,6 +10,17 @@ case class Matrix3(value:
                      )
                   ){
 
+  def -(rhs: Matrix3): Matrix3 ={
+    val (a,b,c,d,e,f,g,h,i) = value
+    val (a2,b2,c2,d2,e2,f2,g2,h2,i2) = rhs.value
+
+    Matrix3(
+      a-a2, d - d2, g -g2,
+      b-b2, e - e2, h -h2,
+      c-c2, f - f2, i -i2,
+    )
+  }
+
   def ×(rhs: Matrix3): Matrix3 ={
     val (a,b,c,d,e,f,g,h,i) = value
     val (a2,b2,c2,d2,e2,f2,g2,h2,i2) = rhs.value
@@ -97,4 +108,11 @@ object Matrix3{
            ): Matrix3 = {
     new Matrix3((a,b,c,d,e,f,g,h,i))
   }
+
+  // Construct a 3x3 matrix to perform scaling
+  def scale(vec: Vector3): Matrix3 = Matrix3(
+    vec.x, 0,0,
+    0,vec.y,0,
+    0,0,vec.z
+  )
 }
