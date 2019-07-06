@@ -207,7 +207,7 @@ object ConstraintSolverPipeline {
     def calcTangentVector(normal: Vector3): (Vector3, Vector3) ={
       var vec = Vector3(1,0,0)
       val n = normal.copy(x = 0)
-      if(n.norm < 1e-5f){
+      if(n.norm.sqrt < 1e-5f){
         vec = Vector3(0,1,0)
       }
 

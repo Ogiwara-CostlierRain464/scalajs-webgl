@@ -135,7 +135,7 @@ package object collision {
 
             var separatingAxis = edgeVecA × edgeVecB
 
-            if(separatingAxis.norm < (1e-5f ^ 2)) break
+            if(separatingAxis.norm.sqrt < (1e-5f ^ 2)) break
 
             separatingAxis = separatingAxis.normalized
 
@@ -236,7 +236,7 @@ package object collision {
                       triangleB(j), triangleB((j+1)%3)
                     )
 
-                    val dSqr = (sA - sB).norm
+                    val dSqr = (sA - sB).norm.sqrt
                     if(dSqr < closestMinSqr){
                       closestMinSqr = dSqr
                       closestPointA = sA
@@ -250,7 +250,7 @@ package object collision {
             // 頂点Ａ→面Ｂの最近接点算出
             for(i <- 0 to 2){
               val s = getClosestPointTriangle(triangleA(i), triangleB(0), triangleB(1), triangleB(2), matrixAB × facetB.normal)
-              val dSqr = (triangleA(i) - s).norm
+              val dSqr = (triangleA(i) - s).norm.sqrt
               if(dSqr < closestMinSqr){
                 closestMinSqr = dSqr
                 closestPointA = triangleA(i)
@@ -261,7 +261,7 @@ package object collision {
             // 頂点Ｂ→面Ａの最近接点算出
             for(i <- 0 to 2){
               val s = getClosestPointTriangle(triangleB(i), triangleA(0), triangleA(1), triangleA(2), facetA.normal)
-              val dSqr = (triangleB(i) - s).norm
+              val dSqr = (triangleB(i) - s).norm.sqrt
               if(dSqr < closestMinSqr){
                 closestMinSqr = dSqr
                 closestPointA = s

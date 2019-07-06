@@ -18,6 +18,8 @@ package object math{
 
     def clamp(from: Number, to: Number): Number =
       max(from, min(body, to))
+
+    def sqrt: Number = Math.sqrt(body.toDouble)
   }
 
   implicit class IntMeta(val body: Int){

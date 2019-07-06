@@ -1,6 +1,6 @@
 package jp.ogiwara.sfc.info1.system.physics.elements
 
-import jp.ogiwara.sfc.info1.math.{Number, Vector3}
+import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.mutable
 import Math._
 
@@ -33,8 +33,8 @@ case class Contact(
 
     var minDiff = 0.01f
     for(i <- 0 until count){
-      val diffA = (contactPoints(i).pointA - newPointA).norm
-      val diffB = (contactPoints(i).pointB - newPointB).norm
+      val diffA = (contactPoints(i).pointA - newPointA).norm.sqrt
+      val diffB = (contactPoints(i).pointB - newPointB).norm.sqrt
 
       if(diffA < minDiff && diffB < minDiff && newNormal * contactPoints(i).normal > 0.99){
         minDiff = Math.max(diffA, diffB)
@@ -107,9 +107,9 @@ case class Contact(
 
 
   def calcArea4Points(p0: Vector3, p1: Vector3, p2: Vector3, p3: Vector3): Number ={
-    val areaSqrA = ((p0-p1) × (p2 - p3)).norm
-    val areaSqrB = ((p0-p2) × (p1 - p3)).norm
-    val areaSqrC = ((p0-p3) × (p1 - p2)).norm
+    val areaSqrA = ((p0-p1) × (p2 - p3)).norm.sqrt
+    val areaSqrB = ((p0-p2) × (p1 - p3)).norm.sqrt
+    val areaSqrC = ((p0-p3) × (p1 - p2)).norm.sqrt
 
     max(areaSqrC, max(areaSqrA, areaSqrB))
   }

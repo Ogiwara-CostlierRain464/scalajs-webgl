@@ -16,7 +16,13 @@ import Math._
   * サンプルとして扱えるオブジェクトをまとめる
   */
 object Sample {
-  class Cube(aPosition: Position, id: Int,size: Length = 1f.m, static: Boolean = false) extends Entity(
+  class Cube(aPosition: Position,
+             id: Int,
+             size: Length = 1f.m,
+             static: Boolean = false,
+             linerVelocity: Speeds = Speeds.origin,
+             angularVelocity: Speeds = Speeds.origin
+            ) extends Entity(
     EntityID(id),
     aPosition,
     Quaternion.identity,
@@ -38,8 +44,8 @@ object Sample {
       state = State(
         position = aPosition,
         orientation = Quaternion.byRotate(0.rad, Vector3.up),
-        linearVelocity = Speeds.origin,
-        angularVelocity = Speeds.origin,
+        linearVelocity = linerVelocity,
+        angularVelocity = angularVelocity,
         motionType = if(static) Static else Active
       ),
       attribute = Attribute(
@@ -48,14 +54,16 @@ object Sample {
           0,(1f/12)*(2 * pow(size.meter,2)),0,
           0,0,(1f/12)*(2 * pow(size.meter,2)),
         ),
-        mass = 1f.kg,
-        restitution = 0,
+        mass = 5000f.kg,
+        restitution = 0.0001,
         friction = 0
       )
     ))
   ){
 
     override def render(): Mesh = {
+
+      println(position)
 
       // さて、回転そのものは正しいそう
       // 多分回転の中心がおかしい…
@@ -198,12 +206,12 @@ object Sample {
           new Cube(
             aPosition = Position.origin,
             id = 0,
-            size = 2f.m,
-            static = true
+            size = 2f.m
           ),
           new Cube(
             Position(0f.m, 5f.m, 0f.m),1,
-            size = 2f.m
+            size = 2f.m,
+            linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
           ),
         )
       )
