@@ -167,18 +167,19 @@ object Sample {
         Edge((3,6), (10,11)),
       ),
       facets = Seq(
-        Facet((0,4,5),(4,8,12),Vector3(0,0,-1)),
+        // 頂点Indexは、反時計周りにする
+        Facet((0,5,4),(4,8,12),Vector3(0,0,-1)),
         Facet((0,1,5),(0,5,12),Vector3(0,0,-1)),
         Facet((0,4,6),(4,9,13),Vector3(-1,0,0)),
-        Facet((0,2,6),(1,6,13),Vector3(-1,0,0)),
-        Facet((0,1,2),(0,1,14),Vector3(0,1,0)),
+        Facet((0,6,2),(1,6,13),Vector3(-1,0,0)),
+        Facet((0,2,1),(0,1,14),Vector3(0,1,0)),
         Facet((1,2,3),(2,3,14),Vector3(0,1,0)),
 
         Facet((1,3,5),(2,5,15),Vector3(1,0,0)),
-        Facet((3,5,7),(7,10,15),Vector3(1,0,0)),
+        Facet((3,7,5),(7,10,15),Vector3(1,0,0)),
         Facet((4,5,7),(8,10,16),Vector3(0,-1,0)),
-        Facet((4,6,7),(9,11,16),Vector3(0,-1,0)),
-        Facet((2,3,6),(3,6,17),Vector3(0,0,1)),
+        Facet((4,7,6),(9,11,16),Vector3(0,-1,0)),
+        Facet((2,6,3),(3,6,17),Vector3(0,0,1)),
         Facet((3,6,7),(7,11,17),Vector3(0,0,1)),
       )
     )
@@ -209,7 +210,7 @@ object Sample {
             size = 2f.m
           ),
           new Cube(
-            Position(0f.m, 5f.m, 0f.m),1,
+            Position(1f.m, 5f.m, 0f.m),1,
             size = 2f.m,
             linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
           ),
