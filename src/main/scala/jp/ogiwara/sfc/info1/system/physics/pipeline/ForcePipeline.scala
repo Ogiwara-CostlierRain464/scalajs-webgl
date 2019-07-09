@@ -1,6 +1,6 @@
 package jp.ogiwara.sfc.info1.system.physics.pipeline
 
-import jp.ogiwara.sfc.info1.math.{Number, Vector3}
+import jp.ogiwara.sfc.info1.math._
 import jp.ogiwara.sfc.info1.system.physics.RigidBody
 import jp.ogiwara.sfc.info1.system.physics._
 import jp.ogiwara.sfc.info1.system.physics.elements.Static
@@ -10,6 +10,11 @@ import jp.ogiwara.sfc.info1.system.physics.units.{Forces, Momentums, Speeds}
   * 外力を加える
   */
 object ForcePipeline {
+
+  final val maxLinearVelocity: Number = 340
+  final val maxAngularVelocity: Number = Math.PI * 60f
+
+
   /**
     * 剛体に外力を与える
     */
@@ -37,15 +42,27 @@ object ForcePipeline {
     val angularMomentumVec: Vector3 = worldInertia × state.angularVelocity.vector
     val angularMomentum = Momentums(angularMomentumVec.x.Ns,angularMomentumVec.y.Ns, angularMomentumVec.z.Ns )
 
+
+    var newLinearVelocity = state.linearVelocity + (externalForce / attribute.mass * timeStep)
+
+    if(newLinearVelocity.vector.norm.sqrt > (maxLinearVelocity ^ 2)){
+      val fixed = (newLinearVelocity.vector / newLinearVelocity.vector.norm.sqrt.sqrt) * maxLinearVelocity
+      newLinearVelocity = Speeds(fixed.x.mPerS, fixed.y.mPerS, fixed.z.mPerS)
+    }
+
     // 並進速度の更新
     var newState = state.copy(
-      linearVelocity = state.linearVelocity + (externalForce / attribute.mass * timeStep)
+      linearVelocity = newLinearVelocity
     )
 
     // 角運動量
     val newAngularMomentum: Momentums = angularMomentum + externalTorque * timeStep
 
-    val newAngularVelocityVec = worldInertiaInverse × newAngularMomentum.vector
+    var newAngularVelocityVec = worldInertiaInverse × newAngularMomentum.vector
+
+    if(newAngularVelocityVec.norm.sqrt > (maxAngularVelocity ^ 2)){
+      newAngularVelocityVec = (newAngularVelocityVec / newAngularVelocityVec.norm.sqrt.sqrt) * maxAngularVelocity
+    }
 
     // 角速度の更新
     newState = newState.copy(

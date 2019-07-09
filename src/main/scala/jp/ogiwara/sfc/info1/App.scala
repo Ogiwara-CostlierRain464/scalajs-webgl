@@ -31,7 +31,7 @@ object App {
     screen.setup()
 
     var camera = Camera(
-      position = Position(100f.m,100f.m,100f.m),
+      position = Position(10f.m,10f.m,10f.m),
       lookAt = Position.origin,
       fovy = 100.rad,
       aspect = canvas.width / canvas.height,
