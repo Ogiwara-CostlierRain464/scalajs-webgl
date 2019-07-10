@@ -159,12 +159,12 @@ object Sample {
         Edge((5,7), (7,8)),
         Edge((6,7), (9,11)),
 
-        Edge((0,5), (0,1)),
-        Edge((0,6), (2,3)),
-        Edge((1,2), (4,5)),
-        Edge((3,5), (6,7)),
-        Edge((4,7), (8,9)),
-        Edge((3,6), (10,11)),
+        Edge((0,5), (0,1), Flat),
+        Edge((0,6), (2,3), Flat),
+        Edge((1,2), (4,5), Flat),
+        Edge((3,5), (6,7), Flat),
+        Edge((4,7), (8,9), Flat),
+        Edge((3,6), (10,11), Flat),
       ),
       facets = Seq(
         // 頂点Indexは、反時計周りにする
@@ -210,7 +210,7 @@ object Sample {
             size = 2f.m
           ),
           new Cube(
-            Position(1f.m, 5f.m, 0f.m),1,
+            Position(0f.m, 5f.m, 0f.m),1,
             size = 2f.m,
             linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
           ),
