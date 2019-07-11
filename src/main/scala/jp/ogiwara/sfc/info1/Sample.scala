@@ -55,7 +55,7 @@ object Sample {
           0,0,(1f/12)*(2 * pow(size.meter,2)),
         ),
         mass = 1f.kg,
-        restitution = 0.5,
+        restitution = 0.1,
         friction = 0
       )
     ))
@@ -71,14 +71,15 @@ object Sample {
 
       Mesh(
         vertexes = Seq(
-          Vertex((position + Position(0f.m,size,0f.m)).rotate(rotation)),
-          Vertex((position + Position(size,size,0f.m)).rotate(rotation)),
-          Vertex((position + Position(0f.m,size,size)).rotate(rotation)),
-          Vertex((position + Position(size,size,size)).rotate(rotation)),
-          Vertex((position + Position(0f.m,0f.m,0f.m)).rotate(rotation)),
-          Vertex((position + Position(size,0f.m,0f.m)).rotate(rotation)),
-          Vertex((position + Position(0f.m,0f.m,size)).rotate(rotation)),
-          Vertex((position + Position(size,0f.m,size)).rotate(rotation)),
+          //Vertex((position + Position(0f.m,size,0f.m)).rotate(rotation)),
+          Vertex(position + Position(0f.m,size,0f.m).rotate(rotation)),
+          Vertex(position + Position(size,size,0f.m).rotate(rotation)),
+          Vertex(position + Position(0f.m,size,size).rotate(rotation)),
+          Vertex(position + Position(size,size,size).rotate(rotation)),
+          Vertex(position + Position(0f.m,0f.m,0f.m).rotate(rotation)),
+          Vertex(position + Position(size,0f.m,0f.m).rotate(rotation)),
+          Vertex(position + Position(0f.m,0f.m,size).rotate(rotation)),
+          Vertex(position + Position(size,0f.m,size).rotate(rotation)),
         ),
         colors = Seq(
           Color.blue,
@@ -212,7 +213,7 @@ object Sample {
             static = true
           ),
           new Cube(
-            Position(0f.m, 5f.m, 0f.m),1,
+            Position(0.1f.m, 5f.m, 0f.m),1,
             size = 2f.m,
             linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
           ),
