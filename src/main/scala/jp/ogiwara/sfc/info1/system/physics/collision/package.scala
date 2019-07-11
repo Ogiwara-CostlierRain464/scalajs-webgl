@@ -33,19 +33,19 @@ package object collision {
       convexContact(meshB, transformB, meshA, transformA)
 
     // B local -> A localへの変換
-    val transfromAB = transformA.inverse × transformB
-    val matrixAB = transfromAB.upper3x3
-    val offsetAB = transfromAB.translation
+    val transformAB = transformA.inverse × transformB
+    val matrixAB = transformAB.upper3x3
+    val offsetAB = transformAB.translation
 
     // A local -> B localへの変換
-    val transfromBA = transfromAB.inverse
-    val matrixBA = transfromAB.upper3x3
-    val offsetBA = transfromAB.translation
+    val transformBA = transformAB.inverse
+    val matrixBA = transformBA.upper3x3
+    val offsetBA = transformBA.translation
 
     // 最も浅い貫通深度とそのときの分離軸
     var distanceMin = -Float.MaxValue
     var axisMin = Vector3(0,0,0)
-    var satType: SatType = null
+    var satType: SatType = Edge2Edge
     var axisFlip = false
 
     //region 分離軸判定
@@ -56,7 +56,7 @@ package object collision {
       val separatingAxis = facet.normal
 
       // ConvexAを分離軸に投影
-      var (minA, maxA) = getProjection(meshA, separatingAxis)
+      val (minA, maxA) = getProjection(meshA, separatingAxis)
 
       // ConvexBを分離軸に投影
       var (minB, maxB) = getProjection(meshB, matrixBA × facet.normal)
@@ -89,9 +89,9 @@ package object collision {
 
     // ConvexBの面法線を分離軸とする
     for(facet <- meshB.facets){
-      val separatingAxis = matrixAB × (facet.normal)
+      val separatingAxis = matrixAB × facet.normal
 
-      var (minA, maxA) = getProjection(meshA, separatingAxis)
+      val (minA, maxA) = getProjection(meshA, separatingAxis)
       var (minB, maxB) = getProjection(meshB, facet.normal)
       val offset = offsetAB * separatingAxis
 
@@ -139,7 +139,7 @@ package object collision {
 
             separatingAxis = separatingAxis.normalized
 
-            var (minA, maxA) = getProjection(meshA, separatingAxis)
+            val (minA, maxA) = getProjection(meshA, separatingAxis)
             var (minB, maxB) = getProjection(meshB, matrixBA × separatingAxis)
             val offset = offsetAB * separatingAxis
 
@@ -182,7 +182,7 @@ package object collision {
     var closestMinSqr = Float.MaxValue
     var closestPointA = Vector3(0,0,0)
     var closestPointB = Vector3(0,0,0)
-    var separation = axisMin * distanceMin.abs * 1.1f
+    val separation = axisMin * distanceMin.abs * 1.1f
 
     for(facetA <- meshA.facets){
       breakable {
@@ -335,8 +335,8 @@ package object collision {
     s = (-d+t*b)/a
     s = s.clamp(0,1)
 
-    val closestPointA = segmentPointA0 + v1 * s
-    val closestPointB = segmentPointB0 + v2 * t
+    val closestPointA = segmentPointA0 + (v1 * s)
+    val closestPointB = segmentPointB0 + (v2 * t)
 
     (closestPointA, closestPointB)
   }
@@ -401,24 +401,21 @@ package object collision {
     }
 
     // 頂点P0のボロノイ領域
-    if(voronoiEdgeP01check2 <= 0 && voronoiEdgeP20check3 <= 0 && voronoiEdgeP20check1 <= 0){
+    if(voronoiEdgeP01check2 <= 0 && voronoiEdgeP20check3 <= 0){
       return trianglePoint0
     }
 
     // 頂点P1のボロノイ領域
-    if(voronoiEdgeP01check3 <= 0 && voronoiEdgeP12check2 <= 0 && voronoiEdgeP20check1 <= 0){
+    if(voronoiEdgeP01check3 <= 0 && voronoiEdgeP12check2 <= 0){
       return trianglePoint1
     }
 
-    return trianglePoint2
-    /*
-    // TODO
-
     // 頂点P2のボロノイ領域
-    if(voronoiEdgeP20check2 <= 0 && voronoiEdgeP12check3 <= 0 && voronoiEdgeP20check1 <= 0){
+    if(voronoiEdgeP20check2 <= 0 && voronoiEdgeP12check3 <= 0){
       return trianglePoint2
     }
-    */
+
+    Vector3(0,0,0)
   }
 
   def getClosestPointLine(point: Vector3,
