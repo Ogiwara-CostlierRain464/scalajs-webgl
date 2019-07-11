@@ -10,7 +10,7 @@ package object math{
   implicit def int2Number(int: Int): Number = int.toFloat
 
   implicit class NumberMeta(val body: Number){
-    def ^(rhs: Int): Number ={
+    def ^(rhs: Number): Number ={
       pow(body,rhs)
     }
 

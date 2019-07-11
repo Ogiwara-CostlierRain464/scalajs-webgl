@@ -56,7 +56,7 @@ object Sample {
         ),
         mass = 1f.kg,
         restitution = 0.1,
-        friction = 0
+        friction = 0.1
       )
     ))
   ){
@@ -213,7 +213,7 @@ object Sample {
             static = true
           ),
           new Cube(
-            Position(0.1f.m, 5f.m, 0f.m),1,
+            Position(0f.m, 5f.m, 0f.m),1,
             size = 2f.m,
             linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
           ),

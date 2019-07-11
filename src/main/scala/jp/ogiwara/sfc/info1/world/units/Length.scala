@@ -10,7 +10,8 @@ case class Length(meter: Number){
   def /(rhs: Time): Speed = Speed(meter / rhs.second)
   def /(rhs: Number): Length = Length(meter / rhs)
   def *(rhs: Number): Length = Length(meter * rhs)
-  def ^(exp: Number): Length = Length(exp ^ 2)
+  def ^(exp: Number): Length = Length(meter ^ exp)
+  def unary_-(): Length = Length(-meter)
 
   override def toString: String = s"${meter}m"
 }
