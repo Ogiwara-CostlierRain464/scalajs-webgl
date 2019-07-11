@@ -49,7 +49,7 @@ object ConstraintSolverPipeline {
       val b = bodies.findBy(pair.rigidBodyIndexB).get
       val solverBodyB = solverBodies(pair.rigidBodyIndexB.value)
 
-      pair.contact.friction = sqrt((a.attribute.friction * b.attribute.friction).toDouble).toFloat
+      pair.contact.friction = (a.attribute.friction * b.attribute.friction).sqrt
 
       for(j <- 0 until pair.contact.count){
         val cp = pair.contact.contactPoints(j)
@@ -146,7 +146,7 @@ object ConstraintSolverPipeline {
               var deltaImpulse = constraint.rhs
               val deltaVelocityA = solverBodyA.deltaLinearVelocity + (solverBodyA.deltaAngularVelocity × rA)
               val deltaVelocityB = solverBodyB.deltaLinearVelocity + (solverBodyB.deltaAngularVelocity × rB)
-              deltaImpulse -= constraint.jacDiagInv - (constraint.axis * (deltaVelocityA - deltaVelocityB))
+              deltaImpulse -= constraint.jacDiagInv * (constraint.axis * (deltaVelocityA - deltaVelocityB))
               val oldImpulse = constraint.accumImpulse
               constraint.accumImpulse = (oldImpulse + deltaImpulse).clamp(constraint.lowerLimit, constraint.upperLimit)
               deltaImpulse = constraint.accumImpulse - oldImpulse
@@ -156,7 +156,7 @@ object ConstraintSolverPipeline {
               solverBodyB.deltaAngularVelocity -= solverBodyB.inertiaInv × (rB × constraint.axis) * deltaImpulse
             }
 
-            val maxFriction = pair.contact.friction * (cp.constraints(0).accumImpulse.abs)
+            val maxFriction = pair.contact.friction * cp.constraints(0).accumImpulse.abs
             cp.constraints(1).lowerLimit = -maxFriction
             cp.constraints(1).upperLimit = maxFriction
             cp.constraints(2).lowerLimit = -maxFriction
@@ -167,7 +167,7 @@ object ConstraintSolverPipeline {
               var deltaImpulse = constraint.rhs
               val deltaVelocityA = solverBodyA.deltaLinearVelocity + (solverBodyA.deltaAngularVelocity × rA)
               val deltaVelocityB = solverBodyB.deltaLinearVelocity + (solverBodyB.deltaAngularVelocity × rB)
-              deltaImpulse -= constraint.jacDiagInv - (constraint.axis * (deltaVelocityA - deltaVelocityB))
+              deltaImpulse -= constraint.jacDiagInv * (constraint.axis * (deltaVelocityA - deltaVelocityB))
               val oldImpulse = constraint.accumImpulse
               constraint.accumImpulse = (oldImpulse + deltaImpulse).clamp(constraint.lowerLimit, constraint.upperLimit)
               deltaImpulse = constraint.accumImpulse - oldImpulse
@@ -181,7 +181,7 @@ object ConstraintSolverPipeline {
               var deltaImpulse = constraint.rhs
               val deltaVelocityA = solverBodyA.deltaLinearVelocity + (solverBodyA.deltaAngularVelocity × rA)
               val deltaVelocityB = solverBodyB.deltaLinearVelocity + (solverBodyB.deltaAngularVelocity × rB)
-              deltaImpulse -= constraint.jacDiagInv - (constraint.axis * (deltaVelocityA - deltaVelocityB))
+              deltaImpulse -= constraint.jacDiagInv * (constraint.axis * (deltaVelocityA - deltaVelocityB))
               val oldImpulse = constraint.accumImpulse
               constraint.accumImpulse = (oldImpulse + deltaImpulse).clamp(constraint.lowerLimit, constraint.upperLimit)
               deltaImpulse = constraint.accumImpulse - oldImpulse

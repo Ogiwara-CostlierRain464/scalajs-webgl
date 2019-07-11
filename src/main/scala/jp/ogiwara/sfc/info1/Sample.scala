@@ -64,6 +64,7 @@ object Sample {
     override def render(): Mesh = {
 
       println(position)
+      println(rotation)
 
       // さて、回転そのものは正しいそう
       // 多分回転の中心がおかしい…

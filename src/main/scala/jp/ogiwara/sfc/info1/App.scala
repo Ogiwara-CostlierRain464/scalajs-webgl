@@ -44,7 +44,7 @@ object App {
 
     var caches: mutable.Seq[String] = mutable.Seq()
 
-    js.timers.setInterval(1000 / 10){
+    js.timers.setInterval(1000 / 60){
 
       caches.foreach { code =>
         camera = code match {

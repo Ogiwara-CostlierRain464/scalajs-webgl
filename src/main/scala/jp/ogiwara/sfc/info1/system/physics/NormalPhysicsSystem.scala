@@ -36,7 +36,8 @@ class NormalPhysicsSystem extends System{
     DetectCollisionPipeline(Bodies(bodies2),collisionPairs)
 
     // ここでは、Bodiesにも変更が加わる
-    ConstraintSolverPipeline(Bodies(bodies2), collisionPairs, Seq(), 10, 0.1, 0.001, timeStep)
+    // TODO 正しいバイアス調節をする
+    ConstraintSolverPipeline(Bodies(bodies2), collisionPairs, Seq(), 10, 0.1, 0.0001, timeStep)
 
     if(collisionPairs.nonEmpty){
       println(collisionPairs)
