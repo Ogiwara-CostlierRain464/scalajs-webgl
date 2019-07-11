@@ -54,8 +54,8 @@ object Sample {
           0,(1f/12)*(2 * pow(size.meter,2)),0,
           0,0,(1f/12)*(2 * pow(size.meter,2)),
         ),
-        mass = 5000f.kg,
-        restitution = 0.0001,
+        mass = 1f.kg,
+        restitution = 0.5,
         friction = 0
       )
     ))
@@ -208,7 +208,8 @@ object Sample {
           new Cube(
             aPosition = Position.origin,
             id = 0,
-            size = 2f.m
+            size = 2f.m,
+            static = true
           ),
           new Cube(
             Position(0f.m, 5f.m, 0f.m),1,
