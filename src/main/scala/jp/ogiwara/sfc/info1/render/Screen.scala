@@ -64,6 +64,8 @@ class Screen(val vShader: Shader, val fShader: Shader, implicit val gl: WebGLRen
     gl.uniform1i(uniTextureLocation, 0)
     //gl.bindTexture(TEXTURE_2D, texture)
 
+    // ワールド座標をそのまま採用する
+    // ローカル座標の計算は各系ごとに行う
     val mMatrix = Matrix4.identity
 
     val mvpMatrix = pvMatrix × ModelMatrix(mMatrix)

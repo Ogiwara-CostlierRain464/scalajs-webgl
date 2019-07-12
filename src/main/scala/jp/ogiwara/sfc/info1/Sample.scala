@@ -55,7 +55,7 @@ object Sample {
           0,0,(1f/12)*(2 * pow(size.meter,2)),
         ),
         mass = 1f.kg,
-        restitution = 0.1,
+        restitution = 0.3,
         friction = 0.1
       )
     ))
