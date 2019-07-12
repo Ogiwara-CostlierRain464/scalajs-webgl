@@ -37,7 +37,7 @@ object App {
       aspect = canvas.width / canvas.height,
       near = 1f.m,
       far = 1000f.km,
-      rotateX = Radians(0)
+      rotateX = 0.rad
     )
 
     val world = PrimitiveWorld
