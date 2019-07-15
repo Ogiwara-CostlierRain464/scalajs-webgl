@@ -72,6 +72,7 @@ object App {
   def execute(world: World): Unit ={
     val canvas = document.getElementById("gl_canvas").asInstanceOf[Canvas]
     var (screen, camera) = createMetaViewer(canvas)
+    screen.setup()
 
     var caches: mutable.Seq[String] = mutable.Seq()
 
@@ -99,6 +100,12 @@ object App {
 
       screen.render(snap, camera)
     }
+
+    document.body.onkeydown = { event =>
+      val keycode = event.key
+
+      caches = caches :+ keycode
+    }
   }
 
   private def createMetaViewer(canvas: Canvas): (render.Screen, Camera) ={
@@ -125,6 +132,7 @@ object App {
 
   private val vertexShader: String =
     """
+      |
       |attribute vec3 position;
       |attribute vec4 color;
       |attribute vec2 textureCoord;
@@ -137,10 +145,12 @@ object App {
       |    vTextureCoord = textureCoord;
       |    gl_Position = mvpMatrix * vec4(position, 1.0);
       |}
+      |
     """.stripMargin
 
   private val fragmentShader: String =
     """
+      |
       |precision mediump float;
       |
       |uniform sampler2D texture;
@@ -152,5 +162,6 @@ object App {
       |    //gl_FragColor = vColor * smpColor;
       |    gl_FragColor = vColor;
       |}
+      |
     """.stripMargin
 }
