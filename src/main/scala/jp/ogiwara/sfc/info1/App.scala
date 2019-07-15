@@ -69,6 +69,11 @@ object App {
     execute(Sample.ErrorCaseWorld)
   }
 
+  @JSExportTopLevel("gotoDescription")
+  def gotoDescription(): Unit = {
+    window.location.href = "description.html"
+  }
+
   def execute(world: World): Unit ={
     val canvas = document.getElementById("gl_canvas").asInstanceOf[Canvas]
     var (screen, camera) = createMetaViewer(canvas)

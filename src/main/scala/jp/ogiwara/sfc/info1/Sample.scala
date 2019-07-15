@@ -21,7 +21,8 @@ object Sample {
              size: Length = 1f.m,
              static: Boolean = false,
              linerVelocity: Speeds = Speeds.origin,
-             angularVelocity: Speeds = Speeds.origin
+             angularVelocity: Speeds = Speeds.origin,
+             restitution: Number = 0.3
             ) extends Entity(
     EntityID(id),
     aPosition,
@@ -55,20 +56,13 @@ object Sample {
           0,0,(1f/12)*(2 * pow(size.meter,2)),
         ),
         mass = 1f.kg,
-        restitution = 0.3,
+        restitution = restitution,
         friction = 0.1
       )
     ))
   ){
 
     override def render(): Mesh = {
-
-      println(position)
-      println(rotation)
-
-      // さて、回転そのものは正しいそう
-      // 多分回転の中心がおかしい…
-
       Mesh(
         vertexes = Seq(
           //Vertex((position + Position(0f.m,size,0f.m)).rotate(rotation)),
@@ -262,7 +256,8 @@ object Sample {
           new Cube(
             Position(0f.m, 5f.m, 0f.m),1,
             size = 2f.m,
-            linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
+            linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS),
+            restitution = 5
           ),
         )
       )
