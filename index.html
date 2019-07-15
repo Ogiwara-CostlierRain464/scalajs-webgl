@@ -37,16 +37,15 @@ void main(void){
 </head>
 <body onload="start();">
 
-<p>
-    <canvas id="gl_canvas" width="400" height="400"></canvas>
-</p>
 
-<p>
-    <input type="button" value="1">
-    <input type="button" value="2">
-    <input type="button" value="3">
+<canvas id="gl_canvas" width="400" height="400" class="row"></canvas>
 
-</p>
+<div class="mode_list">
+    <input type="button" value="Phase 1" class="mode" onclick="phase1();">
+    <input type="button" value="Phase 2" class="mode" onclick="phase2();">
+    <input type="button" value="Phase 3" class="mode" onclick="phase3();">
+</div>
+
 
 </body>
 </html>

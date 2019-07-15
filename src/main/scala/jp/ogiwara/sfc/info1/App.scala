@@ -19,28 +19,36 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 object App {
   def main(args: Array[String]): Unit = {}
 
+  var screen: render.Screen = _
+  var camera: Camera = _
+
   @JSExportTopLevel("start")
   def start(): Unit ={
-    val canvas = document.getElementById("gl_canvas").asInstanceOf[Canvas]
-    implicit val gl: WebGLRenderingContext = canvas.getContext("webgl").asInstanceOf[WebGLRenderingContext]
-
-    val vs = ShaderService.byId("vs", document)
-    val fs = ShaderService.byId("fs", document)
-
-    val screen = new render.Screen(vs, fs, gl)
+    var (screen, camera) = createMetaViewer()
     screen.setup()
 
-    var camera = Camera(
-      position = Position(10f.m,10f.m,10f.m),
-      lookAt = Position.origin,
-      fovy = 100.rad,
-      aspect = canvas.width / canvas.height,
-      near = 1f.m,
-      far = 1000f.km,
-      rotateX = 0.rad
-    )
+    this.screen = screen
+    this.camera = camera
 
-    val world = PrimitiveWorld
+    phase3()
+  }
+
+  @JSExportTopLevel("phase1")
+  def phase1(): Unit ={
+    execute(new Sample.Phase1World())
+  }
+
+  @JSExportTopLevel("phase2")
+  def phase2(): Unit ={
+    execute(new Sample.Phase2World())
+  }
+
+  @JSExportTopLevel("phase3")
+  def phase3(): Unit ={
+    execute(new Sample.Phase3World())
+  }
+
+  private def execute(world: World): Unit ={
 
     var caches: mutable.Seq[String] = mutable.Seq()
 
@@ -74,6 +82,28 @@ object App {
 
       caches = caches :+ keycode
     }
+  }
+
+  private def createMetaViewer(): (render.Screen, Camera) ={
+    val canvas = document.getElementById("gl_canvas").asInstanceOf[Canvas]
+    implicit val gl: WebGLRenderingContext = canvas.getContext("webgl").asInstanceOf[WebGLRenderingContext]
+
+    val vs = ShaderService.byId("vs", document)
+    val fs = ShaderService.byId("fs", document)
+
+    val screen = new render.Screen(vs, fs, gl)
+
+    val camera = Camera(
+      position = Position(10f.m,10f.m,10f.m),
+      lookAt = Position.origin,
+      fovy = 100.rad,
+      aspect = canvas.width / canvas.height,
+      near = 1f.m,
+      far = 1000f.km,
+      rotateX = 0.rad
+    )
+
+    (screen, camera)
   }
 
 }

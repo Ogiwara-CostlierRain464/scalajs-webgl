@@ -55,8 +55,8 @@ case class Camera(
     val move = lookAtVec.rotate(90.rad)
 
     copy(
-      position = position - Position(move.x.m,0f.m,move.y.m),
-      lookAt = lookAt - Position(move.x.m,0f.m,move.y),
+      position = position + Position(move.x.m,0f.m,move.y.m),
+      lookAt = lookAt + Position(move.x.m,0f.m,move.y),
     )
   }
 
@@ -66,8 +66,8 @@ case class Camera(
     val move = lookAtVec.rotate(90.rad)
 
     copy(
-      position = position + Position(move.x.m,0f.m,move.y.m),
-      lookAt = lookAt + Position(move.x,0f,move.y),
+      position = position - Position(move.x.m,0f.m,move.y.m),
+      lookAt = lookAt - Position(move.x,0f,move.y),
     )
   }
 

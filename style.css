@@ -1,2 +1,11 @@
-.d {
+.mode_list {
+  padding: 10px;
+}
+
+.mode {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  background-color: #cccccc;
+  border-radius: 5px;
 }

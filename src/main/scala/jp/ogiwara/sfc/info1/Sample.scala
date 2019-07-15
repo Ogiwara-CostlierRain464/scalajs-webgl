@@ -220,4 +220,71 @@ object Sample {
         )
       )
     )
+
+  object Phase0World extends
+    World(
+      systems = Seq(),
+      state = WorldState(
+        entities = Seq(
+          new Cube(
+            aPosition = Position.origin,
+            id = 0,
+            size = 2f.m
+          ),
+        )
+      )
+    )
+
+  class Phase1World extends
+    World(
+      systems = Seq(new NormalPhysicsSystem()),
+      state = WorldState(
+        entities = Seq(
+          new Cube(
+            aPosition = Position.origin,
+            id = 0,
+            size = 2f.m
+          )
+        )
+      )
+    )
+
+  class Phase2World extends
+    World(
+      systems = Seq(new NormalPhysicsSystem()),
+      state = WorldState(
+        entities = Seq(
+          new Cube(
+            aPosition = Position.origin,
+            id = 0,
+            size = 2f.m,
+          ),
+          new Cube(
+            Position(0f.m, 5f.m, 0f.m),1,
+            size = 2f.m,
+            linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
+          ),
+        )
+      )
+    )
+
+  class Phase3World extends
+    World(
+      systems = Seq(new NormalPhysicsSystem()),
+      state = WorldState(
+        entities = Seq(
+          new Cube(
+            aPosition = Position.origin,
+            id = 0,
+            size = 2f.m,
+            static = true
+          ),
+          new Cube(
+            Position(0f.m, 5f.m, 0f.m),1,
+            size = 2f.m,
+            linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
+          ),
+        )
+      )
+    )
 }
