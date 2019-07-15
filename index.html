@@ -4,46 +4,17 @@
     <meta charset="UTF-8">
     <title>Scala JS</title>
     <script src="./target/scala-2.12/webgl-fastopt.js"></script>
-    <script id="vs" type="x-shader/x-vertex">
-
-
-attribute vec3 position;
-attribute vec4 color;
-attribute vec2 textureCoord;
-uniform   mat4 mvpMatrix;
-varying   vec4 vColor;
-varying   vec2 vTextureCoord;
-
-void main(void){
-    vColor = color;
-    vTextureCoord = textureCoord;
-    gl_Position = mvpMatrix * vec4(position, 1.0);
-}
-    </script>
-
-    <script id="fs" type="x-shader/x-fragment">
-precision mediump float;
-
-uniform sampler2D texture;
-varying vec4 vColor;
-varying vec2 vTextureCoord;
-
-void main(void){
-    //vec4 smpColor = texture2D(texture, vTextureCoord);
-    //gl_FragColor = vColor * smpColor;
-    gl_FragColor = vColor;
-}
-    </script>
 </head>
-<body onload="start();">
+<body>
 
+<h1>世界一名前空間がダサいゲームエンジン</h1>
 
-<canvas id="gl_canvas" width="400" height="400" class="row"></canvas>
-
-<div class="mode_list">
-    <input type="button" value="Phase 1" class="mode" onclick="phase1();">
-    <input type="button" value="Phase 2" class="mode" onclick="phase2();">
-    <input type="button" value="Phase 3" class="mode" onclick="phase3();">
+<div>
+    <input type="button" value="Box case" onclick="gotoBoxCase();">
+    <input type="button" value="Fall case" onclick="gotoFallCase();">
+    <input type="button" value="Collision case" onclick="gotoCollisionCase();">
+    <input type="button" value="Floor case" onclick="gotoFloorCase();">
+    <input type="button" value="Error case" onclick="gotoErrorCase();">
 </div>
 
 

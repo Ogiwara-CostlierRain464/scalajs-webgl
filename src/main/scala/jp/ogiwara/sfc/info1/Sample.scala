@@ -221,7 +221,7 @@ object Sample {
       )
     )
 
-  object Phase0World extends
+  object BoxCaseWorld extends
     World(
       systems = Seq(),
       state = WorldState(
@@ -235,7 +235,7 @@ object Sample {
       )
     )
 
-  class Phase1World extends
+  object FallCaseWorld extends
     World(
       systems = Seq(new NormalPhysicsSystem()),
       state = WorldState(
@@ -249,7 +249,7 @@ object Sample {
       )
     )
 
-  class Phase2World extends
+  object CollisionCaseWorld extends
     World(
       systems = Seq(new NormalPhysicsSystem()),
       state = WorldState(
@@ -268,7 +268,7 @@ object Sample {
       )
     )
 
-  class Phase3World extends
+  object FloorCaseWorld extends
     World(
       systems = Seq(new NormalPhysicsSystem()),
       state = WorldState(
@@ -281,6 +281,26 @@ object Sample {
           ),
           new Cube(
             Position(0f.m, 5f.m, 0f.m),1,
+            size = 2f.m,
+            linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
+          ),
+        )
+      )
+    )
+
+  object ErrorCaseWorld extends
+    World(
+      systems = Seq(new NormalPhysicsSystem()),
+      state = WorldState(
+        entities = Seq(
+          new Cube(
+            aPosition = Position.origin,
+            id = 0,
+            size = 2f.m,
+            static = true
+          ),
+          new Cube(
+            Position(0.1f.m, 5f.m, 0f.m),1,
             size = 2f.m,
             linerVelocity = Speeds(0f.mPerS, (-9.8f).mPerS, 0f.mPerS)
           ),
