@@ -43,8 +43,8 @@ object Mesh{
       ),
       colors = Seq(
         Color.red,Color.red,
-        Color.green, Color.green,
-        Color.blue, Color.blue
+        Color.blue, Color.blue,
+        Color.green, Color.green
       ),
       indexes = Seq(
         0,1,2,3,4,5
